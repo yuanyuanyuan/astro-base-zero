@@ -1,0 +1,18 @@
+2025-07-11T06:47:33.342981Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo\\cookies\\1.cookie"), AnchoredSystemPathBuf(".turbo"), AnchoredSystemPathBuf(".turbo\\cookies"), AnchoredSystemPathBuf(".turbo\\daemon")}
+2025-07-11T06:47:33.343032Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-11T06:47:41.355883Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("node_modules")}
+2025-07-11T06:47:41.355902Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-11T06:48:24.446639Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\cli\\src\\utils\\brand-wizard.test.ts"), AnchoredSystemPathBuf("packages\\cli\\src\\utils")}
+2025-07-11T06:48:24.446661Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/cli"), path: AnchoredSystemPathBuf("packages\\cli") }}))
+2025-07-11T06:48:26.547628Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\cli\\src\\utils\\brand-wizard.test.ts")}
+2025-07-11T06:48:26.547647Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/cli"), path: AnchoredSystemPathBuf("packages\\cli") }}))
+2025-07-11T06:48:26.641928Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\cli\\src\\utils\\brand-wizard.test.ts")}
+2025-07-11T06:48:26.641947Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/cli"), path: AnchoredSystemPathBuf("packages\\cli") }}))
+2025-07-11T06:48:26.648992Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T06:48:39.956355Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\cli"), AnchoredSystemPathBuf("packages\\cli\\vitest.config.ts.timestamp-1752216519906-e5783655d630b.mjs")}
+2025-07-11T06:48:39.956367Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/cli"), path: AnchoredSystemPathBuf("packages\\cli") }}))
+2025-07-11T06:48:39.991260Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T06:49:10.855491Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo\\daemon\\20c18f323644290c-turbo.log.2025-07-11")}
+2025-07-11T06:49:10.855502Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-11T06:49:12.947929Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo\\daemon\\20c18f323644290c-turbo.log.2025-07-11")}
+2025-07-11T06:49:12.947953Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))

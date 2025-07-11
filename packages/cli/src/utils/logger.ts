@@ -13,6 +13,10 @@ const error = (text: string) => {
   console.log(chalk.red(text));
 };
 
+const warn = (text: string) => {
+  console.log(chalk.yellow(text));
+};
+
 const spinner = (): Ora => {
   return ora();
 };
@@ -21,5 +25,6 @@ export const logger = {
   info,
   success,
   error,
+  warn,
   spinner,
 }; 

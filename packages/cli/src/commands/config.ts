@@ -3,8 +3,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 import YAML from 'yaml';
-import { PlatformConfigSchema, loadConfig } from '@astro-base-zero/core';
+import { PlatformConfigSchema, loadConfig, loadBrandAssets, brandDataExists } from '@astro-base-zero/core';
 import { logger } from '../utils/logger.js';
+import { runBrandWizard, runBrandWizardStep, type WizardStep } from '../utils/brand-wizard.js';
 
 const CONFIG_DIR = path.join(os.homedir(), '.astro-launcher');
 const CONFIG_FILE = path.join(CONFIG_DIR, 'config.yaml');
@@ -39,6 +40,29 @@ const ensureConfigFile = () => {
 const loadPlatformConfig = () => {
   ensureConfigFile();
   return loadConfig(PlatformConfigSchema, CONFIG_FILE);
+};
+
+/**
+ * Loads combined configuration including brand data.
+ */
+const loadCombinedConfig = async () => {
+  const platformConfig = loadPlatformConfig();
+  
+  // 尝试加载品牌数据
+  if (brandDataExists()) {
+    try {
+      const brandAssets = await loadBrandAssets();
+      return {
+        ...platformConfig,
+        brand: brandAssets
+      };
+    } catch (error) {
+      logger.warn('Failed to load brand data, using platform config only');
+      return platformConfig;
+    }
+  }
+  
+  return platformConfig;
 };
 
 /**
@@ -80,9 +104,9 @@ export const createConfigCommand = () => {
     .command('get')
     .description('Get a configuration value')
     .argument('<key>', 'Configuration key in dot notation (e.g., brand.personal.name)')
-    .action((key: string) => {
+    .action(async (key: string) => {
       try {
-        const config = loadPlatformConfig();
+        const config = await loadCombinedConfig();
         const value = getNestedValue(config, key);
         
         if (value === undefined) {
@@ -138,6 +162,52 @@ export const createConfigCommand = () => {
         console.log(YAML.stringify(config, null, 2));
       } catch (error) {
         logger.error(`Failed to list configuration: ${error instanceof Error ? error.message : 'Unknown error'}`);
+        process.exit(1);
+      }
+    });
+
+  // config brand
+  configCommand
+    .command('brand')
+    .description('Setup or update brand information using interactive wizard')
+    .option('-s, --step <step>', 'Run specific configuration step (personal, social, visual, defaults, review)')
+    .option('--skip-confirmation', 'Skip final confirmation step')
+    .option('--no-defaults', 'Don\'t load existing configuration as defaults')
+    .action(async (options) => {
+      try {
+        logger.info('🎨 Starting Brand Configuration Wizard...\n');
+
+        const wizardOptions = {
+          skipConfirmation: options.skipConfirmation || false,
+          step: options.step as WizardStep | undefined,
+          useExistingDefaults: options.defaults !== false
+        };
+
+        if (options.step) {
+          // 运行特定步骤
+          const validSteps: WizardStep[] = ['personal', 'social', 'visual', 'defaults', 'review'];
+          if (!validSteps.includes(options.step as WizardStep)) {
+            logger.error(`Invalid step: ${options.step}. Valid steps are: ${validSteps.join(', ')}`);
+            process.exit(1);
+          }
+          
+          await runBrandWizardStep(options.step as WizardStep, wizardOptions);
+          logger.success(`✅ Brand configuration step '${options.step}' completed!`);
+        } else {
+          // 运行完整向导
+          await runBrandWizard(wizardOptions);
+          logger.success('🎉 Brand configuration wizard completed successfully!');
+        }
+
+        logger.info('\n📝 You can now use your brand information in project templates.');
+        logger.info('💡 Tip: Run `astro-launcher config get brand` to view your current brand configuration.');
+      } catch (error) {
+        if (error instanceof Error && error.message.includes('cancelled by user')) {
+          logger.info('⏹️  Brand configuration cancelled.');
+          process.exit(0);
+        }
+        
+        logger.error(`❌ Brand wizard failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
         process.exit(1);
       }
     });
