@@ -1,0 +1,67 @@
+# 品牌配置文件 - 博客项目特定配置
+# 继承用户的全局品牌配置，并允许项目级覆盖
+
+# 个人信息
+personal:
+  name: "{{brand.personal.name}}"
+  displayName: "{{brand.personal.displayName}}"
+  avatar: "{{brand.personal.avatar}}"
+  bio: "{{brand.personal.bio}}"
+  email: "{{brand.personal.email}}"
+  location: "{{brand.personal.location}}"
+  profession: "{{brand.personal.profession}}"
+  company: "{{brand.personal.company}}"
+
+# 社交媒体链接
+social:
+  links:
+    {{#each brand.personal.social.links}}
+    - platform: "{{platform}}"
+      label: "{{label}}"
+      url: "{{url}}"
+      icon: "{{icon}}"
+    {{/each}}
+
+# 视觉品牌
+visual:
+  colors:
+    primary: "{{brand.visual.colors.primary}}"
+    accent: "{{brand.visual.colors.accent}}"
+    secondary: "{{brand.visual.colors.secondary}}"
+    background: "{{brand.visual.colors.background}}"
+    text: "{{brand.visual.colors.text}}"
+  
+  typography:
+    primaryFont: "{{brand.visual.typography.primaryFont}}"
+    codeFont: "{{brand.visual.typography.codeFont}}"
+  
+  icons:
+    logo: "{{brand.visual.icons.logo}}"
+    favicon: "{{brand.visual.icons.favicon}}"
+
+# 项目特定配置
+project:
+  name: "{{project.name}}"
+  description: "{{project.description}}"
+  type: "blog"
+  repository: "{{project.repository}}"
+  
+# 博客特定配置
+blog:
+  postsPerPage: 10
+  showReadingTime: true
+  showAuthor: true
+  showTags: true
+  showCategories: true
+  enableComments: false
+  enableSearch: true
+  rss:
+    enabled: true
+    title: "{{project.name}} - RSS Feed"
+    description: "{{project.description}}"
+  
+# 默认值
+defaults:
+  license: "{{brand.defaults.license}}"
+  copyrightText: "{{brand.defaults.copyrightText}}"
+  language: "{{brand.defaults.language}}" 

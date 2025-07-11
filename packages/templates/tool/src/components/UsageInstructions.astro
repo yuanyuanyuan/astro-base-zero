@@ -1,0 +1,27 @@
+---
+export interface Props {
+  instructions: string[];
+}
+
+const { instructions } = Astro.props;
+---
+
+<div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6">
+  <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+    <svg class="w-5 h-5 text-blue-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+    使用说明
+  </h3>
+  
+  <ol class="space-y-3">
+    {instructions.map((instruction, index) => (
+      <li class="flex items-start">
+        <span class="flex items-center justify-center w-6 h-6 bg-primary text-white text-sm font-medium rounded-full mr-3 flex-shrink-0 mt-0.5">
+          {index + 1}
+        </span>
+        <span class="text-sm text-gray-700 leading-relaxed">{instruction}</span>
+      </li>
+    ))}
+  </ol>
+</div> 

@@ -16,3 +16,216 @@
 2025-07-11T06:49:10.855502Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
 2025-07-11T06:49:12.947929Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo\\daemon\\20c18f323644290c-turbo.log.2025-07-11")}
 2025-07-11T06:49:12.947953Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-11T09:43:20.649549Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo")}
+2025-07-11T09:43:20.649578Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-11T09:43:20.853352Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\test-app\\.turbo"), AnchoredSystemPathBuf("packages\\test-app")}
+2025-07-11T09:43:20.853366Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/test-app"), path: AnchoredSystemPathBuf("packages\\test-app") }}))
+2025-07-11T09:43:20.948973Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\test-app\\.turbo")}
+2025-07-11T09:43:20.948987Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/test-app"), path: AnchoredSystemPathBuf("packages\\test-app") }}))
+2025-07-11T09:43:20.969146Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:43:22.252271Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\test-app"), AnchoredSystemPathBuf("packages\\test-app\\.astro\\content-assets.mjs.tmp"), AnchoredSystemPathBuf("packages\\test-app\\node_modules"), AnchoredSystemPathBuf("packages\\test-app\\.astro\\types.d.ts"), AnchoredSystemPathBuf("packages\\test-app\\.astro\\content-modules.mjs.tmp"), AnchoredSystemPathBuf("packages\\test-app\\.astro\\collections"), AnchoredSystemPathBuf("packages\\test-app\\.astro\\content-modules.mjs"), AnchoredSystemPathBuf("packages\\test-app\\.astro\\content.d.ts"), AnchoredSystemPathBuf("packages\\test-app\\.astro"), AnchoredSystemPathBuf("packages\\test-app\\.astro\\content-assets.mjs")}
+2025-07-11T09:43:22.252285Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/test-app"), path: AnchoredSystemPathBuf("packages\\test-app") }}))
+2025-07-11T09:43:22.347883Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\dist"), AnchoredSystemPathBuf("packages\\test-app\\.astro")}
+2025-07-11T09:43:22.347899Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }, WorkspacePackage { name: Other("@astro-base-zero/test-app"), path: AnchoredSystemPathBuf("packages\\test-app") }}))
+2025-07-11T09:43:22.401824Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:43:22.846500Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\test-app"), AnchoredSystemPathBuf("packages\\test-app\\dist")}
+2025-07-11T09:43:22.846513Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/test-app"), path: AnchoredSystemPathBuf("packages\\test-app") }}))
+2025-07-11T09:43:22.889573Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:43:56.545577Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs\\platform.yaml"), AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs\\invalid_merged.yaml"), AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs\\invalid_schema.yaml"), AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs\\invalid_syntax.yaml"), AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs\\project.yaml"), AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs"), AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs\\template.yaml"), AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs\\valid.yaml"), AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs\\existing.yaml"), AnchoredSystemPathBuf("packages\\core\\src\\config")}
+2025-07-11T09:43:56.545594Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:43:56.598101Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:45:37.753882Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\brand\\store.ts")}
+2025-07-11T09:45:37.753894Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:45:38.050776Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\brand\\store.ts")}
+2025-07-11T09:45:38.050786Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:45:38.093968Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:45:46.248163Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\brand\\store.ts")}
+2025-07-11T09:45:46.248173Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:45:46.248192Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:45:48.345161Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\brand\\store.ts")}
+2025-07-11T09:45:48.345176Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:45:48.549163Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\brand\\store.ts")}
+2025-07-11T09:45:48.549181Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:45:48.549209Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:45:57.155508Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\brand\\store.test.ts")}
+2025-07-11T09:45:57.155520Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:45:57.252074Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\brand\\store.test.ts")}
+2025-07-11T09:45:57.252088Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:45:57.287540Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:45:59.244617Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\test-app\\.astro\\types.d.ts")}
+2025-07-11T09:45:59.244636Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/test-app"), path: AnchoredSystemPathBuf("packages\\test-app") }}))
+2025-07-11T09:45:59.529049Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\test-app\\.astro"), AnchoredSystemPathBuf("packages\\test-app\\.astro\\data-store.json"), AnchoredSystemPathBuf("packages\\test-app\\.astro\\data-store.json.tmp")}
+2025-07-11T09:45:59.529062Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/test-app"), path: AnchoredSystemPathBuf("packages\\test-app") }}))
+2025-07-11T09:45:59.529075Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:46:00.145540Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\test-app\\.astro"), AnchoredSystemPathBuf("packages\\test-app\\.astro\\settings.json")}
+2025-07-11T09:46:00.145553Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/test-app"), path: AnchoredSystemPathBuf("packages\\test-app") }}))
+2025-07-11T09:46:03.353833Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\brand\\store.test.ts")}
+2025-07-11T09:46:03.353852Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:46:03.405773Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:46:04.845360Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\brand\\store.test.ts")}
+2025-07-11T09:46:04.845372Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:46:05.344537Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\brand\\store.test.ts")}
+2025-07-11T09:46:05.344548Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:46:05.366294Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:46:21.145629Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs\\project.yaml"), AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs\\template.yaml"), AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs\\invalid_schema.yaml"), AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs\\platform.yaml"), AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs\\existing.yaml"), AnchoredSystemPathBuf("packages\\core\\src\\config"), AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs"), AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs\\invalid_merged.yaml"), AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs\\invalid_syntax.yaml"), AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs\\valid.yaml")}
+2025-07-11T09:46:21.145651Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:46:21.266480Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:46:21.266561Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\config")}
+2025-07-11T09:46:21.266567Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:46:21.266580Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:46:46.846828Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\brand\\store.ts")}
+2025-07-11T09:46:46.846881Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:46:46.902893Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:46:48.546536Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\brand\\store.ts")}
+2025-07-11T09:46:48.546546Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:46:48.653172Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\brand\\store.ts")}
+2025-07-11T09:46:48.653189Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:46:48.656942Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:46:58.149389Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs"), AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs\\invalid_schema.yaml"), AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs\\project.yaml"), AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs\\template.yaml"), AnchoredSystemPathBuf("packages\\core\\src\\config"), AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs\\platform.yaml"), AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs\\existing.yaml"), AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs\\invalid_merged.yaml"), AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs\\invalid_syntax.yaml"), AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs\\valid.yaml")}
+2025-07-11T09:46:58.149410Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:46:58.255340Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:46:58.255425Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\config")}
+2025-07-11T09:46:58.255431Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:46:58.255448Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:47:24.147939Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\test-app\\.astro\\content.d.ts"), AnchoredSystemPathBuf("packages\\test-app\\.astro\\types.d.ts")}
+2025-07-11T09:47:24.147958Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/test-app"), path: AnchoredSystemPathBuf("packages\\test-app") }}))
+2025-07-11T09:47:24.652493Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\test-app\\dist")}
+2025-07-11T09:47:24.652509Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/test-app"), path: AnchoredSystemPathBuf("packages\\test-app") }}))
+2025-07-11T09:47:24.794334Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:47:24.794464Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\test-app\\dist")}
+2025-07-11T09:47:24.794470Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/test-app"), path: AnchoredSystemPathBuf("packages\\test-app") }}))
+2025-07-11T09:47:24.794482Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:47:37.552978Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("_tmp_53740_0d841b5ae203c98f3d663403bcbd7b01"), AnchoredSystemPathBuf("")}
+2025-07-11T09:47:37.552994Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-11T09:47:39.043710Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("node_modules")}
+2025-07-11T09:47:39.043720Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-11T09:47:39.146507Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\node_modules"), AnchoredSystemPathBuf("packages\\cli\\node_modules"), AnchoredSystemPathBuf("packages\\test-app\\node_modules"), AnchoredSystemPathBuf("packages\\poc\\e2e-test-app\\node_modules"), AnchoredSystemPathBuf("node_modules"), AnchoredSystemPathBuf("packages\\ui\\node_modules")}
+2025-07-11T09:47:39.146528Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("e2e-test-app"), path: AnchoredSystemPathBuf("packages\\poc\\e2e-test-app") }, WorkspacePackage { name: Other("@astro-base-zero/ui"), path: AnchoredSystemPathBuf("packages\\ui") }, WorkspacePackage { name: Other("@astro-base-zero/test-app"), path: AnchoredSystemPathBuf("packages\\test-app") }, WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }, WorkspacePackage { name: Other("@astro-base-zero/cli"), path: AnchoredSystemPathBuf("packages\\cli") }, WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-11T09:47:39.253783Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\package.json.2135423221"), AnchoredSystemPathBuf("node_modules"), AnchoredSystemPathBuf("pnpm-lock.yaml"), AnchoredSystemPathBuf("pnpm-lock.yaml.1974909141"), AnchoredSystemPathBuf("")}
+2025-07-11T09:47:39.253796Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }, WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:47:39.345794Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\package.json"), AnchoredSystemPathBuf("packages\\core"), AnchoredSystemPathBuf("packages\\core\\package.json.2135423221")}
+2025-07-11T09:47:39.345809Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:47:51.850539Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(""), AnchoredSystemPathBuf("_tmp_32356_e414d6c2f8cb6e9e9787a274d6868464")}
+2025-07-11T09:47:51.850551Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-11T09:47:53.044421Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("node_modules")}
+2025-07-11T09:47:53.044434Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-11T09:47:53.157071Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("pnpm-lock.yaml"), AnchoredSystemPathBuf("pnpm-lock.yaml.1197640980"), AnchoredSystemPathBuf("packages\\poc\\e2e-test-app\\node_modules"), AnchoredSystemPathBuf("packages\\ui\\node_modules"), AnchoredSystemPathBuf("packages\\cli\\node_modules"), AnchoredSystemPathBuf("node_modules"), AnchoredSystemPathBuf(""), AnchoredSystemPathBuf("packages\\test-app\\node_modules"), AnchoredSystemPathBuf("packages\\core\\node_modules")}
+2025-07-11T09:47:53.157085Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/cli"), path: AnchoredSystemPathBuf("packages\\cli") }, WorkspacePackage { name: Other("e2e-test-app"), path: AnchoredSystemPathBuf("packages\\poc\\e2e-test-app") }, WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }, WorkspacePackage { name: Other("@astro-base-zero/test-app"), path: AnchoredSystemPathBuf("packages\\test-app") }, WorkspacePackage { name: Other("@astro-base-zero/ui"), path: AnchoredSystemPathBuf("packages\\ui") }, WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-11T09:47:53.247957Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\package.json.871733284"), AnchoredSystemPathBuf("packages\\core\\package.json"), AnchoredSystemPathBuf("packages\\core")}
+2025-07-11T09:47:53.247976Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:48:43.053943Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\index.ts")}
+2025-07-11T09:48:43.053956Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:48:43.061804Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:48:44.449352Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\index.ts")}
+2025-07-11T09:48:44.449368Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:48:44.543298Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\index.ts")}
+2025-07-11T09:48:44.543311Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:48:44.546355Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:49:15.346929Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\template\\index.ts")}
+2025-07-11T09:49:15.346948Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:49:15.375358Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:49:16.748346Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\template\\index.ts")}
+2025-07-11T09:49:16.748365Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:49:16.846069Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\template\\index.ts")}
+2025-07-11T09:49:16.846084Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:49:16.846115Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:49:27.143484Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\template\\engine.ts")}
+2025-07-11T09:49:27.143494Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:49:27.143511Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:49:28.957269Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\template\\engine.ts")}
+2025-07-11T09:49:28.957288Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:49:29.258015Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\template\\engine.ts")}
+2025-07-11T09:49:29.258027Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:49:29.258045Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:49:32.653258Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\template\\guards.ts")}
+2025-07-11T09:49:32.653270Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:49:32.704615Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:49:34.256398Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\template\\guards.ts")}
+2025-07-11T09:49:34.256415Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:49:34.744905Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\template\\guards.ts")}
+2025-07-11T09:49:34.744923Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:49:34.761583Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:49:45.748113Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\test-app\\.astro\\content.d.ts"), AnchoredSystemPathBuf("packages\\test-app\\.astro\\types.d.ts")}
+2025-07-11T09:49:45.748128Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/test-app"), path: AnchoredSystemPathBuf("packages\\test-app") }}))
+2025-07-11T09:49:45.797983Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:49:46.343213Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\test-app\\dist")}
+2025-07-11T09:49:46.343229Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/test-app"), path: AnchoredSystemPathBuf("packages\\test-app") }}))
+2025-07-11T09:49:46.378492Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:49:59.552629Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\template\\engine.ts")}
+2025-07-11T09:49:59.552662Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:49:59.552697Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:50:01.153610Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\template\\engine.ts")}
+2025-07-11T09:50:01.153786Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:50:01.357140Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\template\\engine.ts")}
+2025-07-11T09:50:01.357152Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:50:01.360072Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:50:04.843344Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\template\\engine.ts")}
+2025-07-11T09:50:04.843353Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:50:04.857054Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:50:06.347641Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\template\\engine.ts")}
+2025-07-11T09:50:06.347653Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:50:06.644992Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\template\\engine.ts")}
+2025-07-11T09:50:06.645003Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:50:06.715144Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:50:06.743319Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\template\\engine.ts")}
+2025-07-11T09:50:06.743329Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:50:06.743348Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:50:10.245379Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\template\\guards.ts")}
+2025-07-11T09:50:10.245393Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:50:10.283548Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:50:12.043011Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\template\\guards.ts")}
+2025-07-11T09:50:12.043037Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:50:12.043106Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:50:12.543817Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\template\\guards.ts")}
+2025-07-11T09:50:12.543830Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:50:12.543848Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:50:28.343767Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\test-app\\.astro\\types.d.ts")}
+2025-07-11T09:50:28.343789Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/test-app"), path: AnchoredSystemPathBuf("packages\\test-app") }}))
+2025-07-11T09:50:59.653824Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\template\\guards.ts")}
+2025-07-11T09:50:59.653837Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:50:59.653856Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:51:01.148954Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\template\\guards.ts")}
+2025-07-11T09:51:01.148965Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:51:01.648751Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\template\\guards.ts")}
+2025-07-11T09:51:01.648763Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:51:01.684378Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:51:11.754208Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\poc\\e2e-test-app"), AnchoredSystemPathBuf("packages\\cli"), AnchoredSystemPathBuf("packages\\poc\\e2e-test-app\\.turbo"), AnchoredSystemPathBuf("packages\\cli\\.turbo")}
+2025-07-11T09:51:11.754234Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/cli"), path: AnchoredSystemPathBuf("packages\\cli") }, WorkspacePackage { name: Other("e2e-test-app"), path: AnchoredSystemPathBuf("packages\\poc\\e2e-test-app") }}))
+2025-07-11T09:51:11.956208Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\poc\\e2e-test-app\\.turbo"), AnchoredSystemPathBuf("packages\\cli\\.turbo")}
+2025-07-11T09:51:11.956223Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/cli"), path: AnchoredSystemPathBuf("packages\\cli") }, WorkspacePackage { name: Other("e2e-test-app"), path: AnchoredSystemPathBuf("packages\\poc\\e2e-test-app") }}))
+2025-07-11T09:51:11.956253Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:51:11.956268Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:51:13.243226Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\poc\\e2e-test-app\\.astro\\types.d.ts")}
+2025-07-11T09:51:13.243237Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("e2e-test-app"), path: AnchoredSystemPathBuf("packages\\poc\\e2e-test-app") }}))
+2025-07-11T09:51:13.282175Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:51:13.355700Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\poc\\e2e-test-app\\dist")}
+2025-07-11T09:51:13.355719Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("e2e-test-app"), path: AnchoredSystemPathBuf("packages\\poc\\e2e-test-app") }}))
+2025-07-11T09:51:13.364959Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:51:13.750005Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\poc\\e2e-test-app\\dist")}
+2025-07-11T09:51:13.750016Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("e2e-test-app"), path: AnchoredSystemPathBuf("packages\\poc\\e2e-test-app") }}))
+2025-07-11T09:51:13.786095Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:52:21.518468Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo")}
+2025-07-11T09:52:21.518489Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-11T09:52:24.619992Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\poc\\e2e-test-app\\.astro\\types.d.ts"), AnchoredSystemPathBuf("packages\\poc\\e2e-test-app\\dist")}
+2025-07-11T09:52:24.620005Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("e2e-test-app"), path: AnchoredSystemPathBuf("packages\\poc\\e2e-test-app") }}))
+2025-07-11T09:52:25.019977Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\poc\\e2e-test-app\\dist")}
+2025-07-11T09:52:25.019995Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("e2e-test-app"), path: AnchoredSystemPathBuf("packages\\poc\\e2e-test-app") }}))
+2025-07-11T09:52:25.037450Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:52:34.117846Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\test-app\\.astro\\types.d.ts")}
+2025-07-11T09:52:34.117872Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/test-app"), path: AnchoredSystemPathBuf("packages\\test-app") }}))
+2025-07-11T09:52:34.222149Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\poc\\e2e-test-app\\.astro\\types.d.ts")}
+2025-07-11T09:52:34.222164Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("e2e-test-app"), path: AnchoredSystemPathBuf("packages\\poc\\e2e-test-app") }}))
+2025-07-11T09:52:34.261681Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:52:35.227560Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\.turbo")}
+2025-07-11T09:52:35.227571Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:52:35.421296Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\cli\\.turbo")}
+2025-07-11T09:52:35.421306Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/cli"), path: AnchoredSystemPathBuf("packages\\cli") }}))
+2025-07-11T09:52:36.053062Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\cli"), AnchoredSystemPathBuf("packages\\cli\\vitest.config.ts.timestamp-1752227555932-ba74c7e9e7599.mjs")}
+2025-07-11T09:52:36.053083Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/cli"), path: AnchoredSystemPathBuf("packages\\cli") }}))
+2025-07-11T09:52:36.363375Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:52:36.815446Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs\\existing.yaml"), AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs\\platform.yaml"), AnchoredSystemPathBuf("packages\\core\\src\\config"), AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs"), AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs\\invalid_schema.yaml"), AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs\\invalid_merged.yaml"), AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs\\valid.yaml"), AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs\\template.yaml"), AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs\\invalid_syntax.yaml"), AnchoredSystemPathBuf("packages\\core\\src\\config\\test_configs\\project.yaml")}
+2025-07-11T09:52:36.815485Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:52:36.967136Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-11T09:52:36.967237Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\core\\src\\config")}
+2025-07-11T09:52:36.967242Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@astro-base-zero/core"), path: AnchoredSystemPathBuf("packages\\core") }}))
+2025-07-11T09:52:36.967256Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun

@@ -1,0 +1,170 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import type { CollectionEntry } from 'astro:content';
+
+export interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const { title, description, heroImage, publishDate, category, tags, author, readingTime } = post.data;
+
+// 格式化日期
+const formattedDate = publishDate.toLocaleDateString('zh-CN', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout
+  title={`${title} | {{project.name}}`}
+  description={description}
+  keywords={[...tags, category, '博客', '文章']}
+  image={heroImage}
+>
+  <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- 文章头部 -->
+    <header class="mb-8">
+      <!-- 分类 -->
+      <div class="mb-4">
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary/10 text-primary">
+          {category}
+        </span>
+      </div>
+      
+      <!-- 标题 -->
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+        {title}
+      </h1>
+      
+      <!-- 描述 -->
+      <p class="text-xl text-gray-600 mb-6">
+        {description}
+      </p>
+      
+      <!-- 元信息 -->
+      <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500">
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
+          </svg>
+          <time datetime={publishDate.toISOString()}>
+            {formattedDate}
+          </time>
+        </div>
+        
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+          </svg>
+          <span>{author}</span>
+        </div>
+        
+        {readingTime && (
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
+            </svg>
+            <span>{readingTime} 分钟阅读</span>
+          </div>
+        )}
+      </div>
+    </header>
+    
+    <!-- 主图 -->
+    {heroImage && (
+      <div class="mb-8">
+        <img
+          src={heroImage}
+          alt={title}
+          class="w-full h-64 md:h-96 object-cover rounded-lg shadow-lg"
+        />
+      </div>
+    )}
+    
+    <!-- 文章内容 -->
+    <div class="prose prose-lg max-w-none">
+      <slot />
+    </div>
+    
+    <!-- 标签 -->
+    {tags.length > 0 && (
+      <footer class="mt-12 pt-8 border-t border-gray-200">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-sm font-medium text-gray-900">标签:</span>
+          {tags.map(tag => (
+            <a
+              href={`/tags/${tag}`}
+              class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors duration-200"
+            >
+              #{tag}
+            </a>
+          ))}
+        </div>
+      </footer>
+    )}
+  </article>
+</BaseLayout>
+
+<style>
+  .prose {
+    @apply text-gray-700 leading-relaxed;
+  }
+  
+  .prose h2 {
+    @apply text-2xl font-bold text-gray-900 mt-8 mb-4;
+  }
+  
+  .prose h3 {
+    @apply text-xl font-bold text-gray-900 mt-6 mb-3;
+  }
+  
+  .prose p {
+    @apply mb-4;
+  }
+  
+  .prose ul {
+    @apply list-disc list-inside mb-4 space-y-2;
+  }
+  
+  .prose ol {
+    @apply list-decimal list-inside mb-4 space-y-2;
+  }
+  
+  .prose blockquote {
+    @apply border-l-4 border-primary pl-4 italic text-gray-600 my-6;
+  }
+  
+  .prose code {
+    @apply bg-gray-100 rounded px-2 py-1 text-sm font-mono;
+  }
+  
+  .prose pre {
+    @apply bg-gray-900 rounded-lg p-4 overflow-x-auto mb-4;
+  }
+  
+  .prose pre code {
+    @apply bg-transparent text-gray-100 p-0;
+  }
+  
+  .prose a {
+    @apply text-primary hover:text-primary/80 underline transition-colors duration-200;
+  }
+  
+  .prose img {
+    @apply rounded-lg shadow-md mx-auto;
+  }
+  
+  .prose table {
+    @apply w-full border-collapse border border-gray-300 my-6;
+  }
+  
+  .prose th {
+    @apply border border-gray-300 bg-gray-50 px-4 py-2 text-left font-semibold;
+  }
+  
+  .prose td {
+    @apply border border-gray-300 px-4 py-2;
+  }
+</style> 

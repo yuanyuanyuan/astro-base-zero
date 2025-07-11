@@ -116,9 +116,9 @@ export class BrandStore {
   private dataPath: string;
   private appDataDir: string;
 
-  constructor() {
-    this.appDataDir = getAppDataDir();
-    this.dataPath = getBrandDataPath();
+  constructor(customDataPath?: string, customAppDataDir?: string) {
+    this.appDataDir = customAppDataDir || getAppDataDir();
+    this.dataPath = customDataPath || getBrandDataPath();
   }
 
   /**
@@ -133,13 +133,22 @@ export class BrandStore {
       const adapter = new JSONFile<BrandDatabase>(this.dataPath);
       this.db = new Low(adapter, { brand: createDefaultBrandAssets() });
       
-      // 读取现有数据或创建默认数据
-      await this.db.read();
+      // 检查文件是否存在
+      const fileExists = existsSync(this.dataPath);
       
-      // 如果文件不存在或数据为空，写入默认数据
-      if (!this.db.data || !this.db.data.brand) {
+      if (!fileExists) {
+        // 文件不存在，创建默认数据
         this.db.data = { brand: createDefaultBrandAssets() };
         await this.db.write();
+      } else {
+        // 文件存在，读取数据
+        await this.db.read();
+        
+        // 如果读取后数据仍为空，写入默认数据
+        if (!this.db.data || !this.db.data.brand) {
+          this.db.data = { brand: createDefaultBrandAssets() };
+          await this.db.write();
+        }
       }
     } catch (error) {
       throw new Error(`Failed to initialize brand store: ${error instanceof Error ? error.message : 'Unknown error'}`);
@@ -348,7 +357,7 @@ export class BrandStore {
       }
     }
 
-    // 计算备份文件路径
+    // 计算备份文件路径 - 使用当前实例的 dataPath
     const backupPath = this.dataPath + BACKUP_SUFFIX;
     const hasBackup = existsSync(backupPath);
 

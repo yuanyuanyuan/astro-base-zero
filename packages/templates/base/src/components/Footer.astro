@@ -1,0 +1,61 @@
+---
+// 从品牌配置中获取社交链接（模板变量会在生成时替换）
+const socialLinks = [
+  {{#each brand.personal.social.links}}
+  {
+    platform: '{{platform}}',
+    label: '{{label}}',
+    url: '{{url}}',
+    icon: '{{icon}}'
+  },
+  {{/each}}
+];
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-gray-50 border-t border-gray-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+      <!-- Copyright -->
+      <div class="text-center md:text-left">
+        <p class="text-gray-600 text-sm">
+          © {currentYear} {{brand.personal.name}}. 
+          {{brand.defaults.copyrightText || '保留所有权利。'}}
+        </p>
+        {{{brand.defaults.license}} && (
+          <p class="text-gray-500 text-xs mt-1">
+            基于 {{brand.defaults.license}} 许可证
+          </p>
+        )}
+      </div>
+      
+      <!-- Social Links -->
+      <div class="flex space-x-4">
+        {socialLinks.map(link => (
+          <a
+            href={link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-gray-400 hover:text-primary transition-colors duration-200"
+            aria-label={`访问 ${link.label}`}
+          >
+            {link.icon ? (
+              <span class="text-xl">{link.icon}</span>
+            ) : (
+              <span class="text-sm">{link.platform}</span>
+            )}
+          </a>
+        ))}
+      </div>
+    </div>
+    
+    <!-- Powered by -->
+    <div class="text-center mt-4 pt-4 border-t border-gray-200">
+      <p class="text-gray-400 text-xs">
+        由 <a href="https://astro.build" class="hover:text-primary">Astro</a> 
+        和 <a href="#" class="hover:text-primary">Astro Base Zero</a> 强力驱动
+      </p>
+    </div>
+  </div>
+</footer> 

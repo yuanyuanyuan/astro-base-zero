@@ -1,0 +1,115 @@
+---
+const currentYear = new Date().getFullYear();
+
+const toolLinks = [
+  { name: '所有工具', href: '/tools' },
+  { name: '使用帮助', href: '/help' },
+  { name: '隐私政策', href: '/privacy' },
+  { name: '服务条款', href: '/terms' },
+];
+---
+
+<footer class="bg-gray-50 border-t border-gray-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- 工具信息 -->
+      <div>
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">{{project.name}}</h3>
+        <p class="text-gray-600 mb-4">
+          {{project.description}}
+        </p>
+        <div class="flex flex-wrap gap-2">
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+            免费使用
+          </span>
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+            无需注册
+          </span>
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+            开源代码
+          </span>
+        </div>
+      </div>
+      
+      <!-- 工具链接 -->
+      <div>
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">工具导航</h3>
+        <ul class="space-y-2">
+          {toolLinks.map(link => (
+            <li>
+              <a
+                href={link.href}
+                class="text-gray-600 hover:text-primary transition-colors duration-200"
+              >
+                {link.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      
+      <!-- 开发者信息 -->
+      <div>
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">开发者</h3>
+        <div class="space-y-2">
+          <p class="text-gray-600">
+            <span class="font-medium">{{brand.personal.name}}</span>
+          </p>
+          <p class="text-gray-600">
+            {{brand.personal.bio}}
+          </p>
+          <div class="flex space-x-3 mt-4">
+            <a
+              href="mailto:{{brand.personal.email}}"
+              class="text-gray-400 hover:text-primary transition-colors duration-200"
+              aria-label="发送邮件"
+            >
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+              </svg>
+            </a>
+            {{{project.repository}} && (
+              <a
+                href="{{project.repository}}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-gray-400 hover:text-primary transition-colors duration-200"
+                aria-label="GitHub"
+              >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd" />
+                </svg>
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 分割线 -->
+    <div class="mt-8 pt-8 border-t border-gray-200">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <!-- Copyright -->
+        <div class="text-center md:text-left mb-4 md:mb-0">
+          <p class="text-gray-600 text-sm">
+            © {currentYear} {{brand.personal.name}}. 
+            {{brand.defaults.copyrightText || '保留所有权利。'}}
+          </p>
+          {{{brand.defaults.license}} && (
+            <p class="text-gray-500 text-xs mt-1">
+              基于 {{brand.defaults.license}} 许可证
+            </p>
+          )}
+        </div>
+        
+        <!-- Privacy -->
+        <div class="text-center">
+          <p class="text-gray-400 text-xs">
+            本工具在您的浏览器中运行，数据不会上传到服务器
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer> 

@@ -1,0 +1,131 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import ToolInfo from '@/components/ToolInfo.astro';
+import UsageInstructions from '@/components/UsageInstructions.astro';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  keywords?: string[];
+  toolCategory?: string;
+  features?: string[];
+  instructions?: string[];
+  showInfo?: boolean;
+  showInstructions?: boolean;
+}
+
+const {
+  title = '{{project.name}}',
+  description = '{{project.description}}',
+  keywords = [],
+  toolCategory = '实用工具',
+  features = [],
+  instructions = [],
+  showInfo = true,
+  showInstructions = true,
+} = Astro.props;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  keywords={[...keywords, '工具', '在线', '免费']}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- 工具头部信息 -->
+    {showInfo && (
+      <ToolInfo
+        title={title}
+        description={description}
+        category={toolCategory}
+        features={features}
+      />
+    )}
+    
+    <!-- 主要内容区域 -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
+      <!-- 工具演示区域 -->
+      <div class="lg:col-span-2">
+        <div class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+          <div class="p-6">
+            <slot />
+          </div>
+        </div>
+      </div>
+      
+      <!-- 侧边栏 -->
+      <div class="space-y-6">
+        <!-- 使用说明 -->
+        {showInstructions && instructions.length > 0 && (
+          <UsageInstructions instructions={instructions} />
+        )}
+        
+        <!-- 工具特性 -->
+        {features.length > 0 && (
+          <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">
+              🚀 特性介绍
+            </h3>
+            <ul class="space-y-3">
+              {features.map(feature => (
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="text-sm text-gray-700">{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        
+        <!-- 反馈区域 -->
+        <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6">
+          <h3 class="text-lg font-semibold text-gray-900 mb-4">
+            💬 反馈建议
+          </h3>
+          <p class="text-sm text-gray-600 mb-4">
+            如果您在使用过程中遇到问题或有改进建议，欢迎联系我们。
+          </p>
+          <div class="space-y-3">
+            <a
+              href="mailto:{{brand.personal.email}}"
+              class="block w-full text-center bg-primary text-white py-2 px-4 rounded-lg hover:bg-primary/90 transition-colors duration-200 text-sm"
+            >
+              发送邮件反馈
+            </a>
+            {{{project.repository}} && (
+              <a
+                href="{{project.repository}}/issues"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="block w-full text-center border border-gray-300 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-50 transition-colors duration-200 text-sm"
+              >
+                GitHub Issues
+              </a>
+            )}
+          </div>
+        </div>
+        
+        <!-- 其他工具推荐 -->
+        <div class="bg-gradient-to-br from-primary/5 to-accent/5 rounded-xl p-6 border border-primary/10">
+          <h3 class="text-lg font-semibold text-gray-900 mb-4">
+            🛠️ 更多工具
+          </h3>
+          <p class="text-sm text-gray-600 mb-4">
+            探索更多实用工具，提升您的工作效率。
+          </p>
+          <a
+            href="/tools"
+            class="inline-flex items-center text-primary hover:text-primary/80 transition-colors duration-200 text-sm font-medium"
+          >
+            查看全部工具
+            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout> 

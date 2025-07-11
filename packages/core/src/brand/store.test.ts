@@ -63,15 +63,8 @@ describe('Brand Assets Storage System', () => {
       // 创建自定义数据路径用于测试
       customDataPath = join(tempDir, 'test-brand.json');
       
-      // 创建一个测试用的 BrandStore 实例
-      store = new (class extends BrandStore {
-        constructor() {
-          super();
-          // 重写路径方法以使用临时目录
-          (this as any).dataPath = customDataPath;
-          (this as any).appDataDir = tempDir;
-        }
-      })();
+      // 创建一个测试用的 BrandStore 实例，传入自定义路径
+      store = new BrandStore(customDataPath, tempDir);
       
       await store.initialize();
     });
@@ -217,14 +210,8 @@ describe('Brand Assets Storage System', () => {
       testData.personal.name = 'Persistent User';
       await store.save(testData);
 
-      // 创建新实例
-      const store2 = new (class extends BrandStore {
-        constructor() {
-          super();
-          (this as any).dataPath = customDataPath;
-          (this as any).appDataDir = tempDir;
-        }
-      })();
+      // 创建新实例，使用相同的自定义路径
+      const store2 = new BrandStore(customDataPath, tempDir);
       
       await store2.initialize();
       const loadedData = await store2.load();

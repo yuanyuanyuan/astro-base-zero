@@ -1,0 +1,53 @@
+{
+  "name": "tool",
+  "displayName": "工具展示模板",
+  "description": "专为在线工具设计的展示模板，包含交互演示区域、使用说明和功能介绍",
+  "version": "1.0.0",
+  "author": "Astro Base Zero",
+  "category": "工具",
+  "tags": ["tool", "工具", "演示", "交互", "实用"],
+  "preview": "/preview.png",
+  "features": [
+    "🛠️ 专为工具展示优化",
+    "⚡ React 组件支持",
+    "🎯 交互演示区域",
+    "📖 详细使用说明",
+    "🎨 现代化设计",
+    "📱 移动端适配",
+    "🔍 SEO 友好",
+    "📊 使用统计"
+  ],
+  "dependencies": {
+    "astro": "^5.0.0",
+    "@astrojs/react": "^3.6.2",
+    "@astrojs/tailwind": "^5.1.2",
+    "@astrojs/sitemap": "^3.2.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=20.11.0",
+    "pnpm": ">=8.15.0"
+  },
+  "projectTypes": ["tool", "demo"],
+  "scaffolding": {
+    "files": [
+      "package.json",
+      "astro.config.mjs",
+      "tsconfig.json",
+      "brand.yaml",
+      "README.md",
+      "src/**/*",
+      "public/**/*"
+    ],
+    "directories": [
+      "src/pages",
+      "src/layouts",
+      "src/components",
+      "src/utils",
+      "public"
+    ]
+  }
+} 

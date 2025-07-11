@@ -1,0 +1,68 @@
+---
+import ToolLayout from '@/layouts/ToolLayout.astro';
+import TextCounter from '@/components/TextCounter.tsx';
+
+const toolInfo = {
+  title: '{{project.name}}',
+  description: '{{project.description}}',
+  category: '文本工具',
+  features: [
+    '实时字符统计',
+    '多维度文本分析',
+    '支持复制粘贴',
+    '数据不上传服务器',
+    '完全免费使用',
+    '支持中英文文本'
+  ],
+  instructions: [
+    '在文本框中输入或粘贴您要统计的文本',
+    '系统会实时显示字符数、单词数等统计信息',
+    '查看右侧的详细分析结果',
+    '使用"清空文本"按钮清除所有内容',
+    '使用"复制文本"按钮复制文本到剪贴板'
+  ]
+};
+---
+
+<ToolLayout 
+  title={toolInfo.title}
+  description={toolInfo.description}
+  keywords={['文本统计', '字符统计', '单词计数', '文本分析', '在线工具']}
+  toolCategory={toolInfo.category}
+  features={toolInfo.features}
+  instructions={toolInfo.instructions}
+>
+  <div class="space-y-6">
+    <!-- 工具标题 -->
+    <div class="text-center">
+      <h2 class="text-2xl font-bold text-gray-900 mb-2">
+        📊 文本统计工具
+      </h2>
+      <p class="text-gray-600">
+        快速统计文本的字符数、单词数、行数等信息
+      </p>
+    </div>
+    
+    <!-- React 组件 -->
+    <TextCounter client:load />
+    
+    <!-- 使用提示 -->
+    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+      <div class="flex">
+        <div class="flex-shrink-0">
+          <svg class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+          </svg>
+        </div>
+        <div class="ml-3">
+          <h3 class="text-sm font-medium text-yellow-800">
+            隐私保护
+          </h3>
+          <div class="mt-1 text-sm text-yellow-700">
+            <p>您的文本数据在浏览器本地处理，不会上传到任何服务器，确保您的隐私安全。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ToolLayout> 

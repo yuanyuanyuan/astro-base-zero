@@ -1,0 +1,45 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  category: string;
+  features: string[];
+}
+
+const { title, description, category, features } = Astro.props;
+---
+
+<div class="bg-gradient-to-r from-primary/5 to-accent/5 rounded-xl p-8 border border-primary/10">
+  <div class="max-w-4xl">
+    <!-- 分类标签 -->
+    <div class="mb-4">
+      <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary/10 text-primary">
+        {category}
+      </span>
+    </div>
+    
+    <!-- 标题 -->
+    <h1 class="text-4xl font-bold text-gray-900 mb-4">
+      {title}
+    </h1>
+    
+    <!-- 描述 -->
+    <p class="text-xl text-gray-600 mb-6 leading-relaxed">
+      {description}
+    </p>
+    
+    <!-- 特性列表 -->
+    {features.length > 0 && (
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {features.map(feature => (
+          <div class="flex items-center">
+            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <span class="text-sm text-gray-700">{feature}</span>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+</div> 
