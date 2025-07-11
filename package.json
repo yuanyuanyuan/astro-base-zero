@@ -1,0 +1,27 @@
+{
+  "name": "astro-base-zero-monorepo",
+  "version": "0.0.1",
+  "private": true,
+  "description": "The foundational monorepo for the Astro Quick Launch Platform.",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "keywords": [
+    "astro",
+    "monorepo",
+    "pnpm",
+    "turbo"
+  ],
+  "author": "Vibe-coding Team",
+  "license": "MIT",
+  "devDependencies": {
+    "prettier": "^3.2.5",
+    "turbo": "^1.12.0",
+    "typescript": "^5.3.3"
+  },
+  "packageManager": "pnpm@9.1.1"
+} 
