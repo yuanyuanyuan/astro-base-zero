@@ -20,6 +20,8 @@
   "author": "Vibe-coding Team",
   "license": "MIT",
   "devDependencies": {
+    "commander": "^12.0.0",
+    "inquirer": "^9.2.14",
     "js-yaml": "^4.1.0",
     "prettier": "^3.2.5",
     "turbo": "^1.12.0",
