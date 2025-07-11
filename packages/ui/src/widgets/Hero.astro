@@ -1,0 +1,62 @@
+---
+import type { HeroWidgetProps, Cta } from './types';
+import BaseWidget from './BaseWidget.astro';
+
+export interface Props extends HeroWidgetProps {}
+
+const {
+  title,
+  subtitle,
+  ctas = [],
+  image,
+  id,
+  hidden = false,
+  class: className,
+} = Astro.props;
+---
+
+<BaseWidget id={id} hidden={hidden} class:list={['relative', className]}>
+  <div class="absolute inset-0 pointer-events-none"></div>
+  <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
+    <div class="pt-12 md:pt-20">
+      <div class="mx-auto max-w-3xl text-center pb-12 md:pb-16">
+        <h1 class="text-5xl md:text-6xl font-bold leading-tighter tracking-tighter mb-4">
+          {title}
+        </h1>
+        {
+          subtitle && (
+            <p class="max-w-2xl mx-auto text-xl text-gray-600 dark:text-gray-400">{subtitle}</p>
+          )
+        }
+      </div>
+      {
+        ctas && ctas.length > 0 && (
+          <div class="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center">
+            {ctas.map((cta: Cta) => (
+              <a class="btn btn-primary w-full mb-4 sm:w-auto sm:mb-0" href={cta.href}>
+                {cta.text}
+              </a>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </div>
+
+  {
+    image && (
+      <div class="relative max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="mt-12 md:mt-16">
+          <img
+            class="mx-auto rounded-md shadow-lg"
+            src={image.src}
+            alt={image.alt}
+            width={1024}
+            height={576}
+            loading="lazy"
+          />
+        </div>
+      </div>
+    )
+  }
+</BaseWidget> 

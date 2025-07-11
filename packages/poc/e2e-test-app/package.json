@@ -9,6 +9,11 @@
   },
   "dependencies": {
     "@astro-base-zero/core": "workspace:*",
+    "@astro-base-zero/ui": "workspace:*",
     "astro": "^4.0.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.8.3",
+    "typescript": "^5.3.3"
   }
 } 

@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/widgets/*": ["src/widgets/*"],
+      "@/components/*": ["src/components/*"]
+    },
+    "jsx": "preserve",
+    "jsxImportSource": "astro"
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.astro", "src/components/*"],
+  "exclude": ["node_modules", "dist"]
+} 

@@ -1,0 +1,15 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import type { BaseWidgetProps } from './types';
+
+export interface Props extends BaseWidgetProps, HTMLAttributes<'section'> {}
+
+const { id, class: className, hidden = false, ...rest } = Astro.props;
+---
+{
+  !hidden && (
+    <section id={id} class:list={['scroll-mt-20', className]} {...rest}>
+      <slot />
+    </section>
+  )
+} 

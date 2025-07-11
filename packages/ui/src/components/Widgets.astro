@@ -1,0 +1,27 @@
+---
+import { WIDGETS } from '@astro-base-zero/ui/widgets';
+import type { ComponentProps } from 'astro/types';
+
+type WidgetName = keyof typeof WIDGETS;
+
+// A more robust way to define the union type for all widget props
+type WidgetProps<T extends WidgetName> = { name: T } & ComponentProps<typeof WIDGETS[T]>;
+type AnyWidget = { [K in WidgetName]: WidgetProps<K> }[WidgetName];
+
+export interface Props {
+  widgets: AnyWidget[];
+}
+
+const { widgets = [] } = Astro.props;
+---
+{
+  widgets.map((widget: AnyWidget) => {
+    const Component = WIDGETS[widget.name];
+    if (!Component) return null;
+
+    // The name prop is not part of the component's props, so we extract it.
+    const { name, ...props } = widget;
+    
+    return <Component {...props} />;
+  })
+} 
