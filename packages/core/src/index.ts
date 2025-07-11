@@ -4,6 +4,7 @@
  * 提供项目生成的核心功能，包括：
  * - 配置管理
  * - 品牌资产管理
+ * - 项目数据管理
  * - 模板处理引擎
  * - 类型系统工具
  * 
@@ -16,6 +17,22 @@ export type {
   PlatformConfig, 
   ProjectConfig,
 } from './config/index.js';
+
+// 项目数据管理
+export type {
+  ProjectInfo,
+  ProjectDatabase,
+  CreateProjectOptions,
+  UpdateProjectOptions,
+  ProjectFilterOptions,
+  ProjectSortOptions,
+  ProjectStats,
+} from './project/index.js';
+
+export {
+  ProjectStore,
+  projectStore,
+} from './project/index.js';
 export { 
   PlatformConfigSchema,
   ProjectConfigSchema,
@@ -49,7 +66,7 @@ export {
 export type {
   TemplateContext,
   TemplateMetadata,
-  ProjectInfo,
+  ProjectInfo as TemplateProjectInfo,
   // 类型生成器
   TypeGeneratorOptions,
   GeneratedTypeInfo,
