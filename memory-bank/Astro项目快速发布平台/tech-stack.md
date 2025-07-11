@@ -35,7 +35,7 @@
 
 ### 2.1 核心运行时
 ```yaml
-Node.js: v20.11.0 (LTS)
+Node.js: v22.14.0 (LTS)
 选型理由: 
   - 原生支持ES模块，无需转译
   - 内置测试运行器，减少依赖
@@ -45,7 +45,7 @@ Node.js: v20.11.0 (LTS)
 
 ### 2.2 包管理器
 ```yaml
-pnpm: v8.15.0
+pnpm: v9.1.1
 选型理由:
   - Monorepo原生支持，符合项目结构
   - 硬链接机制，节省磁盘空间
@@ -215,8 +215,9 @@ Sentry: v7.100.0  # 错误追踪
 
 ```bash
 # 1. 环境准备
-nvm use 20.11.0
-npm install -g pnpm@8.15.0
+# 确保 Node.js v22.14.0 和 pnpm v9.1.1 已安装
+# nvm use 22.14.0
+# npm install -g pnpm@9.1.1
 
 # 2. 项目初始化
 git clone <repository>
