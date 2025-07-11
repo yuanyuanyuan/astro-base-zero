@@ -32,6 +32,9 @@ importers:
 
   packages/cli:
     dependencies:
+      '@astro-base-zero/core':
+        specifier: workspace:^
+        version: link:../core
       chalk:
         specifier: 5.3.0
         version: 5.3.0
@@ -44,6 +47,9 @@ importers:
       ora:
         specifier: 8.0.1
         version: 8.0.1
+      yaml:
+        specifier: 2.3.4
+        version: 2.3.4
     devDependencies:
       '@types/inquirer':
         specifier: ^9.0.7

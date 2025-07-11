@@ -25,10 +25,10 @@ const deepMerge = <T extends Record<string, any>>(target: T, source: Partial<T>)
         !Array.isArray(targetValue)
       ) {
         // Recursively merge nested objects
-        result[key] = deepMerge(targetValue, sourceValue);
-      } else {
+        result[key] = deepMerge(targetValue, sourceValue) as T[Extract<keyof T, string>];
+      } else if (sourceValue !== undefined) {
         // Override primitive values and arrays
-        result[key] = sourceValue;
+        result[key] = sourceValue as T[Extract<keyof T, string>];
       }
     }
   }

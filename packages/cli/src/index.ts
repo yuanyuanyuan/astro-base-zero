@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
+import { createConfigCommand } from './commands/config.js';
 
 const program = new Command();
 
@@ -24,12 +25,7 @@ program
     // 后续将实现具体逻辑
   });
 
-program
-  .command('config')
-  .description('Manage global and project configurations.')
-  .action(() => {
-    console.log('Managing configuration...');
-    // 后续将实现具体逻辑
-  });
+// Add the config command with subcommands
+program.addCommand(createConfigCommand());
 
 program.parse(process.argv);
