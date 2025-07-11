@@ -69,14 +69,16 @@ pids
 
 # Cursor specific
 .cursor/*
-!.cursor/rules/
+.cursor/
 custom_modes
 
 #claude.code specific
 .claude/
 CLAUDE.md
 
+
 memory-bank/
+
 dist/
 
 .turbo/
