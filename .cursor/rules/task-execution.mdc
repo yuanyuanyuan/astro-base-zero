@@ -1,0 +1,133 @@
+---
+description: "Phase 0 实施指南 - 提供架构验证与环境准备阶段的详细执行步骤"
+---
+
+# Phase 0: 架构验证与环境准备 - 执行指南
+
+## 当前任务清单
+
+### 0.1 开发环境搭建
+- [ ] 0.1.1: 安装和配置 Node.js 环境
+- [ ] 0.1.2: 初始化 Git 仓库
+
+### 0.2 Monorepo 基础架构
+- [ ] 0.2.1: 创建 pnpm workspace 配置
+- [ ] 0.2.2: 创建 Monorepo 目录结构
+- [ ] 0.2.3: 初始化根目录 package.json
+
+### 0.3 AstroWind 架构研究
+- [ ] 0.3.1: 分析 AstroWind 源码结构
+- [ ] 0.3.2: 提取 AstroWind 核心配置模式
+- [ ] 0.3.3: 识别可复用的 Widget 组件
+
+### 0.4 技术验证 POC
+- [ ] 0.4.1: 验证 Vite 虚拟模块在 CLI 环境可行性
+- [ ] 0.4.2: 验证 Commander.js CLI 交互流程
+
+## 执行步骤详情
+
+### 步骤 0.1.1: 安装和配置 Node.js 环境
+**目标**: 确保开发环境使用正确的 Node.js 和 pnpm 版本
+
+**执行命令**:
+```bash
+# 安装 Node.js v20.11.0 (如果使用 nvm)
+nvm install 20.11.0
+nvm use 20.11.0
+
+# 安装 pnpm
+npm install -g pnpm@8.15.0
+
+# 验证版本
+node -v  # 应显示 v20.11.0
+pnpm -v  # 应显示 8.15.0
+```
+
+**验证标准**: 执行版本检查命令，确认版本号正确
+
+### 步骤 0.1.2: 初始化 Git 仓库
+**目标**: 创建版本控制基础
+
+**执行命令**:
+```bash
+# 初始化仓库
+git init
+
+# 创建 .gitignore
+echo "node_modules/
+dist/
+.turbo/
+*.log
+.DS_Store
+.env
+.env.local" > .gitignore
+
+# 首次提交
+git add .
+git commit -m "chore: initialize project repository"
+```
+
+### 步骤 0.2.1: 创建 pnpm workspace 配置
+**目标**: 配置 Monorepo 工作区
+
+**创建文件**: `pnpm-workspace.yaml`
+```yaml
+packages:
+  - 'packages/*'
+  - 'apps/*'
+  - 'configs/*'
+```
+
+### 步骤 0.2.2: 创建 Monorepo 目录结构
+**目标**: 建立项目的基础目录结构
+
+**执行命令**:
+```bash
+# 创建目录结构
+mkdir -p packages/{cli,core,ui,templates}
+mkdir -p apps/{dashboard,docs}
+mkdir -p configs/{eslint-config,tsconfig,tailwind-config}
+
+# 验证结构
+tree -L 3 -d
+```
+
+### 步骤 0.2.3: 初始化根目录 package.json
+**目标**: 配置 Monorepo 的根 package.json
+
+**创建文件**: `package.json`
+```json
+{
+  "name": "astro-base-zero",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{js,ts,tsx,astro,json,md}\""
+  },
+  "devDependencies": {
+    "turbo": "^1.12.0",
+    "prettier": "^3.2.4",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=20.11.0",
+    "pnpm": ">=8.15.0"
+  }
+}
+```
+
+## 任务执行检查清单
+
+每完成一个任务后，请确认：
+1. ✅ 验证标准已通过
+2. ✅ 相关文档已更新到 memory-bank
+3. ✅ 代码已提交到 Git
+4. ✅ 无遗留的临时文件或调试代码
+
+## 下一步行动
+完成 Phase 0 后，进入 Phase 1: 核心基础设施构建

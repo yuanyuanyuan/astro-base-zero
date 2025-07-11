@@ -1,0 +1,59 @@
+---
+alwaysApply: true
+---
+
+# Astro项目快速发布平台 - 核心规则
+
+## 项目概述
+这是一个能够批量孵化高质量 Astro 项目的智能化平台。当前版本为 V1（无 AI 集成）。
+
+## 项目结构
+项目采用 Monorepo 架构，结构如下：
+```
+astro-base-zero/
+├── packages/
+│   ├── cli/                    # 命令行工具
+│   ├── core/                   # 核心库
+│   ├── ui/                     # 共享组件库
+│   └── templates/              # 项目模板集
+├── apps/
+│   ├── dashboard/              # 项目管理面板
+│   └── docs/                   # 文档站点
+├── memory-bank/                # 项目记忆库
+│   ├── Astro项目快速发布平台/
+│   │   ├── implementation-plan.md
+│   │   ├── tech-stack.md
+│   │   └── 产品需求文档v1-融合版.md
+│   └── Vibe-coding.md
+└── configs/
+    ├── eslint-config/
+    ├── tsconfig/
+    └── tailwind-config/
+```
+
+## 技术栈要求
+- **Node.js**: v20.11.0 (LTS)
+- **包管理器**: pnpm v8.15.0
+- **核心框架**: Astro v5.0.0
+- **样式**: Tailwind CSS v3.4.1
+- **类型系统**: TypeScript v5.3.3
+- **CLI框架**: Commander.js v12.0.0
+- **配置管理**: YAML v2.3.4 + Zod v3.22.4
+- **构建工具**: Vite v5.0.12 + Turbo v1.12.0
+- **测试**: Vitest v1.2.2
+
+## 核心原则
+1. **原子化拆解**: 每个任务必须清晰到可以一次性完成
+2. **验证优先**: 每步都有明确的完成标准和测试方法
+3. **增量交付**: 每个阶段都产出可运行的成果
+4. **文档驱动**: 所有决策和架构都要记录在 memory-bank 中
+5. **类型安全**: 不允许使用 any 类型，必须明确类型定义
+
+## 关键文档引用
+- 实施计划: [implementation-plan.md](mdc:memory-bank/Astro项目快速发布平台/implementation-plan.md)
+- 技术栈决策: [tech-stack.md](mdc:memory-bank/Astro项目快速发布平台/tech-stack.md)
+- 产品需求: [产品需求文档v1-融合版.md](mdc:memory-bank/Astro项目快速发布平台/产品需求文档v1-融合版.md)
+- 工作流程: [Vibe-coding.md](mdc:memory-bank/Vibe-coding.md)
+
+## 当前阶段
+项目处于 Phase 0: 架构验证与环境准备阶段
