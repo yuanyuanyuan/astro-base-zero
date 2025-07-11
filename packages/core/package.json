@@ -16,6 +16,7 @@
     "vitest": "^1.2.2"
   },
   "dependencies": {
+    "lowdb": "7.0.1",
     "yaml": "2.3.4",
     "zod": "3.22.4"
   }

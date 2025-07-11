@@ -13,7 +13,7 @@ import type {
   SocialPlatform,
   TemplateContext,
   BrandValidationResult
-} from './types';
+} from './types.js';
 
 describe('Brand Assets Data Model', () => {
   it('should provide type safety for PersonalInfo', () => {
