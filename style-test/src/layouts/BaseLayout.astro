@@ -11,18 +11,18 @@ export interface Props {
 }
 
 const {
-  title = '{{project.name}}',
-  description = '{{project.description}}',
+  title = 'style-test',
+  description = 'aaa',
   keywords = [],
   image = '/og-image.png',
   canonicalURL = Astro.url.href,
 } = Astro.props;
 
-const siteTitle = title ? `${title} | {{brand.personal.name}}` : '{{brand.personal.name}}';
+const siteTitle = title ? `${title} | style-test` : 'style-test';
 ---
 
 <!DOCTYPE html>
-<html lang="{{brand.defaults.language}}" class="scroll-smooth">
+<html lang="zh-CN" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
@@ -50,7 +50,7 @@ const siteTitle = title ? `${title} | {{brand.personal.name}}` : '{{brand.person
     <meta property="twitter:image" content={new URL(image, Astro.url)} />
     
     <!-- Theme -->
-    <meta name="theme-color" content="{{brand.visual.colors.primary}}" />
+    <meta name="theme-color" content="#3b82f6" />
     
     <!-- Preload critical assets -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -69,13 +69,13 @@ const siteTitle = title ? `${title} | {{brand.personal.name}}` : '{{brand.person
 
 <style is:global>
   :root {
-    --color-primary: {{brand.visual.colors.primary}};
-    --color-accent: {{brand.visual.colors.accent}};
-    --color-secondary: {{brand.visual.colors.secondary}};
-    --color-background: {{brand.visual.colors.background}};
-    --color-text: {{brand.visual.colors.text}};
-    --font-primary: {{brand.visual.typography.primaryFont}};
-    --font-code: {{brand.visual.typography.codeFont}};
+    --color-primary: #3b82f6;
+    --color-accent: #f59e0b;
+    --color-secondary: #6B7280;
+    --color-background: #FFFFFF;
+    --color-text: #1F2937;
+    --font-primary: Inter, system-ui, sans-serif;
+    --font-code: JetBrains Mono, Consolas, monospace;
   }
   
   html {

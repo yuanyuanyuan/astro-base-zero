@@ -1,6 +1,6 @@
-# {{project.name}}
+# style-test
 
-{{project.description}}
+aaa
 
 > 由 [Astro Base Zero](https://github.com/astro-base-zero) 生成的项目，基于 [Astro](https://astro.build/) 构建。
 
@@ -39,7 +39,7 @@ pnpm preview
 ## 📁 项目结构
 
 ```
-{{project.name}}/
+style-test/
 ├── public/                 # 静态资源
 ├── src/
 │   ├── components/         # 可复用组件
@@ -60,14 +60,14 @@ pnpm preview
 
 ```yaml
 personal:
-  name: "{{brand.personal.name}}"
-  bio: "{{brand.personal.bio}}"
+  name: "style-test"
+  bio: ""
   # ... 其他配置
 
 visual:
   colors:
-    primary: "{{brand.visual.colors.primary}}"
-    accent: "{{brand.visual.colors.accent}}"
+    primary: "#3b82f6"
+    accent: "#f59e0b"
     # ... 其他颜色
 ```
 
@@ -108,8 +108,8 @@ MIT License
 
 ---
 
-**作者**: {{brand.personal.name}}  
-**邮箱**: {{brand.personal.email}}  
-**项目**: {{project.repository}}  
+**作者**: style-test  
+**邮箱**: hello@example.com  
+**项目**: https://github.com/your-username/style-test  
 
 由 ❤️ 和 [Astro Base Zero](https://github.com/astro-base-zero) 制作 

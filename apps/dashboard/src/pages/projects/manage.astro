@@ -441,6 +441,423 @@ import DashboardLayout from '../../layouts/DashboardLayout.astro';
       </div>
     </div>
 
+    <!-- 项目生命周期管理指南 -->
+    <div class="bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-200 rounded-lg p-6">
+      <h2 class="text-xl font-semibold text-secondary-900 mb-6">📈 项目生命周期管理指南</h2>
+      
+      <p class="text-sm text-secondary-600 mb-6">
+        从创意到上线的完整工作流程，每个阶段都有明确的目标和最佳实践指导
+      </p>
+
+      <!-- 生命周期阶段导航 -->
+      <div class="mb-6">
+        <div class="flex flex-wrap gap-2">
+          <button 
+            onclick="showLifecyclePhase('planning')"
+            class="lifecycle-phase-btn px-3 py-2 text-sm rounded-md border border-emerald-200 bg-white hover:bg-emerald-50 transition-colors"
+            data-phase="planning"
+          >
+            💡 规划阶段
+          </button>
+          <button 
+            onclick="showLifecyclePhase('development')"
+            class="lifecycle-phase-btn px-3 py-2 text-sm rounded-md border border-emerald-200 bg-white hover:bg-emerald-50 transition-colors"
+            data-phase="development"
+          >
+            🔨 开发阶段
+          </button>
+          <button 
+            onclick="showLifecyclePhase('testing')"
+            class="lifecycle-phase-btn px-3 py-2 text-sm rounded-md border border-emerald-200 bg-white hover:bg-emerald-50 transition-colors"
+            data-phase="testing"
+          >
+            🧪 测试阶段
+          </button>
+          <button 
+            onclick="showLifecyclePhase('deployment')"
+            class="lifecycle-phase-btn px-3 py-2 text-sm rounded-md border border-emerald-200 bg-white hover:bg-emerald-50 transition-colors"
+            data-phase="deployment"
+          >
+            🚀 部署阶段
+          </button>
+          <button 
+            onclick="showLifecyclePhase('maintenance')"
+            class="lifecycle-phase-btn px-3 py-2 text-sm rounded-md border border-emerald-200 bg-white hover:bg-emerald-50 transition-colors"
+            data-phase="maintenance"
+          >
+            🔧 维护阶段
+          </button>
+        </div>
+      </div>
+
+      <!-- 生命周期阶段内容 -->
+      <div id="lifecyclePhaseContent" class="bg-white rounded-lg border border-emerald-200 p-6">
+        <!-- 规划阶段 -->
+        <div id="phase-planning" class="lifecycle-phase-content">
+          <div class="flex items-center mb-4">
+            <div class="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center mr-3">
+              <span class="text-xl">💡</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-secondary-900">规划阶段 - 项目立项与设计</h3>
+              <p class="text-sm text-secondary-600">明确需求，制定技术方案，设计项目架构</p>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <h4 class="font-medium text-secondary-900">关键任务清单</h4>
+              <div class="space-y-2">
+                <label class="flex items-center">
+                  <input type="checkbox" class="mr-2" disabled checked>
+                  <span class="text-sm">明确项目目标和用户需求</span>
+                </label>
+                <label class="flex items-center">
+                  <input type="checkbox" class="mr-2" disabled>
+                  <span class="text-sm">选择合适的项目模板</span>
+                </label>
+                <label class="flex items-center">
+                  <input type="checkbox" class="mr-2" disabled>
+                  <span class="text-sm">设计信息架构和页面结构</span>
+                </label>
+                <label class="flex items-center">
+                  <input type="checkbox" class="mr-2" disabled>
+                  <span class="text-sm">准备设计素材和内容资产</span>
+                </label>
+                <label class="flex items-center">
+                  <input type="checkbox" class="mr-2" disabled>
+                  <span class="text-sm">制定开发时间计划</span>
+                </label>
+              </div>
+            </div>
+            
+            <div class="space-y-4">
+              <h4 class="font-medium text-secondary-900">推荐命令</h4>
+              <div class="space-y-3">
+                <div>
+                  <p class="text-xs text-secondary-500 mb-1">创建项目</p>
+                  <div class="bg-secondary-900 text-green-400 p-2 rounded-md font-mono text-xs">
+                    <code>astro-zero create my-project --template base</code>
+                  </div>
+                </div>
+                <div>
+                  <p class="text-xs text-secondary-500 mb-1">配置品牌信息</p>
+                  <div class="bg-secondary-900 text-green-400 p-2 rounded-md font-mono text-xs">
+                    <code>astro-zero config brand</code>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+            <h5 class="font-medium text-yellow-800 mb-2">💡 阶段提示</h5>
+            <p class="text-sm text-yellow-700">
+              规划阶段是整个项目的基础，花时间做好需求分析和架构设计能避免后期大量返工。
+              建议使用思维导图或原型工具来理清项目结构。
+            </p>
+          </div>
+        </div>
+
+        <!-- 开发阶段 -->
+        <div id="phase-development" class="lifecycle-phase-content hidden">
+          <div class="flex items-center mb-4">
+            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+              <span class="text-xl">🔨</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-secondary-900">开发阶段 - 功能实现与迭代</h3>
+              <p class="text-sm text-secondary-600">编写代码，实现功能，持续集成和版本控制</p>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <h4 class="font-medium text-secondary-900">开发工作流</h4>
+              <div class="space-y-2">
+                <label class="flex items-center">
+                  <input type="checkbox" class="mr-2" disabled>
+                  <span class="text-sm">设置开发环境和工具链</span>
+                </label>
+                <label class="flex items-center">
+                  <input type="checkbox" class="mr-2" disabled>
+                  <span class="text-sm">实现核心功能模块</span>
+                </label>
+                <label class="flex items-center">
+                  <input type="checkbox" class="mr-2" disabled>
+                  <span class="text-sm">集成第三方服务和API</span>
+                </label>
+                <label class="flex items-center">
+                  <input type="checkbox" class="mr-2" disabled>
+                  <span class="text-sm">响应式设计和样式优化</span>
+                </label>
+                <label class="flex items-center">
+                  <input type="checkbox" class="mr-2" disabled>
+                  <span class="text-sm">性能优化和代码重构</span>
+                </label>
+              </div>
+            </div>
+            
+            <div class="space-y-4">
+              <h4 class="font-medium text-secondary-900">常用命令</h4>
+              <div class="space-y-3">
+                <div>
+                  <p class="text-xs text-secondary-500 mb-1">启动开发服务器</p>
+                  <div class="bg-secondary-900 text-green-400 p-2 rounded-md font-mono text-xs">
+                    <code>npm run dev</code>
+                  </div>
+                </div>
+                <div>
+                  <p class="text-xs text-secondary-500 mb-1">代码检查和格式化</p>
+                  <div class="bg-secondary-900 text-green-400 p-2 rounded-md font-mono text-xs">
+                    <code>npm run lint && npm run format</code>
+                  </div>
+                </div>
+                <div>
+                  <p class="text-xs text-secondary-500 mb-1">Git 提交最佳实践</p>
+                  <div class="bg-secondary-900 text-green-400 p-2 rounded-md font-mono text-xs">
+                    <code>git add . && git commit -m "feat: add new feature"</code>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <h5 class="font-medium text-blue-800 mb-2">🔨 开发提示</h5>
+            <p class="text-sm text-blue-700">
+              保持小步快跑的开发节奏，频繁提交代码。使用功能分支进行开发，确保主分支始终可用。
+              定期备份重要代码，关注代码质量和文档完善。
+            </p>
+          </div>
+        </div>
+
+        <!-- 测试阶段 -->
+        <div id="phase-testing" class="lifecycle-phase-content hidden">
+          <div class="flex items-center mb-4">
+            <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+              <span class="text-xl">🧪</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-secondary-900">测试阶段 - 质量保证与验证</h3>
+              <p class="text-sm text-secondary-600">功能测试，性能优化，用户体验验证</p>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <h4 class="font-medium text-secondary-900">测试检查清单</h4>
+              <div class="space-y-2">
+                <label class="flex items-center">
+                  <input type="checkbox" class="mr-2" disabled>
+                  <span class="text-sm">功能完整性测试</span>
+                </label>
+                <label class="flex items-center">
+                  <input type="checkbox" class="mr-2" disabled>
+                  <span class="text-sm">跨浏览器兼容性测试</span>
+                </label>
+                <label class="flex items-center">
+                  <input type="checkbox" class="mr-2" disabled>
+                  <span class="text-sm">移动设备响应式测试</span>
+                </label>
+                <label class="flex items-center">
+                  <input type="checkbox" class="mr-2" disabled>
+                  <span class="text-sm">SEO和可访问性检查</span>
+                </label>
+                <label class="flex items-center">
+                  <input type="checkbox" class="mr-2" disabled>
+                  <span class="text-sm">性能和加载速度优化</span>
+                </label>
+              </div>
+            </div>
+            
+            <div class="space-y-4">
+              <h4 class="font-medium text-secondary-900">测试工具</h4>
+              <div class="space-y-3">
+                <div>
+                  <p class="text-xs text-secondary-500 mb-1">构建生产版本</p>
+                  <div class="bg-secondary-900 text-green-400 p-2 rounded-md font-mono text-xs">
+                    <code>npm run build</code>
+                  </div>
+                </div>
+                <div>
+                  <p class="text-xs text-secondary-500 mb-1">本地预览测试</p>
+                  <div class="bg-secondary-900 text-green-400 p-2 rounded-md font-mono text-xs">
+                    <code>npm run preview</code>
+                  </div>
+                </div>
+                <div>
+                  <p class="text-xs text-secondary-500 mb-1">Lighthouse 性能分析</p>
+                  <div class="bg-secondary-900 text-green-400 p-2 rounded-md font-mono text-xs">
+                    <code>lighthouse http://localhost:4321</code>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+            <h5 class="font-medium text-green-800 mb-2">🧪 测试提示</h5>
+            <p class="text-sm text-green-700">
+              测试是确保项目质量的关键环节。建议在多种设备和浏览器中进行测试，
+              使用自动化工具提高测试效率。Lighthouse 分数应保持在 90 分以上。
+            </p>
+          </div>
+        </div>
+
+        <!-- 部署阶段 -->
+        <div id="phase-deployment" class="lifecycle-phase-content hidden">
+          <div class="flex items-center mb-4">
+            <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
+              <span class="text-xl">🚀</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-secondary-900">部署阶段 - 项目上线发布</h3>
+              <p class="text-sm text-secondary-600">配置部署环境，发布项目，设置域名和监控</p>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <h4 class="font-medium text-secondary-900">部署准备</h4>
+              <div class="space-y-2">
+                <label class="flex items-center">
+                  <input type="checkbox" class="mr-2" disabled>
+                  <span class="text-sm">选择部署平台和域名</span>
+                </label>
+                <label class="flex items-center">
+                  <input type="checkbox" class="mr-2" disabled>
+                  <span class="text-sm">配置环境变量和构建设置</span>
+                </label>
+                <label class="flex items-center">
+                  <input type="checkbox" class="mr-2" disabled>
+                  <span class="text-sm">设置自动化部署流程</span>
+                </label>
+                <label class="flex items-center">
+                  <input type="checkbox" class="mr-2" disabled>
+                  <span class="text-sm">配置 HTTPS 和安全设置</span>
+                </label>
+                <label class="flex items-center">
+                  <input type="checkbox" class="mr-2" disabled>
+                  <span class="text-sm">设置错误监控和分析</span>
+                </label>
+              </div>
+            </div>
+            
+            <div class="space-y-4">
+              <h4 class="font-medium text-secondary-900">部署平台</h4>
+              <div class="space-y-3">
+                <div class="p-3 border border-secondary-200 rounded-lg">
+                  <h5 class="font-medium text-secondary-900 mb-1">GitHub Pages</h5>
+                  <p class="text-xs text-secondary-600 mb-2">免费静态托管，与 GitHub 深度集成</p>
+                  <div class="bg-secondary-900 text-green-400 p-2 rounded-md font-mono text-xs">
+                    <code>git push origin main</code>
+                  </div>
+                </div>
+                <div class="p-3 border border-secondary-200 rounded-lg">
+                  <h5 class="font-medium text-secondary-900 mb-1">Netlify / Vercel</h5>
+                  <p class="text-xs text-secondary-600 mb-2">专业静态托管，自动化部署</p>
+                  <div class="bg-secondary-900 text-green-400 p-2 rounded-md font-mono text-xs">
+                    <code>netlify deploy --prod --dir=dist</code>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-6 p-4 bg-purple-50 border border-purple-200 rounded-lg">
+            <h5 class="font-medium text-purple-800 mb-2">🚀 部署提示</h5>
+            <p class="text-sm text-purple-700">
+              选择合适的部署平台很重要。GitHub Pages 适合个人项目，Netlify/Vercel 提供更多专业功能。
+              确保设置好自动化部署，让每次代码推送都能自动更新网站。
+            </p>
+          </div>
+        </div>
+
+        <!-- 维护阶段 -->
+        <div id="phase-maintenance" class="lifecycle-phase-content hidden">
+          <div class="flex items-center mb-4">
+            <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mr-3">
+              <span class="text-xl">🔧</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-secondary-900">维护阶段 - 持续优化与更新</h3>
+              <p class="text-sm text-secondary-600">内容更新，性能监控，功能迭代和安全维护</p>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <h4 class="font-medium text-secondary-900">维护任务</h4>
+              <div class="space-y-2">
+                <label class="flex items-center">
+                  <input type="checkbox" class="mr-2" disabled>
+                  <span class="text-sm">定期更新内容和资讯</span>
+                </label>
+                <label class="flex items-center">
+                  <input type="checkbox" class="mr-2" disabled>
+                  <span class="text-sm">监控网站性能和可用性</span>
+                </label>
+                <label class="flex items-center">
+                  <input type="checkbox" class="mr-2" disabled>
+                  <span class="text-sm">更新依赖包和安全补丁</span>
+                </label>
+                <label class="flex items-center">
+                  <input type="checkbox" class="mr-2" disabled>
+                  <span class="text-sm">分析用户反馈和使用数据</span>
+                </label>
+                <label class="flex items-center">
+                  <input type="checkbox" class="mr-2" disabled>
+                  <span class="text-sm">SEO 持续优化</span>
+                </label>
+              </div>
+            </div>
+            
+            <div class="space-y-4">
+              <h4 class="font-medium text-secondary-900">维护工具</h4>
+              <div class="space-y-3">
+                <div>
+                  <p class="text-xs text-secondary-500 mb-1">检查依赖更新</p>
+                  <div class="bg-secondary-900 text-green-400 p-2 rounded-md font-mono text-xs">
+                    <code>npm outdated && npm update</code>
+                  </div>
+                </div>
+                <div>
+                  <p class="text-xs text-secondary-500 mb-1">安全漏洞扫描</p>
+                  <div class="bg-secondary-900 text-green-400 p-2 rounded-md font-mono text-xs">
+                    <code>npm audit && npm audit fix</code>
+                  </div>
+                </div>
+                <div>
+                  <p class="text-xs text-secondary-500 mb-1">备份重要数据</p>
+                  <div class="bg-secondary-900 text-green-400 p-2 rounded-md font-mono text-xs">
+                    <code>git push --all origin</code>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-6 p-4 bg-orange-50 border border-orange-200 rounded-lg">
+            <h5 class="font-medium text-orange-800 mb-2">🔧 维护提示</h5>
+            <p class="text-sm text-orange-700">
+              维护是项目长期成功的关键。建立定期维护计划，及时响应用户反馈，
+              保持技术栈的更新。好的维护习惯能让项目持续发挥价值。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 基于项目状态的智能推荐 -->
+      <div id="lifecycleRecommendations" class="mt-6 p-4 bg-emerald-50 border border-emerald-200 rounded-lg">
+        <h4 class="font-medium text-emerald-800 mb-3">🎯 基于当前项目的阶段建议</h4>
+        <div id="lifecycleRecommendationsContent" class="text-sm text-emerald-700">
+          <!-- 将根据项目状态动态生成建议 -->
+          <p>正在分析您的项目状态，为您提供个性化的阶段建议...</p>
+        </div>
+      </div>
+    </div>
+
     <!-- GitHub Pages 部署指南 -->
     <div class="bg-gradient-to-br from-purple-50 to-blue-50 border border-purple-200 rounded-lg p-6">
       <h2 class="text-xl font-semibold text-secondary-900 mb-4">🚀 GitHub Pages 部署指南</h2>
@@ -535,7 +952,7 @@ jobs:
   let deployTarget = 'github-pages';
 
   // 项目状态追踪变量
-  let projectStats = null;
+  let globalProjectStats = null;
   let recentProjects = [];
   let isProjectDataLoaded = false;
 
@@ -740,7 +1157,7 @@ jobs:
     }
     
     // 保存统计数据
-    projectStats = stats;
+    globalProjectStats = stats;
   }
 
   // 更新最近项目列表
@@ -791,7 +1208,7 @@ jobs:
     const suggestionsEl = document.getElementById('smartSuggestions');
     const contentEl = document.getElementById('suggestionsContent');
     
-    if (!isProjectDataLoaded || !projectStats) return;
+    if (!isProjectDataLoaded || !globalProjectStats) return;
     
     const suggestions = generateSmartSuggestions();
     
@@ -805,28 +1222,28 @@ jobs:
   function generateSmartSuggestions() {
     const suggestions = [];
     
-    if (!projectStats) return suggestions;
+    if (!globalProjectStats) return suggestions;
     
     // 基于项目数量的建议
-    if (projectStats.total === 0) {
+    if (globalProjectStats.total === 0) {
       suggestions.push('您还没有任何项目，建议从基础站点模板开始');
-    } else if (projectStats.total < 3) {
+    } else if (globalProjectStats.total < 3) {
       suggestions.push('尝试不同的项目类型来丰富您的作品集');
     }
     
     // 基于项目类型的建议
-    if (selectedProjectType === 'blog' && projectStats.total > 0) {
+    if (selectedProjectType === 'blog' && globalProjectStats.total > 0) {
       suggestions.push('博客项目建议定期更新内容，保持读者活跃度');
     } else if (selectedProjectType === 'tool' && recentProjects.length > 0) {
       suggestions.push('在线工具项目可以考虑添加数据可视化功能');
     }
     
     // 基于项目状态的建议
-    if (projectStats.draft > 0) {
-      suggestions.push(`您有 ${projectStats.draft} 个草稿项目，考虑完善并发布它们`);
+    if (globalProjectStats.draft > 0) {
+      suggestions.push(`您有 ${globalProjectStats.draft} 个草稿项目，考虑完善并发布它们`);
     }
     
-    if (projectStats.recent === 0 && projectStats.total > 0) {
+    if (globalProjectStats.recent === 0 && globalProjectStats.total > 0) {
       suggestions.push('最近没有项目活动，建议检查现有项目的维护状态');
     }
     
@@ -878,10 +1295,158 @@ jobs:
     }
   };
 
+  // 生命周期管理相关变量
+  let currentLifecyclePhase = 'planning';
+
+  // 显示生命周期阶段
+  window.showLifecyclePhase = function(phase) {
+    currentLifecyclePhase = phase;
+    
+    // 更新按钮状态
+    document.querySelectorAll('.lifecycle-phase-btn').forEach(btn => {
+      btn.classList.remove('active');
+    });
+    document.querySelector(`[data-phase="${phase}"]`).classList.add('active');
+    
+    // 隐藏所有阶段内容
+    document.querySelectorAll('.lifecycle-phase-content').forEach(content => {
+      content.classList.add('hidden');
+    });
+    
+    // 显示当前阶段内容
+    const currentContent = document.getElementById(`phase-${phase}`);
+    if (currentContent) {
+      currentContent.classList.remove('hidden');
+    }
+    
+    // 更新智能推荐
+    updateLifecycleRecommendations();
+  };
+
+  // 更新生命周期智能推荐
+  function updateLifecycleRecommendations() {
+    const recommendationsEl = document.getElementById('lifecycleRecommendationsContent');
+    if (!recommendationsEl) return;
+    
+    const recommendations = generateLifecycleRecommendations();
+    
+    if (recommendations.length > 0) {
+      recommendationsEl.innerHTML = recommendations.map(r => {
+        const commandHtml = r.command ? 
+          `<div class="mt-2 bg-secondary-900 text-green-400 p-2 rounded-md font-mono text-xs">
+            <code>${r.command}</code>
+          </div>` : '';
+        return `<div class="mb-3 p-3 bg-white border border-emerald-200 rounded-lg">
+          <h5 class="font-medium text-emerald-800 mb-1">${r.title}</h5>
+          <p class="text-sm text-emerald-700">${r.content}</p>
+          ${commandHtml}
+        </div>`;
+      }).join('');
+    } else {
+      recommendationsEl.innerHTML = '<p>当前阶段暂无特定建议。</p>';
+    }
+  }
+
+  // 生成生命周期推荐
+  function generateLifecycleRecommendations() {
+    const recommendations = [];
+    
+    // 基于当前选择的生命周期阶段
+    const phaseRecommendations = {
+      planning: [
+        {
+          title: '🎯 项目目标明确化',
+          content: '在开始编码前，确保项目的核心价值主张清晰。建议写下一句话描述项目的核心功能。',
+          command: null
+        },
+        {
+          title: '📝 品牌信息准备',
+          content: '配置个人或企业品牌信息，确保所有项目都有一致的品牌形象。',
+          command: 'astro-zero config brand'
+        }
+      ],
+      development: [
+        {
+          title: '🔄 持续集成实践',
+          content: '建立良好的代码提交习惯，每个功能完成后及时提交代码，便于回滚和协作。',
+          command: 'git add . && git commit -m "feat: implement feature"'
+        },
+        {
+          title: '⚡ 开发效率提升',
+          content: '使用热重载功能进行开发，实时预览更改效果，提高开发效率。',
+          command: 'npm run dev'
+        }
+      ],
+      testing: [
+        {
+          title: '📊 性能基准测试',
+          content: '使用 Lighthouse 测试项目性能，确保各项指标达到 90 分以上的标准。',
+          command: 'lighthouse http://localhost:4321 --view'
+        },
+        {
+          title: '🔍 构建验证',
+          content: '在部署前构建项目并本地预览，确保生产版本正常工作。',
+          command: 'npm run build && npm run preview'
+        }
+      ],
+      deployment: [
+        {
+          title: '🚀 自动化部署设置',
+          content: '配置 GitHub Actions 或其他 CI/CD 工具，实现代码推送后自动部署。',
+          command: null
+        },
+        {
+          title: '🔒 安全配置',
+          content: '确保 HTTPS 配置正确，设置适当的安全头信息，保护网站安全。',
+          command: null
+        }
+      ],
+      maintenance: [
+        {
+          title: '🔄 依赖更新',
+          content: '定期检查并更新项目依赖，修复安全漏洞，保持项目健康状态。',
+          command: 'npm audit && npm update'
+        },
+        {
+          title: '📈 性能监控',
+          content: '设置网站性能监控，及时发现和解决性能问题，提升用户体验。',
+          command: null
+        }
+      ]
+    };
+    
+    const currentRecommendations = phaseRecommendations[currentLifecyclePhase] || [];
+    recommendations.push(...currentRecommendations);
+    
+    // 基于项目状态添加额外建议
+    if (isProjectDataLoaded && globalProjectStats) {
+      if (globalProjectStats.total === 0 && currentLifecyclePhase === 'planning') {
+        recommendations.unshift({
+          title: '🌟 首个项目建议',
+          content: '这是您的第一个项目！建议从基础站点模板开始，熟悉完整的开发流程。',
+          command: `astro-zero create ${projectName} --template base`
+        });
+      }
+      
+      if (globalProjectStats.draft > 0 && currentLifecyclePhase === 'maintenance') {
+        recommendations.push({
+          title: '📂 草稿项目处理',
+          content: `您有 ${globalProjectStats.draft} 个草稿项目，建议完善并发布它们，或者归档不需要的项目。`,
+          command: 'astro-zero list --status draft'
+        });
+      }
+    }
+    
+    return recommendations;
+  }
+
   // 页面加载完成后初始化
   document.addEventListener('DOMContentLoaded', function() {
     // 默认选择基础站点
     selectProjectType('base');
+    
+    // 默认显示规划阶段
+    showLifecyclePhase('planning');
     
     // 加载项目状态（延迟2秒模拟异步加载）
     setTimeout(() => {
@@ -911,6 +1476,22 @@ jobs:
   .project-type-btn.active {
     border-color: #4299e1;
     background-color: #e0f2fe;
+    font-weight: bold;
+  }
+
+  /* 生命周期阶段按钮样式 */
+  .lifecycle-phase-btn {
+    transition: all 0.2s ease-in-out;
+  }
+
+  .lifecycle-phase-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .lifecycle-phase-btn.active {
+    border-color: #10b981;
+    background-color: #d1fae5;
     font-weight: bold;
   }
 </style> 

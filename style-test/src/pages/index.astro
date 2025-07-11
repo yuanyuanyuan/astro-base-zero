@@ -2,8 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const heroProps = {
-  title: '{{project.name}}',
-  subtitle: '{{project.description}}',
+  title: 'style-test',
+  subtitle: 'aaa',
   ctas: [
     {
       text: '开始探索',
@@ -12,13 +12,13 @@ const heroProps = {
     },
     {
       text: '查看源码',
-      href: '{{project.repository}}',
+      href: 'https://github.com/your-username/style-test',
       variant: 'secondary' as const,
     },
   ],
   image: {
     src: '/hero-image.jpg',
-    alt: '{{project.name}} 预览图',
+    alt: 'style-test 预览图',
   },
 };
 
@@ -50,9 +50,9 @@ const featuresProps = {
 ---
 
 <BaseLayout 
-  title="{{project.name}}"
-  description="{{project.description}}"
-  keywords={['{{project.name}}', '{{brand.personal.name}}', 'Astro', '项目']}
+  title="style-test"
+  description="aaa"
+  keywords={['style-test', 'style-test', 'Astro', '项目']}
 >
   <!-- Hero Section -->
   <section class="bg-gradient-to-br from-primary to-accent text-white py-20">
@@ -122,7 +122,7 @@ const featuresProps = {
           查看文档
         </a>
         <a
-          href="{{project.repository}}"
+          href="https://github.com/your-username/style-test"
           target="_blank"
           rel="noopener noreferrer"
           class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-primary transition-colors duration-200"
