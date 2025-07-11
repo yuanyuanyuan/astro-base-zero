@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { validateProjectName } from './validators';
+import { validateProjectName } from './validators.js';
 
 describe('validateProjectName', () => {
   // 验证标准 1: 合法输入
