@@ -1,0 +1,80 @@
+---
+// Navigation.astro - 顶部导航栏组件
+---
+
+<nav class="bg-white border-b border-secondary-200 sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16">
+      <!-- Logo 和品牌名 -->
+      <div class="flex items-center">
+        <div class="flex-shrink-0 flex items-center">
+          <div class="h-8 w-8 bg-primary-600 rounded-lg flex items-center justify-center">
+            <span class="text-white font-bold text-sm">AZ</span>
+          </div>
+          <span class="ml-2 text-xl font-semibold text-secondary-900">
+            Astro Base Zero
+          </span>
+        </div>
+
+        <!-- 主导航菜单 -->
+        <div class="hidden md:ml-10 md:flex md:space-x-8">
+          <a 
+            href="/" 
+            class="text-secondary-900 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+          >
+            概览
+          </a>
+          <a 
+            href="/projects" 
+            class="text-secondary-600 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+          >
+            项目列表
+          </a>
+          <a 
+            href="/templates" 
+            class="text-secondary-600 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+          >
+            模板市场
+          </a>
+          <a 
+            href="/docs" 
+            class="text-secondary-600 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+          >
+            文档
+          </a>
+        </div>
+      </div>
+
+      <!-- 右侧操作按钮 -->
+      <div class="flex items-center space-x-4">
+        <button 
+          type="button"
+          class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
+        >
+          新建项目
+        </button>
+        
+        <button 
+          type="button"
+          class="text-secondary-400 hover:text-secondary-600 transition-colors"
+          aria-label="设置"
+        >
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 移动端菜单 (隐藏状态) -->
+  <div class="md:hidden">
+    <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-secondary-200">
+      <a href="/" class="text-secondary-900 block px-3 py-2 rounded-md text-base font-medium">概览</a>
+      <a href="/projects" class="text-secondary-600 hover:text-primary-600 block px-3 py-2 rounded-md text-base font-medium">项目列表</a>
+      <a href="/templates" class="text-secondary-600 hover:text-primary-600 block px-3 py-2 rounded-md text-base font-medium">模板市场</a>
+      <a href="/docs" class="text-secondary-600 hover:text-primary-600 block px-3 py-2 rounded-md text-base font-medium">文档</a>
+    </div>
+  </div>
+</nav> 

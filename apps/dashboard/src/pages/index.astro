@@ -1,0 +1,144 @@
+---
+// 仪表板主页
+import DashboardLayout from '../layouts/DashboardLayout.astro';
+---
+
+<DashboardLayout title="项目概览" description="管理你的 Astro 项目，查看整体状况">
+  <!-- 欢迎区域 -->
+  <div class="mb-8">
+    <div class="bg-gradient-to-r from-primary-500 to-primary-700 rounded-lg p-6 text-white">
+      <h2 class="text-2xl font-bold mb-2">欢迎回来！</h2>
+      <p class="text-primary-100 mb-4">
+        使用 Astro Base Zero 快速创建和管理你的项目
+      </p>
+      <button class="bg-white text-primary-600 hover:bg-primary-50 px-6 py-2 rounded-md font-medium transition-colors">
+        创建新项目
+      </button>
+    </div>
+  </div>
+
+  <!-- 快速统计 -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="bg-white p-6 rounded-lg border border-secondary-200">
+      <div class="flex items-center">
+        <div class="flex-shrink-0">
+          <div class="w-8 h-8 bg-primary-100 rounded-md flex items-center justify-center">
+            <svg class="w-5 h-5 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+            </svg>
+          </div>
+        </div>
+        <div class="ml-4">
+          <p class="text-sm font-medium text-secondary-600">总项目数</p>
+          <p class="text-2xl font-semibold text-secondary-900">0</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg border border-secondary-200">
+      <div class="flex items-center">
+        <div class="flex-shrink-0">
+          <div class="w-8 h-8 bg-green-100 rounded-md flex items-center justify-center">
+            <svg class="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+        </div>
+        <div class="ml-4">
+          <p class="text-sm font-medium text-secondary-600">活跃项目</p>
+          <p class="text-2xl font-semibold text-secondary-900">0</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg border border-secondary-200">
+      <div class="flex items-center">
+        <div class="flex-shrink-0">
+          <div class="w-8 h-8 bg-blue-100 rounded-md flex items-center justify-center">
+            <svg class="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM7 21h10a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 002 2z" />
+            </svg>
+          </div>
+        </div>
+        <div class="ml-4">
+          <p class="text-sm font-medium text-secondary-600">可用模板</p>
+          <p class="text-2xl font-semibold text-secondary-900">3</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 最近项目和快速操作 -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- 最近项目 -->
+    <div>
+      <h3 class="text-lg font-semibold text-secondary-900 mb-4">最近项目</h3>
+      <div class="bg-white rounded-lg border border-secondary-200 p-6">
+        <div class="text-center py-8">
+          <svg class="mx-auto h-12 w-12 text-secondary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+          </svg>
+          <h4 class="mt-2 text-sm font-medium text-secondary-900">还没有项目</h4>
+          <p class="mt-1 text-sm text-secondary-500">开始创建你的第一个 Astro 项目</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 快速操作 -->
+    <div>
+      <h3 class="text-lg font-semibold text-secondary-900 mb-4">快速操作</h3>
+      <div class="space-y-3">
+        <a 
+          href="/templates" 
+          class="flex items-center p-4 bg-white border border-secondary-200 rounded-lg hover:border-primary-300 hover:shadow-sm transition-all"
+        >
+          <div class="flex-shrink-0">
+            <div class="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center">
+              <svg class="w-5 h-5 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+              </svg>
+            </div>
+          </div>
+          <div class="ml-4">
+            <h4 class="text-sm font-medium text-secondary-900">创建新项目</h4>
+            <p class="text-sm text-secondary-500">从模板开始快速创建项目</p>
+          </div>
+        </a>
+
+        <a 
+          href="/templates" 
+          class="flex items-center p-4 bg-white border border-secondary-200 rounded-lg hover:border-primary-300 hover:shadow-sm transition-all"
+        >
+          <div class="flex-shrink-0">
+            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+              <svg class="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+              </svg>
+            </div>
+          </div>
+          <div class="ml-4">
+            <h4 class="text-sm font-medium text-secondary-900">浏览模板</h4>
+            <p class="text-sm text-secondary-500">查看可用的项目模板</p>
+          </div>
+        </a>
+
+        <a 
+          href="/settings/brand" 
+          class="flex items-center p-4 bg-white border border-secondary-200 rounded-lg hover:border-primary-300 hover:shadow-sm transition-all"
+        >
+          <div class="flex-shrink-0">
+            <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+              <svg class="w-5 h-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM7 21h10a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 002 2z" />
+              </svg>
+            </div>
+          </div>
+          <div class="ml-4">
+            <h4 class="text-sm font-medium text-secondary-900">配置品牌</h4>
+            <p class="text-sm text-secondary-500">设置个人品牌信息</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</DashboardLayout> 

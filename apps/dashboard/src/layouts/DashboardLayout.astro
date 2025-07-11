@@ -1,0 +1,70 @@
+---
+// DashboardLayout.astro - 仪表板主布局
+import Navigation from '../components/Navigation.astro';
+import Sidebar from '../components/Sidebar.astro';
+import '../styles/global.css';
+
+export interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Astro项目快速发布平台 - 管理面板' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title} - Astro Base Zero</title>
+  </head>
+  <body class="bg-secondary-50">
+    <div class="min-h-screen">
+      <!-- 顶部导航栏 -->
+      <Navigation />
+      
+      <!-- 主要内容区域 -->
+      <div class="flex">
+        <!-- 侧边栏 -->
+        <Sidebar />
+        
+        <!-- 主内容区 -->
+        <main class="flex-1 min-h-screen">
+          <div class="p-8">
+            <!-- 页面标题区域 -->
+            <div class="mb-8">
+              <h1 class="text-3xl font-bold text-secondary-900">{title}</h1>
+              {description && (
+                <p class="mt-2 text-lg text-secondary-600">{description}</p>
+              )}
+            </div>
+            
+            <!-- 页面内容插槽 -->
+            <div class="bg-white rounded-lg shadow-sm border border-secondary-200 p-6">
+              <slot />
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>
+
+<style is:global>
+  /* 全局样式重置 */
+  * {
+    box-sizing: border-box;
+  }
+  
+  html {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+  }
+</style> 
