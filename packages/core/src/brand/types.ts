@@ -235,7 +235,7 @@ export interface ProjectTypeBranding {
   /** 项目类型 */
   projectType: 'demo' | 'tool' | 'showcase' | 'blog' | 'docs' | 'portfolio';
   /** 该类型项目的默认配置覆盖 */
-  overrides?: Partial<BrandAssets>;
+  overrides?: Partial<Brand>;
   /** 特定的模板变量 */
   templateVariables?: Record<string, any>;
 }
@@ -248,7 +248,7 @@ export interface ProjectTypeBranding {
  * 完整的品牌资产配置
  * 这是系统中品牌管理的核心数据结构
  */
-export interface BrandAssets {
+export interface Brand {
   /** 品牌配置版本 (用于配置迁移) */
   version: string;
   /** 配置创建时间 */
@@ -309,7 +309,7 @@ export interface BrandUpdateOptions {
  */
 export interface TemplateContext {
   /** 品牌资产 */
-  brand: BrandAssets;
+  brand: Brand;
   /** 项目特定信息 */
   project?: {
     name: string;

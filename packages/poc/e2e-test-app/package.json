@@ -1,0 +1,14 @@
+{
+  "name": "e2e-test-app",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astro-base-zero/core": "workspace:*",
+    "astro": "^4.0.0"
+  }
+} 

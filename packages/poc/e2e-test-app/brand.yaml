@@ -1,0 +1,8 @@
+name: "E2E Brand Injection Test SUCCESS"
+logo: "/test-logo.svg"
+colors:
+  primary: "#ff0000"
+  secondary: "#00ff00"
+fonts:
+  heading: "Comic Sans MS"
+  body: "Arial" 

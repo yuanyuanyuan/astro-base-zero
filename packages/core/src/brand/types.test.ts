@@ -1,21 +1,65 @@
 /**
- * 品牌资产数据模型类型测试
- * 验证类型安全性和IDE自动补全功能
+ * 品牌资产数据模型类型定义验证
+ * 确保所有导出的类型符合预期
  */
 
 import { describe, it, expect } from 'vitest';
-import type {
-  BrandAssets,
-  PersonalInfo,
-  VisualBrand,
-  BrandColors,
+import type { 
+  Brand, 
+  PersonalInfo, 
+  VisualBrand, 
   SocialLink,
-  SocialPlatform,
   TemplateContext,
-  BrandValidationResult
+  BrandValidationResult,
+  SocialPlatform
 } from './types.js';
 
-describe('Brand Assets Data Model', () => {
+describe('Brand Assets Types', () => {
+  it('should support complete Brand structure', () => {
+    const completeBrand: Brand = {
+      version: '1.0.0',
+      createdAt: '2025-01-11T12:00:00Z',
+      updatedAt: '2025-01-11T12:00:00Z',
+      personal: {
+        name: 'Jane Smith',
+        avatar: 'https://example.com/jane-avatar.jpg',
+        bio: 'Creative developer and designer',
+        email: 'jane@example.com',
+        social: {
+          links: []
+        }
+      },
+      visual: {
+        colors: {
+          primary: '#8b5cf6',
+          accent: '#ec4899'
+        }
+      },
+      defaults: {
+        license: 'MIT',
+        copyrightText: '© 2025 Jane Smith. All rights reserved.',
+        language: 'en',
+        defaultKeywords: ['developer', 'designer', 'creative']
+      },
+      projectTypes: [
+        {
+          projectType: 'blog',
+          templateVariables: {
+            postsPerPage: 10,
+            enableComments: true
+          }
+        }
+      ]
+    };
+
+    // 验证类型结构
+    expect(completeBrand.version).toBe('1.0.0');
+    expect(completeBrand.personal.name).toBe('Jane Smith');
+    expect(completeBrand.visual.colors.primary).toBe('#8b5cf6');
+    expect(completeBrand.defaults.license).toBe('MIT');
+    expect(completeBrand.projectTypes?.[0].projectType).toBe('blog');
+  });
+
   it('should provide type safety for PersonalInfo', () => {
     // 测试个人信息类型安全
     const personalInfo: PersonalInfo = {
@@ -85,52 +129,6 @@ describe('Brand Assets Data Model', () => {
     expect(visualBrand.colors.primary).toBe('#3b82f6');
     expect(visualBrand.typography?.primaryFont).toBe('Inter, sans-serif');
     expect(visualBrand.borderRadius).toBe('medium');
-  });
-
-  it('should provide type safety for complete BrandAssets', () => {
-    // 测试完整品牌资产类型安全
-    const brandAssets: BrandAssets = {
-      version: '1.0.0',
-      createdAt: '2025-01-11T12:00:00Z',
-      updatedAt: '2025-01-11T12:00:00Z',
-      personal: {
-        name: 'Jane Smith',
-        avatar: 'https://example.com/jane-avatar.jpg',
-        bio: 'Creative developer and designer',
-        email: 'jane@example.com',
-        social: {
-          links: []
-        }
-      },
-      visual: {
-        colors: {
-          primary: '#8b5cf6',
-          accent: '#ec4899'
-        }
-      },
-      defaults: {
-        license: 'MIT',
-        copyrightText: '© 2025 Jane Smith. All rights reserved.',
-        language: 'en',
-        defaultKeywords: ['developer', 'designer', 'creative']
-      },
-      projectTypes: [
-        {
-          projectType: 'blog',
-          templateVariables: {
-            postsPerPage: 10,
-            enableComments: true
-          }
-        }
-      ]
-    };
-
-    // 验证类型结构
-    expect(brandAssets.version).toBe('1.0.0');
-    expect(brandAssets.personal.name).toBe('Jane Smith');
-    expect(brandAssets.visual.colors.primary).toBe('#8b5cf6');
-    expect(brandAssets.defaults.license).toBe('MIT');
-    expect(brandAssets.projectTypes?.[0].projectType).toBe('blog');
   });
 
   it('should support social platform type constraints', () => {
@@ -247,7 +245,7 @@ describe('Compile-time Type Safety', () => {
 
   it('should provide intellisense support', () => {
     // 这个测试验证 IDE 应该为以下对象提供自动补全
-    const brandAssets: Partial<BrandAssets> = {
+    const brandAssets: Partial<Brand> = {
       // 在此输入时，IDE 应该提供 version, createdAt, updatedAt, personal, visual, defaults 等字段的自动补全
     };
 

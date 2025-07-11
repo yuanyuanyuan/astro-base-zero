@@ -9,13 +9,14 @@
 
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { existsSync, unlinkSync } from 'node:fs';
-import { 
-  getBrandDataPath, 
+import {
+  getBrandDataPath,
   getAppDataDir,
   createDefaultBrandAssets,
-  type BrandAssets 
+  type Brand
 } from '@astro-base-zero/core';
-import { BrandWizard } from './brand-wizard.js';
+import { runBrandWizard } from './brand-wizard.js';
+import { vol, fs } from 'memfs';
 
 describe('BrandWizard', () => {
   const testBrandPath = getBrandDataPath();
@@ -36,12 +37,12 @@ describe('BrandWizard', () => {
 
   describe('基础功能', () => {
     it('应该能够创建品牌向导实例', () => {
-      const wizard = new BrandWizard();
+      const wizard = runBrandWizard();
       expect(wizard).toBeDefined();
     });
 
     it('应该能够创建带选项的品牌向导实例', () => {
-      const wizard = new BrandWizard({
+      const wizard = runBrandWizard({
         skipConfirmation: true,
         useExistingDefaults: false
       });
@@ -91,7 +92,7 @@ describe('BrandWizard', () => {
 
   describe('数据验证', () => {
     it('应该验证完整的品牌资产结构', () => {
-      const validBrandAssets: BrandAssets = {
+      const validBrandAssets: Brand = {
         version: '1.0.0',
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
@@ -165,7 +166,7 @@ describe('BrandWizard', () => {
 
 // 导出测试工具函数
 export const testUtils = {
-  createTestBrandAssets: (): BrandAssets => ({
+  createTestBrandAssets: (): Brand => ({
     version: '1.0.0',
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),

@@ -76,7 +76,9 @@ custom_modes
 .claude/
 CLAUDE.md
 
-memory-bank
-dist
+memory-bank/
+dist/
 
-
+.turbo/
+.turbo/daemon/*
+.turbo/daemon/

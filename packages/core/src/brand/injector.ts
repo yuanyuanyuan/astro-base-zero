@@ -2,22 +2,9 @@ import path from 'node:path';
 import { readFile } from 'node:fs/promises';
 import type { Plugin } from 'vite';
 import yaml from 'js-yaml';
-import { VIRTUAL_MODULE_ID, RESOLVED_VIRTUAL_MODULE_ID } from './constants';
-import type { Brand } from './types';
-
-// A simple default brand object to be used as a fallback.
-const DEFAULT_BRAND: Brand = {
-  name: 'My Astro Site',
-  logo: '/logo.svg',
-  colors: {
-    primary: '#000000',
-    secondary: '#FFFFFF',
-  },
-  fonts: {
-    heading: 'sans-serif',
-    body: 'sans-serif',
-  },
-};
+import { VIRTUAL_MODULE_ID, RESOLVED_VIRTUAL_MODULE_ID } from './constants.js';
+import { createDefaultBrandAssets } from './store.js';
+import type { Brand } from './types.js';
 
 interface BrandAssetInjectorOptions {
   cwd?: string;
@@ -41,6 +28,7 @@ export function brandAssetInjector({
   _readFile = readFile,
 }: BrandAssetInjectorOptions = {}): Plugin {
   const brandConfigPath = path.join(cwd, 'brand.yaml');
+  const DEFAULT_BRAND = createDefaultBrandAssets();
 
   return {
     name: 'astro-base:brand-injector',
@@ -57,19 +45,45 @@ export function brandAssetInjector({
         try {
           const fileContent = await _readFile(brandConfigPath, 'utf-8');
           const brandData = yaml.load(fileContent as string) as Partial<Brand>;
-          // Deep merge the brand data with defaults
+          
+          // Deep merge with structured data
           const mergedBrand: Brand = {
             ...DEFAULT_BRAND,
             ...brandData,
-            colors: {
-              ...DEFAULT_BRAND.colors,
-              ...brandData.colors,
+            personal: {
+              ...DEFAULT_BRAND.personal,
+              ...(brandData.personal || {}),
+              social: {
+                ...DEFAULT_BRAND.personal.social,
+                ...((brandData.personal && brandData.personal.social) || {}),
+                links: [
+                  ...DEFAULT_BRAND.personal.social.links,
+                  ...((brandData.personal && brandData.personal.social && brandData.personal.social.links) || []),
+                ],
+              },
             },
-            fonts: {
-              ...DEFAULT_BRAND.fonts,
-              ...brandData.fonts,
+            visual: {
+              ...DEFAULT_BRAND.visual,
+              ...(brandData.visual || {}),
+              colors: {
+                ...DEFAULT_BRAND.visual.colors,
+                ...((brandData.visual && brandData.visual.colors) || {}),
+              },
+              typography: {
+                  ...DEFAULT_BRAND.visual.typography,
+                  ...((brandData.visual && brandData.visual.typography) || {}),
+              },
+              icons: {
+                  ...DEFAULT_BRAND.visual.icons,
+                  ...((brandData.visual && brandData.visual.icons) || {}),
+              }
+            },
+            defaults: {
+              ...DEFAULT_BRAND.defaults,
+              ...(brandData.defaults || {}),
             },
           };
+
           return `export default ${JSON.stringify(mergedBrand, null, 2)};`;
         } catch (error) {
           // If the file doesn't exist or is invalid, use defaults

@@ -15,7 +15,7 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { Low } from 'lowdb';
 import { JSONFile } from 'lowdb/node';
 import type { 
-  BrandAssets, 
+  Brand, 
   BrandUpdateOptions, 
   BrandValidationResult,
   PersonalInfo,
@@ -68,7 +68,7 @@ export function getBrandBackupPath(): string {
 /**
  * 创建默认的品牌资产配置
  */
-export function createDefaultBrandAssets(): BrandAssets {
+export function createDefaultBrandAssets(): Brand {
   const now = new Date().toISOString();
   
   return {
@@ -105,7 +105,7 @@ export function createDefaultBrandAssets(): BrandAssets {
  * 品牌数据存储接口
  */
 interface BrandDatabase {
-  brand: BrandAssets;
+  brand: Brand;
 }
 
 /**
@@ -170,7 +170,7 @@ export class BrandStore {
   /**
    * 加载品牌资产数据
    */
-  async load(): Promise<BrandAssets> {
+  async load(): Promise<Brand> {
     this.ensureInitialized();
     
     try {
@@ -184,7 +184,7 @@ export class BrandStore {
   /**
    * 保存品牌资产数据
    */
-  async save(brandAssets: BrandAssets, options: BrandUpdateOptions = {}): Promise<void> {
+  async save(brandAssets: Brand, options: BrandUpdateOptions = {}): Promise<void> {
     this.ensureInitialized();
     
     const {
@@ -211,7 +211,7 @@ export class BrandStore {
         await this.createBackup();
       }
 
-      let updatedBrandAssets: BrandAssets;
+      let updatedBrandAssets: Brand;
 
       if (merge && this.db!.data.brand) {
         // 合并更新
@@ -239,7 +239,7 @@ export class BrandStore {
    */
   async updatePersonal(personalInfo: Partial<PersonalInfo>): Promise<void> {
     const current = await this.load();
-    const updated: BrandAssets = {
+    const updated: Brand = {
       ...current,
       personal: { ...current.personal, ...personalInfo }
     };
@@ -251,7 +251,7 @@ export class BrandStore {
    */
   async updateVisual(visualBrand: Partial<VisualBrand>): Promise<void> {
     const current = await this.load();
-    const updated: BrandAssets = {
+    const updated: Brand = {
       ...current,
       visual: { ...current.visual, ...visualBrand }
     };
@@ -263,7 +263,7 @@ export class BrandStore {
    */
   async updateDefaults(defaults: Partial<BrandDefaults>): Promise<void> {
     const current = await this.load();
-    const updated: BrandAssets = {
+    const updated: Brand = {
       ...current,
       defaults: { ...current.defaults, ...defaults }
     };
@@ -364,7 +364,7 @@ export class BrandStore {
   /**
    * 验证品牌资产数据
    */
-  private validateBrandAssets(brandAssets: BrandAssets): BrandValidationResult {
+  private validateBrandAssets(brandAssets: Brand): BrandValidationResult {
     const errors: string[] = [];
     const warnings: string[] = [];
     const missingFields: string[] = [];
@@ -480,7 +480,7 @@ export async function createBrandStore(): Promise<BrandStore> {
 /**
  * 快速加载品牌资产
  */
-export async function loadBrandAssets(): Promise<BrandAssets> {
+export async function loadBrandAssets(): Promise<Brand> {
   const store = await createBrandStore();
   return store.load();
 }
@@ -488,7 +488,7 @@ export async function loadBrandAssets(): Promise<BrandAssets> {
 /**
  * 快速保存品牌资产
  */
-export async function saveBrandAssets(brandAssets: BrandAssets, options?: BrandUpdateOptions): Promise<void> {
+export async function saveBrandAssets(brandAssets: Brand, options?: BrandUpdateOptions): Promise<void> {
   const store = await createBrandStore();
   await store.save(brandAssets, options);
 }

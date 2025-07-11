@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
 import { createConfigCommand } from './commands/config.js';
+import { validateProjectName } from './utils/validators.js';
 
 const program = new Command();
 
@@ -12,7 +13,9 @@ program
 program
   .command('init')
   .description('Initialize a new Astro project from a template.')
-  .action(() => {
+  .argument('<projectName>', 'The name of the project to initialize.')
+  .action((projectName) => {
+    validateProjectName(projectName);
     console.log('Initializing project...');
     // 后续将实现具体逻辑
   });

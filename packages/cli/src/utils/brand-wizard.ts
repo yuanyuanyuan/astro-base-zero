@@ -11,13 +11,14 @@ import inquirer from 'inquirer';
 import { 
   createBrandStore, 
   BrandStore,
-  type BrandAssets, 
+  type Brand,
   type PersonalInfo, 
   type SocialLink, 
   type VisualBrand,
   type BrandDefaults
 } from '@astro-base-zero/core';
 import { logger } from './logger.js';
+import { SocialPlatformSchema } from './validators.js';
 
 // =============================================================================
 // 品牌向导配置
@@ -46,14 +47,14 @@ export interface BrandWizardOptions {
 
 export class BrandWizard {
   private brandStore: BrandStore | null = null;
-  private currentBrand: BrandAssets | null = null;
+  private currentBrand: Brand | null = null;
 
   constructor(private options: BrandWizardOptions = {}) {}
 
   /**
    * 运行完整的品牌配置向导
    */
-  async run(): Promise<BrandAssets> {
+  async run(): Promise<Brand> {
     logger.info('🎨 Welcome to the Brand Configuration Wizard!');
     logger.info('Let\'s set up your personal brand information step by step.\n');
 
@@ -661,7 +662,7 @@ export class BrandWizard {
 /**
  * 运行品牌配置向导
  */
-export async function runBrandWizard(options: BrandWizardOptions = {}): Promise<BrandAssets> {
+export async function runBrandWizard(options: BrandWizardOptions = {}): Promise<Brand> {
   const wizard = new BrandWizard(options);
   return await wizard.run();
 }
@@ -669,6 +670,6 @@ export async function runBrandWizard(options: BrandWizardOptions = {}): Promise<
 /**
  * 运行特定步骤的配置向导
  */
-export async function runBrandWizardStep(step: WizardStep, options: Omit<BrandWizardOptions, 'step'> = {}): Promise<BrandAssets> {
+export async function runBrandWizardStep(step: WizardStep, options: Omit<BrandWizardOptions, 'step'> = {}): Promise<Brand> {
   return runBrandWizard({ ...options, step });
 } 

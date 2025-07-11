@@ -8,7 +8,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { createDefaultBrandAssets } from './store.js';
-import type { BrandAssets } from './types.js';
+import type { Brand } from './types.js';
 
 describe('Brand Assets Storage - Core Verification', () => {
   it('should create valid default brand assets', () => {
@@ -38,7 +38,7 @@ describe('Brand Assets Storage - Core Verification', () => {
 
   it('should support complete brand assets structure', () => {
     // 创建完整的品牌资产对象
-    const completeBrandAssets: BrandAssets = {
+    const completeBrandAssets: Brand = {
       version: '1.0.0',
       createdAt: '2025-01-11T12:00:00Z',
       updatedAt: '2025-01-11T12:00:00Z',

@@ -3,18 +3,19 @@
  * 验证 save 和 load 方法的正确性以及数据持久化功能
  */
 
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { mkdtemp, rm } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
+import { vol } from 'memfs';
 
 import {
   BrandStore,
   createDefaultBrandAssets
 } from './store.js';
 
-import type { BrandAssets } from './types.js';
+import type { Brand } from './types.js';
 
 // 创建临时测试目录
 let tempDir: string;
@@ -91,7 +92,7 @@ describe('Brand Assets Storage System', () => {
 
     it('should save and load brand assets correctly', async () => {
       // 准备测试数据
-      const testBrandAssets: BrandAssets = {
+      const testBrandAssets: Brand = {
         version: '1.0.0',
         createdAt: '2025-01-11T12:00:00Z',
         updatedAt: '2025-01-11T12:00:00Z',
@@ -157,7 +158,7 @@ describe('Brand Assets Storage System', () => {
     });
 
     it('should validate brand assets before saving', async () => {
-      const invalidData: BrandAssets = {
+      const invalidData: Brand = {
         version: '1.0.0',
         createdAt: '2025-01-11T12:00:00Z',
         updatedAt: '2025-01-11T12:00:00Z',

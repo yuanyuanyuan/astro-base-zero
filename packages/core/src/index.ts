@@ -1,3 +1,11 @@
+/**
+ * @astro-base-zero/core
+ *
+ * This is the core package for the Astro Quick Launch Platform.
+ * It contains the main business logic, configuration management,
+ * and brand asset management.
+ */
+
 // Export configuration schemas
 export { PlatformConfigSchema, ProjectConfigSchema } from './config/schema.js';
 export type { PlatformConfig, ProjectConfig } from './config/schema.js';
@@ -7,7 +15,7 @@ export { loadConfig, loadConfigWithInheritance } from './config/loader.js';
 
 // Export brand management
 export type {
-  BrandAssets,
+  Brand,
   PersonalInfo,
   SocialLink,
   SocialLinks,
