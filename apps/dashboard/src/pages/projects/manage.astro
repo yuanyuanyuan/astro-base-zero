@@ -1,0 +1,330 @@
+---
+// 项目管理页 - 静态版本，兼容 GitHub Pages
+import DashboardLayout from '../../layouts/DashboardLayout.astro';
+
+// 这是一个静态的项目管理指南页面
+// 提供完整的 CLI 工具使用说明和项目操作指南
+---
+
+<DashboardLayout title="项目管理" description="使用 CLI 工具管理你的 Astro 项目">
+  <!-- 提示信息 -->
+  <div class="mb-8 bg-blue-50 border border-blue-200 rounded-lg p-6">
+    <div class="flex items-start">
+      <div class="flex-shrink-0">
+        <svg class="w-5 h-5 text-blue-400 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <div class="ml-3">
+        <h3 class="text-sm font-medium text-blue-800">
+          静态模式下的项目管理
+        </h3>
+        <div class="mt-2 text-sm text-blue-700">
+          <p>
+            在 GitHub Pages 等静态环境中，项目管理通过本地 CLI 工具完成。
+            下面是管理项目的完整指南。
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 项目管理说明 -->
+  <div class="mb-6 bg-secondary-50 rounded-lg p-4">
+    <p class="text-sm text-secondary-700">
+      <strong>项目管理中心:</strong> 使用 CLI 工具管理所有 Astro 项目
+    </p>
+    <p class="text-xs text-secondary-500 mt-1">
+      下面的命令适用于任何通过 astro-zero CLI 创建的项目
+    </p>
+  </div>
+
+  <!-- 项目操作指南 -->
+  <div class="space-y-8">
+    <!-- 本地项目管理 -->
+    <div class="bg-white rounded-lg border border-secondary-200 p-6">
+      <h2 class="text-xl font-semibold text-secondary-900 mb-6">📋 本地项目管理</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <h3 class="text-lg font-medium text-secondary-900 mb-3">查看所有项目</h3>
+          <div class="bg-secondary-900 text-green-400 p-3 rounded-md font-mono text-sm mb-3">
+            <code>astro-zero list</code>
+          </div>
+          <p class="text-sm text-secondary-600">列出所有通过 CLI 创建的项目及其状态</p>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-medium text-secondary-900 mb-3">项目详细信息</h3>
+          <div class="bg-secondary-900 text-green-400 p-3 rounded-md font-mono text-sm mb-3">
+            <code>astro-zero info &lt;project-name&gt;</code>
+          </div>
+          <p class="text-sm text-secondary-600">查看特定项目的详细配置和元数据</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 项目操作命令 -->
+    <div class="bg-white rounded-lg border border-secondary-200 p-6">
+      <h2 class="text-xl font-semibold text-secondary-900 mb-6">🚀 项目操作命令</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+        <!-- 开发服务器 -->
+        <div class="border border-secondary-200 rounded-lg p-4">
+          <div class="flex items-center mb-3">
+            <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+              <svg class="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h.01M19 10a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-medium text-secondary-900">开发预览</h3>
+              <p class="text-xs text-secondary-500">启动开发服务器</p>
+            </div>
+          </div>
+          <div class="bg-secondary-900 text-green-400 p-3 rounded-md font-mono text-sm mb-3 relative">
+            <code>cd /path/to/project<br/>npm run dev</code>
+            <button 
+              onclick="copyCommand('cd /path/to/project && npm run dev')"
+              class="absolute top-2 right-2 text-secondary-400 hover:text-green-400 transition-colors"
+              title="复制命令"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
+            </button>
+          </div>
+          <p class="text-sm text-secondary-600">在本地启动开发服务器，通常在 http://localhost:4321</p>
+        </div>
+
+        <!-- 项目构建 -->
+        <div class="border border-secondary-200 rounded-lg p-4">
+          <div class="flex items-center mb-3">
+            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+              <svg class="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-medium text-secondary-900">构建项目</h3>
+              <p class="text-xs text-secondary-500">生成生产版本</p>
+            </div>
+          </div>
+          <div class="bg-secondary-900 text-green-400 p-3 rounded-md font-mono text-sm mb-3 relative">
+            <code>cd /path/to/project<br/>npm run build</code>
+            <button 
+              onclick="copyCommand('cd /path/to/project && npm run build')"
+              class="absolute top-2 right-2 text-secondary-400 hover:text-green-400 transition-colors"
+              title="复制命令"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
+            </button>
+          </div>
+          <p class="text-sm text-secondary-600">构建静态文件到 dist/ 目录，用于生产部署</p>
+        </div>
+
+        <!-- 预览构建 -->
+        <div class="border border-secondary-200 rounded-lg p-4">
+          <div class="flex items-center mb-3">
+            <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
+              <svg class="w-5 h-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-medium text-secondary-900">预览构建</h3>
+              <p class="text-xs text-secondary-500">本地预览生产版本</p>
+            </div>
+          </div>
+          <div class="bg-secondary-900 text-green-400 p-3 rounded-md font-mono text-sm mb-3 relative">
+            <code>cd /path/to/project<br/>npm run preview</code>
+            <button 
+              onclick="copyCommand('cd /path/to/project && npm run preview')"
+              class="absolute top-2 right-2 text-secondary-400 hover:text-green-400 transition-colors"
+              title="复制命令"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
+            </button>
+          </div>
+          <p class="text-sm text-secondary-600">在本地预览构建后的静态站点</p>
+        </div>
+
+        <!-- GitHub Pages 部署 -->
+        <div class="border border-secondary-200 rounded-lg p-4">
+          <div class="flex items-center mb-3">
+            <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mr-3">
+              <svg class="w-5 h-5 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-medium text-secondary-900">部署到 GitHub Pages</h3>
+              <p class="text-xs text-secondary-500">发布到 GitHub Pages</p>
+            </div>
+          </div>
+          <div class="bg-secondary-900 text-green-400 p-3 rounded-md font-mono text-sm mb-3 relative">
+            <code>npm run build<br/>git add dist && git commit -m "Deploy"<br/>git push origin main</code>
+            <button 
+              onclick="copyCommand('npm run build && git add dist && git commit -m \"Deploy\" && git push origin main')"
+              class="absolute top-2 right-2 text-secondary-400 hover:text-green-400 transition-colors"
+              title="复制命令"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
+            </button>
+          </div>
+          <p class="text-sm text-secondary-600">构建并部署到 GitHub Pages（需要配置 GitHub Actions）</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 快速操作指南 -->
+    <div class="bg-white rounded-lg border border-secondary-200 p-6">
+      <h2 class="text-xl font-semibold text-secondary-900 mb-6">⚡ 快速操作指南</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="text-center p-4 border border-secondary-200 rounded-lg">
+          <div class="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+            <svg class="w-6 h-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+            </svg>
+          </div>
+          <h3 class="font-medium text-secondary-900 mb-2">在编辑器中打开</h3>
+          <div class="bg-secondary-900 text-green-400 p-2 rounded-md font-mono text-xs mb-2">
+            <code>code /path/to/project</code>
+          </div>
+          <p class="text-xs text-secondary-500">使用 VS Code 打开项目</p>
+        </div>
+
+        <div class="text-center p-4 border border-secondary-200 rounded-lg">
+          <div class="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+            <svg class="w-6 h-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+            </svg>
+          </div>
+          <h3 class="font-medium text-secondary-900 mb-2">打开项目目录</h3>
+          <div class="bg-secondary-900 text-green-400 p-2 rounded-md font-mono text-xs mb-2">
+            <code>open /path/to/project</code>
+          </div>
+          <p class="text-xs text-secondary-500">在文件管理器中打开</p>
+        </div>
+
+        <div class="text-center p-4 border border-secondary-200 rounded-lg">
+          <div class="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+            <svg class="w-6 h-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </div>
+          <h3 class="font-medium text-secondary-900 mb-2">项目配置</h3>
+          <div class="bg-secondary-900 text-green-400 p-2 rounded-md font-mono text-xs mb-2">
+            <code>astro-zero config --help</code>
+          </div>
+          <p class="text-xs text-secondary-500">查看配置选项</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- GitHub Pages 部署指南 -->
+    <div class="bg-gradient-to-br from-purple-50 to-blue-50 border border-purple-200 rounded-lg p-6">
+      <h2 class="text-xl font-semibold text-secondary-900 mb-4">🚀 GitHub Pages 部署指南</h2>
+      
+      <div class="space-y-4">
+        <div class="flex items-start">
+          <div class="flex-shrink-0 w-6 h-6 bg-purple-600 text-white rounded-full flex items-center justify-center text-sm font-medium mr-3 mt-0.5">
+            1
+          </div>
+          <div>
+            <h3 class="font-medium text-secondary-900">配置 Astro 为静态输出</h3>
+            <p class="text-sm text-secondary-600 mt-1">确保 astro.config.mjs 中设置了 <code class="bg-secondary-200 px-1 rounded">output: 'static'</code></p>
+          </div>
+        </div>
+
+        <div class="flex items-start">
+          <div class="flex-shrink-0 w-6 h-6 bg-purple-600 text-white rounded-full flex items-center justify-center text-sm font-medium mr-3 mt-0.5">
+            2
+          </div>
+          <div>
+            <h3 class="font-medium text-secondary-900">设置 GitHub Actions</h3>
+            <p class="text-sm text-secondary-600 mt-1">创建 <code class="bg-secondary-200 px-1 rounded">.github/workflows/deploy.yml</code> 用于自动部署</p>
+          </div>
+        </div>
+
+        <div class="flex items-start">
+          <div class="flex-shrink-0 w-6 h-6 bg-purple-600 text-white rounded-full flex items-center justify-center text-sm font-medium mr-3 mt-0.5">
+            3
+          </div>
+          <div>
+            <h3 class="font-medium text-secondary-900">推送代码到 GitHub</h3>
+            <p class="text-sm text-secondary-600 mt-1">每次推送到主分支时自动触发构建和部署</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 p-4 bg-white rounded-lg border border-purple-200">
+        <h4 class="font-medium text-secondary-900 mb-2">示例 GitHub Actions 配置:</h4>
+        <div class="bg-secondary-900 text-green-400 p-3 rounded-md font-mono text-xs overflow-x-auto">
+          <pre><code>name: Deploy to GitHub Pages
+on: push: branches: [ main ]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - run: npm ci && npm run build
+      - uses: actions/deploy-pages@v1</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- 返回链接 -->
+    <div class="text-center">
+      <a 
+        href="/projects"
+        class="inline-flex items-center px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-md font-medium transition-colors"
+      >
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        返回项目列表
+      </a>
+    </div>
+  </div>
+</DashboardLayout>
+
+<script>
+  // 复制命令到剪贴板
+  window.copyCommand = async function(command) {
+    try {
+      await navigator.clipboard.writeText(command);
+      
+      // 显示复制成功提示
+      const notification = document.createElement('div');
+      notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50';
+      notification.textContent = '命令已复制到剪贴板';
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        document.body.removeChild(notification);
+      }, 2000);
+    } catch (err) {
+      console.error('复制失败:', err);
+    }
+  };
+</script>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style> 

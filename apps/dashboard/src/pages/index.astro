@@ -1,38 +1,84 @@
 ---
-// 仪表板主页
+// 仪表板主页 - 静态版本，兼容 GitHub Pages
 import DashboardLayout from '../layouts/DashboardLayout.astro';
 ---
 
-<DashboardLayout title="项目概览" description="管理你的 Astro 项目，查看整体状况">
+<DashboardLayout title="项目概览" description="Astro Base Zero - 静态项目管理面板">
   <!-- 欢迎区域 -->
   <div class="mb-8">
     <div class="bg-gradient-to-r from-primary-500 to-primary-700 rounded-lg p-6 text-white">
-      <h2 class="text-2xl font-bold mb-2">欢迎回来！</h2>
+      <h2 class="text-2xl font-bold mb-2">欢迎使用 Astro Base Zero！</h2>
       <p class="text-primary-100 mb-4">
-        使用 Astro Base Zero 快速创建和管理你的项目
+        这是一个静态管理面板，配合 CLI 工具快速创建和管理你的 Astro 项目
       </p>
-      <button class="bg-white text-primary-600 hover:bg-primary-50 px-6 py-2 rounded-md font-medium transition-colors">
-        创建新项目
-      </button>
+      <div class="flex flex-wrap gap-3">
+        <button 
+          onclick="showInstallGuide()"
+          class="bg-white text-primary-600 hover:bg-primary-50 px-6 py-2 rounded-md font-medium transition-colors"
+        >
+          安装 CLI 工具
+        </button>
+        <a 
+          href="/templates" 
+          class="bg-primary-800 hover:bg-primary-900 text-white px-6 py-2 rounded-md font-medium transition-colors"
+        >
+          浏览模板
+        </a>
+      </div>
     </div>
   </div>
 
-  <!-- 快速统计 -->
+  <!-- CLI 安装指南卡片 -->
+  <div id="install-guide" class="hidden mb-8 bg-blue-50 border border-blue-200 rounded-lg p-6">
+    <h3 class="text-lg font-semibold text-blue-900 mb-4">🚀 快速开始</h3>
+    <div class="space-y-4">
+      <div>
+        <h4 class="font-medium text-blue-800 mb-2">1. 安装 CLI 工具</h4>
+        <div class="bg-blue-900 text-blue-100 p-3 rounded-md font-mono text-sm">
+          <code>npm install -g @astro-base-zero/cli</code>
+        </div>
+      </div>
+      
+      <div>
+        <h4 class="font-medium text-blue-800 mb-2">2. 创建新项目</h4>
+        <div class="bg-blue-900 text-blue-100 p-3 rounded-md font-mono text-sm">
+          <code>astro-zero create my-project --template blog</code>
+        </div>
+      </div>
+      
+      <div>
+        <h4 class="font-medium text-blue-800 mb-2">3. 启动开发服务器</h4>
+        <div class="bg-blue-900 text-blue-100 p-3 rounded-md font-mono text-sm">
+          <code>cd my-project && npm run dev</code>
+        </div>
+      </div>
+    </div>
+    
+    <button 
+      onclick="hideInstallGuide()"
+      class="mt-4 text-blue-600 hover:text-blue-800 text-sm font-medium"
+    >
+      收起指南
+    </button>
+  </div>
+
+  <!-- 功能特性展示 -->
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
     <div class="bg-white p-6 rounded-lg border border-secondary-200">
       <div class="flex items-center">
         <div class="flex-shrink-0">
           <div class="w-8 h-8 bg-primary-100 rounded-md flex items-center justify-center">
             <svg class="w-5 h-5 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
           </div>
         </div>
         <div class="ml-4">
-          <p class="text-sm font-medium text-secondary-600">总项目数</p>
-          <p class="text-2xl font-semibold text-secondary-900">0</p>
+          <p class="text-sm font-medium text-secondary-600">快速创建</p>
+          <p class="text-2xl font-semibold text-secondary-900">3+ 模板</p>
         </div>
       </div>
+      <p class="text-sm text-secondary-500 mt-2">基础、博客、工具模板可选</p>
     </div>
 
     <div class="bg-white p-6 rounded-lg border border-secondary-200">
@@ -45,10 +91,11 @@ import DashboardLayout from '../layouts/DashboardLayout.astro';
           </div>
         </div>
         <div class="ml-4">
-          <p class="text-sm font-medium text-secondary-600">活跃项目</p>
-          <p class="text-2xl font-semibold text-secondary-900">0</p>
+          <p class="text-sm font-medium text-secondary-600">类型安全</p>
+          <p class="text-2xl font-semibold text-secondary-900">100%</p>
         </div>
       </div>
+      <p class="text-sm text-secondary-500 mt-2">端到端 TypeScript 支持</p>
     </div>
 
     <div class="bg-white p-6 rounded-lg border border-secondary-200">
@@ -61,32 +108,81 @@ import DashboardLayout from '../layouts/DashboardLayout.astro';
           </div>
         </div>
         <div class="ml-4">
-          <p class="text-sm font-medium text-secondary-600">可用模板</p>
-          <p class="text-2xl font-semibold text-secondary-900">3</p>
+          <p class="text-sm font-medium text-secondary-600">品牌管理</p>
+          <p class="text-2xl font-semibold text-secondary-900">统一</p>
         </div>
       </div>
+      <p class="text-sm text-secondary-500 mt-2">个人品牌资产中心化</p>
     </div>
   </div>
 
-  <!-- 最近项目和快速操作 -->
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-    <!-- 最近项目 -->
+  <!-- CLI 命令速查表 -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+    <!-- 常用命令 -->
     <div>
-      <h3 class="text-lg font-semibold text-secondary-900 mb-4">最近项目</h3>
-      <div class="bg-white rounded-lg border border-secondary-200 p-6">
-        <div class="text-center py-8">
-          <svg class="mx-auto h-12 w-12 text-secondary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-          </svg>
-          <h4 class="mt-2 text-sm font-medium text-secondary-900">还没有项目</h4>
-          <p class="mt-1 text-sm text-secondary-500">开始创建你的第一个 Astro 项目</p>
+      <h3 class="text-lg font-semibold text-secondary-900 mb-4">🔧 常用命令</h3>
+      <div class="bg-white rounded-lg border border-secondary-200 overflow-hidden">
+        <div class="divide-y divide-secondary-200">
+          <div class="p-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <code class="text-sm font-mono text-primary-600">astro-zero create &lt;name&gt;</code>
+                <p class="text-xs text-secondary-500 mt-1">创建新项目</p>
+              </div>
+              <button 
+                onclick="copyCommand('astro-zero create my-project')"
+                class="text-secondary-400 hover:text-secondary-600"
+                title="复制命令"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="p-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <code class="text-sm font-mono text-primary-600">astro-zero config brand</code>
+                <p class="text-xs text-secondary-500 mt-1">配置品牌信息</p>
+              </div>
+              <button 
+                onclick="copyCommand('astro-zero config brand')"
+                class="text-secondary-400 hover:text-secondary-600"
+                title="复制命令"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="p-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <code class="text-sm font-mono text-primary-600">astro-zero list</code>
+                <p class="text-xs text-secondary-500 mt-1">查看所有项目</p>
+              </div>
+              <button 
+                onclick="copyCommand('astro-zero list')"
+                class="text-secondary-400 hover:text-secondary-600"
+                title="复制命令"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- 快速操作 -->
     <div>
-      <h3 class="text-lg font-semibold text-secondary-900 mb-4">快速操作</h3>
+      <h3 class="text-lg font-semibold text-secondary-900 mb-4">⚡ 快速操作</h3>
       <div class="space-y-3">
         <a 
           href="/templates" 
@@ -95,24 +191,7 @@ import DashboardLayout from '../layouts/DashboardLayout.astro';
           <div class="flex-shrink-0">
             <div class="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center">
               <svg class="w-5 h-5 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-              </svg>
-            </div>
-          </div>
-          <div class="ml-4">
-            <h4 class="text-sm font-medium text-secondary-900">创建新项目</h4>
-            <p class="text-sm text-secondary-500">从模板开始快速创建项目</p>
-          </div>
-        </a>
-
-        <a 
-          href="/templates" 
-          class="flex items-center p-4 bg-white border border-secondary-200 rounded-lg hover:border-primary-300 hover:shadow-sm transition-all"
-        >
-          <div class="flex-shrink-0">
-            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-              <svg class="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
               </svg>
             </div>
           </div>
@@ -123,22 +202,104 @@ import DashboardLayout from '../layouts/DashboardLayout.astro';
         </a>
 
         <a 
-          href="/settings/brand" 
+          href="https://github.com/astro-base-zero/astro-base-zero" 
+          target="_blank"
           class="flex items-center p-4 bg-white border border-secondary-200 rounded-lg hover:border-primary-300 hover:shadow-sm transition-all"
         >
           <div class="flex-shrink-0">
-            <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-              <svg class="w-5 h-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM7 21h10a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 002 2z" />
+            <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+              <svg class="w-5 h-5 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
               </svg>
             </div>
           </div>
           <div class="ml-4">
-            <h4 class="text-sm font-medium text-secondary-900">配置品牌</h4>
-            <p class="text-sm text-secondary-500">设置个人品牌信息</p>
+            <h4 class="text-sm font-medium text-secondary-900">GitHub 仓库</h4>
+            <p class="text-sm text-secondary-500">查看源代码和贡献</p>
           </div>
         </a>
+
+        <button 
+          onclick="showDocumentation()"
+          class="w-full flex items-center p-4 bg-white border border-secondary-200 rounded-lg hover:border-primary-300 hover:shadow-sm transition-all"
+        >
+          <div class="flex-shrink-0">
+            <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+              <svg class="w-5 h-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
+            </div>
+          </div>
+          <div class="ml-4">
+            <h4 class="text-sm font-medium text-secondary-900">查看文档</h4>
+            <p class="text-sm text-secondary-500">详细使用指南和 API 参考</p>
+          </div>
+        </button>
       </div>
     </div>
   </div>
-</DashboardLayout> 
+
+  <!-- 使用说明 -->
+  <div class="bg-amber-50 border border-amber-200 rounded-lg p-6">
+    <div class="flex items-start">
+      <div class="flex-shrink-0">
+        <svg class="w-5 h-5 text-amber-400 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <div class="ml-3">
+        <h3 class="text-sm font-medium text-amber-800">
+          这是一个静态管理面板
+        </h3>
+        <div class="mt-2 text-sm text-amber-700">
+          <p>
+            由于部署在 GitHub Pages 上，这个面板是完全静态的。项目的创建和管理需要通过本地 CLI 工具完成。
+            这样的设计确保了你可以在任何地方访问模板和文档，同时在本地拥有完整的项目管理能力。
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</DashboardLayout>
+
+<script>
+  // 静态 Dashboard 交互脚本
+  document.addEventListener('DOMContentLoaded', function() {
+    // 显示安装指南
+    window.showInstallGuide = function() {
+      const guide = document.getElementById('install-guide');
+      guide?.classList.remove('hidden');
+    };
+
+    // 隐藏安装指南
+    window.hideInstallGuide = function() {
+      const guide = document.getElementById('install-guide');
+      guide?.classList.add('hidden');
+    };
+
+    // 复制命令到剪贴板
+    window.copyCommand = async function(command: string) {
+      try {
+        await navigator.clipboard.writeText(command);
+        
+        // 显示复制成功提示
+        const notification = document.createElement('div');
+        notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50';
+        notification.textContent = '命令已复制到剪贴板';
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+          document.body.removeChild(notification);
+        }, 2000);
+      } catch (err) {
+        console.error('复制失败:', err);
+      }
+    };
+
+    // 显示文档
+    window.showDocumentation = function() {
+      // 可以跳转到文档页面或显示内联文档
+      window.open('/docs', '_blank');
+    };
+  });
+</script> 

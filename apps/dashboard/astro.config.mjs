@@ -10,6 +10,7 @@ export default defineConfig({
     }),
   ],
   output: 'static',
+  adapter: undefined, // 确保使用 SSG 模式
   build: {
     format: 'directory',
   },

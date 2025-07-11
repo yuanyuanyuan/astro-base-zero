@@ -31,6 +31,12 @@
             项目列表
           </a>
           <a 
+            href="/projects/manage" 
+            class="text-secondary-600 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+          >
+            项目管理
+          </a>
+          <a 
             href="/templates" 
             class="text-secondary-600 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
           >
@@ -49,6 +55,7 @@
       <div class="flex items-center space-x-4">
         <button 
           type="button"
+          onclick="openCreateProjectModal()"
           class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
         >
           新建项目
