@@ -309,12 +309,56 @@ export class BrandStore {
 
     try {
       const currentData = readFileSync(this.dataPath, 'utf-8');
+      
+      // 添加时间戳到备份文件名以支持多个备份
+      const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+      const timestampedBackupPath = backupPath.replace('.backup', `.${timestamp}.backup`);
+      
+      // 写入新备份
+      writeFileSync(timestampedBackupPath, currentData, 'utf-8');
+      
+      // 同时更新主备份文件（保持兼容性）
       writeFileSync(backupPath, currentData, 'utf-8');
+      
+      // 清理旧备份（保留最近5个）
+      await this.cleanupOldBackups();
+      
       return backupPath;
     } catch (error) {
       throw new Error(
         `Failed to create backup: ${error instanceof Error ? error.message : 'Unknown error'}`
       );
+    }
+  }
+
+  /**
+   * 清理旧的备份文件
+   */
+  private async cleanupOldBackups(): Promise<void> {
+    try {
+      const { readdir, unlink } = await import('node:fs/promises');
+      const files = await readdir(this.appDataDir);
+      
+      // 找到所有备份文件
+      const backupFiles = files
+        .filter(file => file.includes('brand.json.') && file.endsWith('.backup'))
+        .filter(file => file !== 'brand.json.backup') // 排除主备份文件
+        .map(file => ({
+          name: file,
+          path: join(this.appDataDir, file),
+          timestamp: file.match(/brand\.json\.(.+)\.backup$/)?.[1] || ''
+        }))
+        .sort((a, b) => b.timestamp.localeCompare(a.timestamp)); // 按时间戳倒序排列
+      
+      // 保留最近5个，删除其余的
+      if (backupFiles.length > 5) {
+        const filesToDelete = backupFiles.slice(5);
+        for (const file of filesToDelete) {
+          await unlink(file.path);
+        }
+      }
+    } catch {
+      // 清理失败不影响主要功能
     }
   }
 
@@ -406,36 +450,118 @@ export class BrandStore {
       missingFields.push('visual.colors.accent');
     }
 
-    // 检查数据格式 - 只有当字段存在且非空时才验证
-    if (
-      brandAssets.personal?.email &&
-      brandAssets.personal.email.trim() !== '' &&
-      !this.isValidEmail(brandAssets.personal.email)
-    ) {
-      errors.push('Invalid email format');
+    // 检查时间戳格式
+    if (brandAssets.createdAt && !this.isValidISODate(brandAssets.createdAt)) {
+      errors.push('Invalid createdAt timestamp format');
     }
 
-    if (
-      brandAssets.personal?.avatar &&
-      brandAssets.personal.avatar.trim() !== '' &&
-      !this.isValidUrl(brandAssets.personal.avatar)
-    ) {
-      warnings.push('Avatar URL format may not be optimal');
+    if (brandAssets.updatedAt && !this.isValidISODate(brandAssets.updatedAt)) {
+      errors.push('Invalid updatedAt timestamp format');
+    }
+
+    // 检查个人信息
+    if (brandAssets.personal) {
+      // 邮箱验证
+      if (
+        brandAssets.personal.email &&
+        brandAssets.personal.email.trim() !== '' &&
+        !this.isValidEmail(brandAssets.personal.email)
+      ) {
+        errors.push('Invalid email format');
+      }
+
+      // 头像URL验证
+      if (
+        brandAssets.personal.avatar &&
+        brandAssets.personal.avatar.trim() !== '' &&
+        !this.isValidUrl(brandAssets.personal.avatar)
+      ) {
+        warnings.push('Avatar URL format may not be optimal');
+      }
+
+      // 姓名长度检查
+      if (brandAssets.personal.name && brandAssets.personal.name.length > 100) {
+        warnings.push('Name is quite long (over 100 characters)');
+      }
+
+      // Bio长度检查
+      if (brandAssets.personal.bio && brandAssets.personal.bio.length > 500) {
+        warnings.push('Bio is quite long (over 500 characters)');
+      }
+
+      // 社交链接验证
+      if (brandAssets.personal.social?.links) {
+        brandAssets.personal.social.links.forEach((link, index) => {
+          if (!link.url || !this.isValidUrl(link.url)) {
+            errors.push(`Social link ${index + 1}: Invalid URL format`);
+          }
+          if (!link.label || link.label.trim() === '') {
+            errors.push(`Social link ${index + 1}: Label is required`);
+          }
+          if (!link.platform || link.platform.trim() === '') {
+            warnings.push(`Social link ${index + 1}: Platform not specified`);
+          }
+        });
+
+        // 检查重复的社交平台
+        const platforms = brandAssets.personal.social.links.map(link => link.platform);
+        const duplicates = platforms.filter((platform, index) => platforms.indexOf(platform) !== index);
+        if (duplicates.length > 0) {
+          warnings.push(`Duplicate social platforms detected: ${duplicates.join(', ')}`);
+        }
+      }
     }
 
     // 检查颜色格式
-    if (
-      brandAssets.visual?.colors?.primary &&
-      !this.isValidColor(brandAssets.visual.colors.primary)
-    ) {
-      errors.push('Invalid primary color format');
+    if (brandAssets.visual?.colors) {
+      if (
+        brandAssets.visual.colors.primary &&
+        !this.isValidColor(brandAssets.visual.colors.primary)
+      ) {
+        errors.push('Invalid primary color format');
+      }
+
+      if (
+        brandAssets.visual.colors.accent &&
+        !this.isValidColor(brandAssets.visual.colors.accent)
+      ) {
+        errors.push('Invalid accent color format');
+      }
+
+      if (
+        brandAssets.visual.colors.secondary &&
+        !this.isValidColor(brandAssets.visual.colors.secondary)
+      ) {
+        errors.push('Invalid secondary color format');
+      }
+
+      // 检查颜色对比度（基础检查）
+      if (brandAssets.visual.colors.primary === brandAssets.visual.colors.accent) {
+        warnings.push('Primary and accent colors are identical - consider using different colors for better contrast');
+      }
     }
 
-    if (
-      brandAssets.visual?.colors?.accent &&
-      !this.isValidColor(brandAssets.visual.colors.accent)
-    ) {
-      errors.push('Invalid accent color format');
+    // 检查默认设置
+    if (brandAssets.defaults) {
+      // 许可证验证
+      const validLicenses = ['MIT', 'Apache-2.0', 'GPL-3.0', 'BSD-3-Clause', 'ISC', 'Unlicense'];
+      if (brandAssets.defaults.license && !validLicenses.includes(brandAssets.defaults.license)) {
+        warnings.push(`Uncommon license: ${brandAssets.defaults.license}. Consider using a standard license.`);
+      }
+
+      // 语言代码验证
+      if (brandAssets.defaults.language && !/^[a-z]{2}(-[A-Z]{2})?$/.test(brandAssets.defaults.language)) {
+        warnings.push('Language code format should be like "en" or "zh-CN"');
+      }
+
+      // 时区验证
+      if (brandAssets.defaults.timezone) {
+        try {
+          Intl.DateTimeFormat(undefined, { timeZone: brandAssets.defaults.timezone });
+        } catch {
+          warnings.push(`Invalid timezone: ${brandAssets.defaults.timezone}`);
+        }
+      }
     }
 
     return {
@@ -503,6 +629,18 @@ export class BrandStore {
     const colorRegex =
       /^(#[0-9a-f]{3,8}|rgb\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*\)|rgba\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*,\s*[\d.]+\s*\)|hsl\(\s*\d+\s*,\s*\d+%\s*,\s*\d+%\s*\)|hsla\(\s*\d+\s*,\s*\d+%\s*,\s*\d+%\s*,\s*[\d.]+\s*\))$/i;
     return colorRegex.test(color);
+  }
+
+  /**
+   * 验证ISO日期格式
+   */
+  private isValidISODate(dateString: string): boolean {
+    try {
+      const date = new Date(dateString);
+      return date.toISOString() === dateString;
+    } catch {
+      return false;
+    }
   }
 }
 

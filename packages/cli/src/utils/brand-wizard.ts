@@ -65,7 +65,9 @@ export class BrandWizard {
 
     try {
       // 初始化品牌存储
+      logger.info('⏳ Initializing brand storage...');
       this.brandStore = await createBrandStore();
+      logger.success('✅ Brand storage initialized!\n');
 
       // 加载现有配置（如果存在）
       if (this.options.useExistingDefaults !== false) {
@@ -75,6 +77,7 @@ export class BrandWizard {
         } catch {
           // 如果没有现有配置，使用默认配置
           this.currentBrand = null;
+          logger.info('📝 No existing configuration found. Starting fresh.\n');
         }
       }
 
@@ -87,23 +90,64 @@ export class BrandWizard {
 
       // 保存最终配置
       if (this.currentBrand && this.brandStore) {
-        await this.brandStore.save(this.currentBrand, {
-          validate: true,
-          createBackup: true,
-        });
+        logger.info('\n💾 Saving brand configuration...');
+        
+        try {
+          // 先进行验证以显示警告
+          if (this.brandStore) {
+            const validation = (this.brandStore as any).validateBrandAssets(this.currentBrand);
+            
+            if (validation.warnings && validation.warnings.length > 0) {
+              logger.warn('\n⚠️  Validation warnings:');
+              validation.warnings.forEach((warning: string) => {
+                logger.warn(`   • ${warning}`);
+              });
+              logger.info('');
+            }
+          }
 
-        logger.success('✅ Brand configuration saved successfully!');
-        const stats = await this.brandStore.getStats();
-        logger.info(`📁 Configuration saved to: ${stats.path}`);
+          await this.brandStore.save(this.currentBrand, {
+            validate: true,
+            createBackup: true,
+          });
 
-        return this.currentBrand;
+          logger.success('✅ Brand configuration saved successfully!');
+          const stats = await this.brandStore.getStats();
+          logger.info(`📁 Configuration saved to: ${stats.path}`);
+          logger.info(`📊 File size: ${(stats.size / 1024).toFixed(2)} KB`);
+
+          return this.currentBrand;
+        } catch (saveError) {
+          logger.error('❌ Failed to save brand configuration!');
+          logger.error(`   Error: ${saveError instanceof Error ? saveError.message : 'Unknown save error'}`);
+          
+          // 尝试恢复备份
+          try {
+            const stats = await this.brandStore.getStats();
+            if (stats.hasBackup) {
+              logger.info('🔄 Attempting to restore from backup...');
+              await this.brandStore.restoreFromBackup();
+              logger.warn('⚠️  Configuration restored from backup. Please try again.');
+            }
+          } catch (restoreError) {
+            logger.error('❌ Failed to restore from backup!');
+          }
+          throw saveError;
+        }
       } else {
         throw new Error('Configuration was not completed properly');
       }
     } catch (error) {
+      if (error instanceof Error && error.message.includes('cancelled by user')) {
+        logger.info('\n⏹️  Brand configuration cancelled by user.');
+        return null as any; // 用户取消不算错误
+      }
+      
       logger.error(
-        `❌ Brand wizard failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+        `\n❌ Brand wizard failed: ${error instanceof Error ? error.message : 'Unknown error'}`
       );
+      logger.info('💡 Tip: You can run the wizard again with specific steps using --step option');
+      logger.info('   Example: astro-zero config brand --step personal');
       throw error;
     }
   }
@@ -112,20 +156,34 @@ export class BrandWizard {
    * 运行所有配置步骤
    */
   private async runAllSteps(): Promise<void> {
+    const totalSteps = this.options.skipConfirmation ? 4 : 5;
+    let currentStep = 0;
+
+    const showProgress = (stepName: string) => {
+      currentStep++;
+      logger.info(`\n📍 Step ${currentStep}/${totalSteps}: ${stepName}`);
+      logger.info('─'.repeat(50));
+    };
+
     // 1. 个人信息配置
+    showProgress('Personal Information');
     await this.configurePersonalInfo();
 
     // 2. 社交媒体配置
+    showProgress('Social Media Links');
     await this.configureSocialLinks();
 
     // 3. 视觉品牌配置
+    showProgress('Visual Brand & Colors');
     await this.configureVisualBrand();
 
     // 4. 默认设置配置
+    showProgress('Default Settings');
     await this.configureDefaults();
 
     // 5. 审查和确认
     if (!this.options.skipConfirmation) {
+      showProgress('Review & Confirmation');
       await this.reviewConfiguration();
     }
   }
@@ -297,7 +355,10 @@ export class BrandWizard {
       social: this.currentBrand.personal.social || { links: [] },
     };
 
-    logger.success('✅ Personal information configured!\n');
+    logger.success('✅ Personal information configured!');
+    logger.info(`   Name: ${this.currentBrand.personal.name}`);
+    logger.info(`   Email: ${this.currentBrand.personal.email}`);
+    logger.info(`   Bio: ${this.currentBrand.personal.bio}\n`);
   }
 
   /**
@@ -415,7 +476,13 @@ export class BrandWizard {
       };
     }
 
-    logger.success(`✅ Added ${newLinks.length} social links!\n`);
+    logger.success(`✅ Added ${newLinks.length} social links!`);
+    if (newLinks.length > 0) {
+      newLinks.forEach(link => {
+        logger.info(`   ${link.label}: ${link.url}`);
+      });
+    }
+    logger.info('');
   }
 
   /**
@@ -520,7 +587,13 @@ export class BrandWizard {
       };
     }
 
-    logger.success('✅ Visual brand configured!\n');
+    logger.success('✅ Visual brand configured!');
+    if (this.currentBrand) {
+      logger.info(`   Primary Color: ${this.currentBrand.visual.colors.primary}`);
+      logger.info(`   Accent Color: ${this.currentBrand.visual.colors.accent}`);
+      logger.info(`   Dark Mode: ${this.currentBrand.visual.supportDarkMode ? 'Yes' : 'No'}`);
+    }
+    logger.info('');
   }
 
   /**
@@ -612,7 +685,12 @@ export class BrandWizard {
       };
     }
 
-    logger.success('✅ Default settings configured!\n');
+    logger.success('✅ Default settings configured!');
+    if (this.currentBrand) {
+      logger.info(`   License: ${this.currentBrand.defaults.license}`);
+      logger.info(`   Language: ${this.currentBrand.defaults.language || 'en'}`);
+    }
+    logger.info('');
   }
 
   /**

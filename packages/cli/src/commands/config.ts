@@ -172,10 +172,28 @@ export const createConfigCommand = () => {
   configCommand
     .command('list')
     .description('List all configuration values')
-    .action(() => {
+    .option('--platform-only', 'Show only platform config (config.yaml)')
+    .option('--brand-only', 'Show only brand data (brand.json)')
+    .action(async (options) => {
       try {
-        const config = loadPlatformConfig();
-        console.log(YAML.stringify(config, null, 2));
+        if (options.brandOnly) {
+          // 只显示品牌数据
+          if (brandDataExists()) {
+            const brandAssets = await loadBrandAssets();
+            console.log(YAML.stringify({ brand: brandAssets }, null, 2));
+          } else {
+            logger.warn('No brand data found. Run `astro-zero config brand` to set up your brand.');
+            console.log('brand: null');
+          }
+        } else if (options.platformOnly) {
+          // 只显示平台配置
+          const config = loadPlatformConfig();
+          console.log(YAML.stringify(config, null, 2));
+        } else {
+          // 显示合并后的配置（默认行为）
+          const config = await loadCombinedConfig();
+          console.log(YAML.stringify(config, null, 2));
+        }
       } catch (error) {
         logger.error(
           `Failed to list configuration: ${error instanceof Error ? error.message : 'Unknown error'}`
