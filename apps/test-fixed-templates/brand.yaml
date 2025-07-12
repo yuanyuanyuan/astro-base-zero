@@ -1,0 +1,61 @@
+# 品牌配置文件 - 博客项目特定配置
+# 继承用户的全局品牌配置，并允许项目级覆盖
+
+# 个人信息
+personal:
+  name: "test-fixed-templates"
+  displayName: "test-fixed-templates"
+  avatar: ""
+  bio: ""
+  email: "hello@example.com"
+  location: ""
+  profession: ""
+  company: ""
+
+# 社交媒体链接
+social:
+  links:
+
+# 视觉品牌
+visual:
+  colors:
+    primary: "#3b82f6"
+    accent: "#f59e0b"
+    secondary: "#6B7280"
+    background: "#FFFFFF"
+    text: "#1F2937"
+  
+  typography:
+    primaryFont: "Inter, system-ui, sans-serif"
+    codeFont: "JetBrains Mono, Consolas, monospace"
+  
+  icons:
+    logo: ""
+    favicon: ""
+
+# 项目特定配置
+project:
+  name: "test-fixed-templates"
+  description: "测试修复后的模板"
+  type: "blog"
+  repository: "https://github.com/your-username/test-fixed-templates"
+  
+# 博客特定配置
+blog:
+  postsPerPage: 10
+  showReadingTime: true
+  showAuthor: true
+  showTags: true
+  showCategories: true
+  enableComments: false
+  enableSearch: true
+  rss:
+    enabled: true
+    title: "test-fixed-templates - RSS Feed"
+    description: "测试修复后的模板"
+  
+# 默认值
+defaults:
+  license: ""
+  copyrightText: ""
+  language: "zh-CN" 

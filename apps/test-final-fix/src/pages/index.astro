@@ -1,0 +1,172 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BlogCard from '@/components/BlogCard.astro';
+import { Hero } from '@astro-base-zero/ui/widgets';
+
+// 获取所有博客文章
+const allPosts = await getCollection('blog', ({ data }) => {
+  return data.draft !== true;
+});
+
+// 按发布日期排序，获取最新的文章
+const latestPosts = allPosts
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+  .slice(0, 6);
+
+// 获取精选文章
+const featuredPosts = allPosts
+  .filter(post => post.data.featured)
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+  .slice(0, 3);
+
+const heroProps = {
+  title: 'test-final-fix',
+  subtitle: '最终测试模板修复',
+  ctas: [
+    {
+      text: '阅读文章',
+      href: '/blog',
+      variant: 'primary' as const,
+    },
+    {
+      text: 'RSS 订阅',
+      href: '/rss.xml',
+      variant: 'secondary' as const,
+    },
+  ],
+};
+---
+
+<BaseLayout 
+  title="test-final-fix"
+  description="最终测试模板修复"
+  keywords={['博客', 'test-final-fix', '技术', '分享']}
+>
+  <!-- Hero Section -->
+  <Hero {...heroProps} />
+  
+  <!-- 精选文章 -->
+  {featuredPosts.length > 0 && (
+    <section class="py-16 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">
+            精选文章
+          </h2>
+          <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+            精心挑选的优质内容
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {featuredPosts.map(post => (
+            <BlogCard
+              title={post.data.title}
+              description={post.data.description}
+              publishDate={post.data.publishDate}
+              category={post.data.category}
+              tags={post.data.tags}
+              slug={post.slug}
+              heroImage={post.data.heroImage}
+              author={post.data.author}
+              featured={post.data.featured}
+              readingTime={post.data.readingTime}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+  
+  <!-- 最新文章 -->
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center mb-12">
+        <div>
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">
+            最新文章
+          </h2>
+          <p class="text-lg text-gray-600">
+            发现最新的内容和见解
+          </p>
+        </div>
+        <a
+          href="/blog"
+          class="inline-flex items-center text-primary hover:text-primary/80 transition-colors duration-200"
+        >
+          查看全部
+          <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+      
+      {latestPosts.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {latestPosts.map(post => (
+            <BlogCard
+              title={post.data.title}
+              description={post.data.description}
+              publishDate={post.data.publishDate}
+              category={post.data.category}
+              tags={post.data.tags}
+              slug={post.slug}
+              heroImage={post.data.heroImage}
+              author={post.data.author}
+              featured={post.data.featured}
+              readingTime={post.data.readingTime}
+            />
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-12">
+          <div class="text-6xl mb-4">📝</div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">
+            还没有文章
+          </h3>
+          <p class="text-gray-600 mb-6">
+            开始创建你的第一篇博客文章吧！
+          </p>
+          <a
+            href="/blog"
+            class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary/90 transition-colors duration-200"
+          >
+            开始写作
+          </a>
+        </div>
+      )}
+    </div>
+  </section>
+  
+  <!-- 统计信息 -->
+  <section class="py-16 bg-primary">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+        <div>
+          <div class="text-3xl font-bold text-white mb-2">
+            {allPosts.length}
+          </div>
+          <div class="text-white/90">
+            篇文章
+          </div>
+        </div>
+        <div>
+          <div class="text-3xl font-bold text-white mb-2">
+            {[...new Set(allPosts.map(post => post.data.category))].length}
+          </div>
+          <div class="text-white/90">
+            个分类
+          </div>
+        </div>
+        <div>
+          <div class="text-3xl font-bold text-white mb-2">
+            {[...new Set(allPosts.flatMap(post => post.data.tags))].length}
+          </div>
+          <div class="text-white/90">
+            个标签
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout> 

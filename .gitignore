@@ -4,8 +4,6 @@ Thumbs.db
 desktop.ini
 
 # Editor specific files
-.vscode/
-.idea/
 *.swp
 *.swo
 *~

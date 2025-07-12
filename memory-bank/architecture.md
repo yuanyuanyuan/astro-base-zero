@@ -291,7 +291,163 @@ CLI命令 → 模板选择 → 品牌配置加载 → Handlebars渲染 → 文�
 - ⏳ 实现本地项目管理 (step-4.x)
 - ⏳ 集成GitHub部署功能 (step-5.x)
 
+### 2025-01-13 - Part 3 & Part 4 完成 🎉
+- ✅ **step-3.2:** 集成品牌配置注入功能 - 模板引擎增强完成
+- ✅ **step-3.3:** 集成项目依赖自动安装 - 智能包管理器检测完成
+- ✅ **step-4.1:** 集成projectStore进行项目记录 - 项目元数据存储完成
+- ✅ **step-4.2:** 实现list命令 - 项目管理界面完成
+- ✅ **里程碑2达成:** 项目创建和管理功能完成，Phase 1核心功能基本就绪
+
+### 2025-01-13 - step-4.2 完成
+- ✅ 实现完整的list命令功能
+- ✅ 支持项目过滤、搜索、排序
+- ✅ 美观的CLI界面和项目统计
+- ✅ 完善的用户体验和帮助信息
+
+### 2025-01-13 - step-4.1 完成
+- ✅ 集成projectStore到create命令
+- ✅ 自动保存项目元数据到本地数据库
+- ✅ 实现模板类型到ProjectInfo类型映射
+- ✅ 完善的错误处理和用户反馈
+
+### 2025-01-13 - step-3.3 完成
+- ✅ 实现智能包管理器检测（pnpm/yarn/npm）
+- ✅ 项目创建后自动安装依赖
+- ✅ 支持跳过安装选项和用户控制
+- ✅ 完善的进度反馈和错误处理
+
+### 2025-01-13 - step-3.2 完成
+- ✅ 修复所有Handlebars模板语法错误
+- ✅ 添加自定义Handlebars helpers（default, if_exists, json）
+- ✅ 实现完整的品牌配置注入功能
+- ✅ 支持15种文件类型的模板处理
+- ✅ 优雅的错误处理和默认值降级
+
+---
+
+## 🔧 新增架构决策
+
+### ADR-005: Handlebars模板引擎增强策略
+**决策时间:** 2025-01-13 (step-3.2)
+**问题:** 模板文件中的复杂Handlebars语法导致编译错误
+**决策:** 添加自定义Handlebars helpers来处理复杂逻辑
+**实现:**
+- `default` helper：处理默认值逻辑，替代`||`操作符
+- `if_exists` helper：处理条件显示，替代`&&`操作符
+- `json` helper：支持JSON序列化
+**理由:**
+- Handlebars不支持复杂的JavaScript表达式
+- 自定义helpers提供更好的可读性和维护性
+- 避免模板编译错误，提升用户体验
+**影响:** 所有模板文件现在可以正确处理品牌配置注入
+
+### ADR-006: 项目数据存储策略
+**决策时间:** 2025-01-13 (step-4.1)
+**问题:** 如何持久化项目元数据以支持项目管理功能？
+**决策:** 使用lowdb在用户主目录存储项目数据
+**实现:**
+- 存储位置：`~/.astro-launcher/projects.json`
+- 数据格式：JSON，使用lowdb管理
+- 数据结构：ProjectInfo接口定义的完整项目信息
+**理由:**
+- lowdb轻量级，适合CLI工具的本地存储需求
+- 用户主目录确保数据持久性和隐私性
+- JSON格式易于调试和数据迁移
+**影响:** 用户可以通过list命令查看和管理所有创建的项目
+
+### ADR-007: CLI命令架构扩展
+**决策时间:** 2025-01-13 (step-4.2)
+**问题:** 如何组织越来越多的CLI命令？
+**决策:** 在单个文件中实现相关命令，通过导出函数注册
+**实现:**
+- `createCreateCommand()` - 项目创建命令
+- `createListCommand()` - 项目列表命令
+- 都在`commands/create.ts`中实现，共享相关逻辑
+**理由:**
+- 相关功能保持在同一文件中，便于维护
+- 避免过度拆分导致的代码碎片化
+- 共享类型定义和工具函数
+**影响:** CLI命令结构清晰，易于扩展和维护
+
+---
+
+## 📊 新增数据流架构
+
+### 项目创建完整流程
+```
+用户输入 → 参数验证 → 模板复制 → 品牌配置加载 → Handlebars渲染 → 依赖安装 → 项目记录 → 成功反馈
+```
+
+### 项目列表查询流程
+```
+CLI命令 → 过滤参数解析 → projectStore查询 → 数据排序 → 美化输出 → 统计信息显示
+```
+
+### 模板处理流程
+```
+模板文件 → Handlebars编译 → 自定义helpers处理 → 品牌数据注入 → 输出处理后文件
+```
+
+---
+
+## 🗃️ 更新的数据存储架构
+
+### 本地存储位置
+- **用户配置:** `~/.astro-launcher/config.yaml`
+- **品牌数据:** `~/.astro-launcher/brand.json`
+- **项目记录:** `~/.astro-launcher/projects.json` ✨ 新增
+- **备份文件:** `~/.astro-launcher/*.backup`
+
+### 项目数据结构
+```typescript
+interface ProjectInfo {
+  id: string;                    // 唯一标识
+  name: string;                  // 项目名称
+  description: string;           // 项目描述
+  type: 'demo' | 'tool' | 'showcase' | 'blog' | 'docs' | 'portfolio';
+  path: string;                  // 项目路径
+  repository?: string;           // 仓库地址
+  site?: string;                 // 网站地址
+  status: 'active' | 'archived' | 'draft';
+  createdAt: string;             // 创建时间
+  updatedAt: string;             // 更新时间
+  tags?: string[];               // 标签
+}
+```
+
+---
+
+## 🔧 更新的开发工具架构
+
+### 新增CLI命令
+- **create**: 创建新项目（增强版）
+- **list**: 项目列表管理 ✨ 新增
+  - 支持过滤：`--type`, `--status`, `--search`
+  - 支持排序：`--sort`, `--order`
+  - 美观的彩色输出和统计信息
+
+### 模板处理工具
+- **Handlebars引擎**: 支持自定义helpers
+- **文件类型支持**: 15种文件类型（.astro, .ts, .js, .md, .json等）
+- **错误处理**: 优雅降级和详细错误信息
+
+---
+
+## 📝 变更记录
+
+### 2025-01-13 - Part 3 & Part 4 完成 🎉
+- ✅ **step-3.2:** 集成品牌配置注入功能 - 模板引擎增强完成
+- ✅ **step-3.3:** 集成项目依赖自动安装 - 智能包管理器检测完成
+- ✅ **step-4.1:** 集成projectStore进行项目记录 - 项目元数据存储完成
+- ✅ **step-4.2:** 实现list命令 - 项目管理界面完成
+- ✅ **里程碑2达成:** 项目创建和管理功能完成，Phase 1核心功能基本就绪
+
+### 待完成变更
+- ⏳ 实现deploy命令和GitHub认证 (step-5.1)
+- ⏳ 实现GitHub仓库创建和代码推送 (step-5.2)
+- ⏳ 实现GitHub Actions自动部署 (step-5.3)
+
 ---
 
 **最后更新:** 2025-01-13 by AI Assistant  
-**下次更新:** step-3.2 完成后 
+**下次更新:** step-5.1 完成后 

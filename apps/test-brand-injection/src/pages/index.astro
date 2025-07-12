@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const heroProps = {
+  title: 'test-brand-injection',
+  subtitle: '测试品牌配置注入功能',
+  ctas: [
+    {
+      text: '开始探索',
+      href: '#features',
+      variant: 'primary' as const,
+    },
+    {
+      text: '查看源码',
+      href: 'https://github.com/your-username/test-brand-injection',
+      variant: 'secondary' as const,
+    },
+  ],
+  image: {
+    src: '/hero-image.jpg',
+    alt: 'test-brand-injection 预览图',
+  },
+};
+
+const featuresProps = {
+  items: [
+    {
+      title: '⚡ 快速开始',
+      description: '基于 Astro 5.0+ 的现代化开发体验，零配置即可开始',
+      icon: '⚡',
+    },
+    {
+      title: '🎨 品牌一致',
+      description: '自动注入个人品牌资产，保持所有项目的视觉一致性',
+      icon: '🎨',
+    },
+    {
+      title: '🔧 类型安全',
+      description: '完整的 TypeScript 支持，从开发到部署的端到端类型安全',
+      icon: '🔧',
+    },
+    {
+      title: '📱 响应式设计',
+      description: '基于 Tailwind CSS 的现代化响应式设计，适配所有设备',
+      icon: '📱',
+    },
+  ],
+  layout: 'grid' as const,
+};
+---
+
+<BaseLayout 
+  title="test-brand-injection"
+  description="测试品牌配置注入功能"
+  keywords={['test-brand-injection', 'test-brand-injection', 'Astro', '项目']}
+>
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-primary to-accent text-white py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <h1 class="text-4xl md:text-6xl font-bold mb-6">
+          {heroProps.title}
+        </h1>
+        <p class="text-xl md:text-2xl mb-8 text-white/90 max-w-3xl mx-auto">
+          {heroProps.subtitle}
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          {heroProps.ctas.map(cta => (
+            <a
+              href={cta.href}
+              class={`px-8 py-3 rounded-lg font-semibold transition-colors duration-200 ${
+                cta.variant === 'primary' 
+                  ? 'bg-white text-primary hover:bg-gray-100' 
+                  : 'border-2 border-white text-white hover:bg-white hover:text-primary'
+              }`}
+            >
+              {cta.text}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Features Section -->
+  <section id="features" class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">
+          特色功能
+        </h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          专为现代化项目开发设计的完整解决方案
+        </p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {featuresProps.items.map(item => (
+          <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
+            <div class="text-3xl mb-4">{item.icon}</div>
+            <h3 class="text-xl font-semibold mb-2 text-gray-900">{item.title}</h3>
+            <p class="text-gray-600">{item.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA Section -->
+  <section class="py-16 bg-primary">
+    <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-white mb-4">
+        准备开始了吗？
+      </h2>
+      <p class="text-xl text-white/90 mb-8">
+        立即开始构建你的下一个项目
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="#"
+          class="bg-white text-primary px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200"
+        >
+          查看文档
+        </a>
+        <a
+          href="https://github.com/your-username/test-brand-injection"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-primary transition-colors duration-200"
+        >
+          GitHub 仓库
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout> 

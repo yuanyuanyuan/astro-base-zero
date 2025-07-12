@@ -1,0 +1,45 @@
+{
+  "name": "base",
+  "displayName": "基础模板",
+  "description": "一个最小化的、可独立运行的 Astro 项目模板，包含基础的品牌配置和组件系统",
+  "version": "1.0.0",
+  "author": "Astro Base Zero",
+  "category": "基础",
+  "tags": ["astro", "typescript", "tailwind", "基础"],
+  "preview": "/preview.png",
+  "features": [
+    "🚀 Astro 5.0+ 支持",
+    "🎨 Tailwind CSS 集成",
+    "🔧 TypeScript 类型安全",
+    "🏷️ 品牌资产管理",
+    "📱 响应式设计",
+    "⚡ 零配置开始"
+  ],
+  "dependencies": {
+    "astro": "^5.0.0",
+    "@astrojs/tailwind": "^5.1.2",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=20.11.0",
+    "pnpm": ">=8.15.0"
+  },
+  "projectTypes": ["demo", "tool", "showcase", "portfolio"],
+  "scaffolding": {
+    "files": [
+      "package.json",
+      "astro.config.mjs",
+      "tsconfig.json",
+      "brand.yaml",
+      "README.md",
+      "src/**/*"
+    ],
+    "directories": [
+      "src/pages",
+      "src/layouts",
+      "src/components",
+      "public"
+    ]
+  }
+} 

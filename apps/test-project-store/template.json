@@ -1,0 +1,53 @@
+{
+  "name": "blog",
+  "displayName": "博客模板",
+  "description": "功能完整的博客网站模板，支持文章管理、分类标签、RSS 订阅和 SEO 优化",
+  "version": "1.0.0",
+  "author": "Astro Base Zero",
+  "category": "内容",
+  "tags": ["blog", "博客", "内容管理", "markdown", "mdx"],
+  "preview": "/preview.png",
+  "features": [
+    "📝 Markdown/MDX 文章支持",
+    "🏷️ 分类和标签系统",
+    "🔍 全文搜索功能",
+    "📡 RSS 订阅生成",
+    "🗺️ 自动站点地图",
+    "📱 响应式设计",
+    "⚡ 优秀的性能表现",
+    "🎨 可定制主题"
+  ],
+  "dependencies": {
+    "astro": "^5.0.0",
+    "@astrojs/mdx": "^4.0.0",
+    "@astrojs/rss": "^4.0.10",
+    "@astrojs/sitemap": "^3.2.1",
+    "@astrojs/tailwind": "^5.1.2",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=20.11.0",
+    "pnpm": ">=8.15.0"
+  },
+  "projectTypes": ["blog"],
+  "scaffolding": {
+    "files": [
+      "package.json",
+      "astro.config.mjs",
+      "tsconfig.json",
+      "brand.yaml",
+      "README.md",
+      "src/**/*",
+      "public/**/*"
+    ],
+    "directories": [
+      "src/pages",
+      "src/layouts",
+      "src/components",
+      "src/content",
+      "src/utils",
+      "public"
+    ]
+  }
+} 
