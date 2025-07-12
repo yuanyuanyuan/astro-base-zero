@@ -1,0 +1,33 @@
+---
+alwaysApply: false
+---
+# Vibe Coding Core Workflow: The 7-Step Heartbeat
+
+This workflow guides our collaboration. Follow these steps to ensure a smooth and efficient development process.
+
+## 1. Clarify - "Pre-flight Check"
+- Before I am given a coding task, I should be asked to review all documents in the `/memory-bank`, especially the `implementation-plan.md`.
+- My job is to ask clarifying questions if anything is unclear. This helps prevent misunderstandings before coding begins.
+
+## 2. Prompt - "Issuing the Command"
+- I will be given a clear, single-task instruction, referencing a specific step in the `implementation-plan.md`.
+- Example prompt: "Please read the `/memory-bank` for context and execute Step 3 of `implementation-plan.md`. Do not proceed to the next step until I am told my work has been validated."
+
+## 3. Execute - "AI Starts Coding"
+- I will generate or modify the code based on the prompt.
+
+## 4. Validate - "The Human is the QA"
+- My output will be manually verified against the validation criteria defined in the `implementation-plan.md`.
+- My code may also be reviewed by another AI for quality and adherence to standards. My code must pass this validation.
+
+## 5. Document - "Update the Memory Bank"
+- Once my code is validated, I will be instructed to update the project documentation.
+- I must update `progress.md` to mark the step as complete and `architecture.md` to reflect any changes in file structure or design.
+
+## 6. Commit - "Making History"
+- After documentation, the validated changes will be committed to Git.
+- The commit messages will follow the Conventional Commits specification and will be linked to the task ID from the `implementation-plan.md` (e.g., `feat(timer): add start button (step-3.1)`).
+
+## 7. Reset & Repeat - "Starting a Fresh Chapter"
+- To avoid my context being polluted, a new chat session should be started for each new task.
+- This ensures I am always working with a clean slate, based only on the authoritative information in the `/memory-bank`.

@@ -67,22 +67,15 @@ function getTemplatePath(templateName: string): string {
     ),
   ];
 
-  console.log('查找模板路径:', templateName);
-  console.log('当前工作目录:', currentDir);
-  console.log('尝试的路径:');
-  possiblePaths.forEach((p, i) => console.log(`  ${i + 1}: ${p}`));
-
   // 检查哪个路径存在
   for (const templatePath of possiblePaths) {
     if (existsSync(templatePath)) {
-      console.log('找到模板:', templatePath);
       return templatePath;
     }
   }
 
-  console.log('未找到模板，使用默认路径:', possiblePaths[1]);
-  // 如果都不存在，返回第二个作为默认值
-  return possiblePaths[1];
+  // 如果都不存在，抛出错误
+  throw new Error(`模板 "${templateName}" 不存在。可用模板: ${AVAILABLE_TEMPLATES.map(t => t.name).join(', ')}`);
 }
 
 /**
@@ -177,7 +170,7 @@ async function promptProjectConfig(
     });
   }
 
-  // 项目描述
+  // 项目描述 - 如果没有提供，使用默认值而不是询问
   if (!options.description) {
     questions.push({
       type: 'input',
@@ -187,8 +180,8 @@ async function promptProjectConfig(
     });
   }
 
-  // 仓库地址
-  if (!options.repository) {
+  // 仓库地址 - 如果没有提供，使用默认值而不是询问
+  if (options.repository === undefined) {
     questions.push({
       type: 'input',
       name: 'repository',
@@ -207,12 +200,22 @@ async function promptProjectConfig(
     });
   }
 
+  // 如果没有需要询问的问题，直接返回配置
+  if (questions.length === 0) {
+    return {
+      template: options.template!,
+      description: options.description || `使用 Astro Base Zero 创建的 ${projectName} 项目`,
+      repository: options.repository || '',
+      skipInstall: options.skipInstall ?? false,
+    };
+  }
+
   const answers = await inquirer.prompt(questions);
 
   return {
     template: options.template || answers.template,
-    description: options.description || answers.description,
-    repository: options.repository || answers.repository,
+    description: options.description || answers.description || `使用 Astro Base Zero 创建的 ${projectName} 项目`,
+    repository: options.repository || answers.repository || '',
     skipInstall: options.skipInstall ?? !answers.installDeps,
   };
 }
@@ -228,14 +231,19 @@ export async function createProject(
     // 验证项目名称
     validateProjectName(projectName);
 
-    // 检查目标目录
-    const targetPath = path.resolve(process.cwd(), projectName);
+    // 修正：目标目录应该是 apps/<project-name>
+    const appsDir = path.resolve(process.cwd(), 'apps');
+    const targetPath = path.resolve(appsDir, projectName);
+    
+    // 确保 apps 目录存在
+    await fs.ensureDir(appsDir);
+    
     if (await fs.pathExists(targetPath)) {
       const { overwrite } = await inquirer.prompt([
         {
           type: 'confirm',
           name: 'overwrite',
-          message: `目录 "${projectName}" 已存在，是否覆盖?`,
+          message: `目录 "apps/${projectName}" 已存在，是否覆盖?`,
           default: false,
         },
       ]);
@@ -254,6 +262,7 @@ export async function createProject(
     // 显示配置信息
     console.log('\n' + chalk.cyan('项目配置:'));
     console.log(`  名称: ${chalk.white(projectName)}`);
+    console.log(`  路径: ${chalk.white(`apps/${projectName}`)}`);
     console.log(`  模板: ${chalk.white(config.template)}`);
     console.log(`  描述: ${chalk.white(config.description)}`);
     if (config.repository) {
@@ -300,7 +309,7 @@ export async function createProject(
     // 成功提示
     console.log(chalk.green('\n✅ 项目创建成功!'));
     console.log('\n' + chalk.cyan('下一步:'));
-    console.log(`  cd ${projectName}`);
+    console.log(`  cd apps/${projectName}`);
     if (config.skipInstall) {
       console.log('  npm install  # 安装依赖');
     }

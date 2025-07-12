@@ -67,17 +67,12 @@ pids
 *.seed
 *.pid.lock
 
-# Cursor specific
-.cursor/*
-.cursor/
-custom_modes
+
 
 #claude.code specific
 .claude/
 CLAUDE.md
 
-
-memory-bank/
 
 dist/
 
