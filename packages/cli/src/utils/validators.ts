@@ -25,21 +25,32 @@ export const SocialPlatformSchema = z.enum([
   'custom',
 ]);
 
-export function validateProjectName(name: string): void {
+export function validateProjectName(name: string): true | string {
   const validationResult = z
     .string()
     .min(1, 'Project name cannot be empty.')
     .regex(
-      /^(?:@[a-z0-9-*~][a-z0-9-*._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/,
-      'Project name must be a valid npm package name.'
+      /^[a-z][a-z0-9-]*$/,
+      'Project name must start with a lowercase letter and contain only lowercase letters, numbers, and hyphens.'
     )
     .safeParse(name);
 
   if (!validationResult.success) {
     const errorMessages = validationResult.error.errors.map(e => e.message);
-    logger.error(
-      `Project name "${name}" is invalid. ${errorMessages.join(' ')}`
-    );
+    return `Project name "${name}" is invalid. ${errorMessages.join(' ')}`;
+  }
+  
+  return true;
+}
+
+/**
+ * 验证项目名称并在失败时退出进程
+ * @param name - 项目名称
+ */
+export function validateProjectNameOrExit(name: string): void {
+  const result = validateProjectName(name);
+  if (result !== true) {
+    logger.error(result);
     process.exit(1);
   }
 }

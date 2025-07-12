@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
 import { createConfigCommand } from './commands/config.js';
-import { createCreateCommand } from './commands/create.js';
+import { createCreateCommand, createListCommand } from './commands/create.js';
 import { validateProjectName } from './utils/validators.js';
 
 const program = new Command();
@@ -13,6 +13,9 @@ program
 
 // 添加 create 命令（新的完整实现）
 program.addCommand(createCreateCommand());
+
+// 添加 list 命令
+program.addCommand(createListCommand());
 
 // 保留 init 命令作为 create 的别名
 program

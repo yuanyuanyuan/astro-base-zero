@@ -193,6 +193,8 @@ const navigation = [
 
 **作者**: {{brand.personal.name}}  
 **邮箱**: {{brand.personal.email}}  
-**网站**: {{brand.personal.social.links[0].url}}
+{{#if_exists brand.personal.social.links}}
+**网站**: {{#each brand.personal.social.links}}{{#if @first}}{{url}}{{/if}}{{/each}}
+{{/if_exists}}
 
 由 ❤️ 和 [Astro Base Zero](https://github.com/astro-base-zero) 制作

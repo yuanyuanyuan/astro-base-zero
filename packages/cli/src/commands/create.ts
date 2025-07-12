@@ -6,12 +6,12 @@ import { fileURLToPath } from 'url';
 import inquirer from 'inquirer';
 import ora from 'ora';
 import chalk from 'chalk';
-import { validateProjectName } from '../utils/validators.js';
+import { validateProjectNameOrExit } from '../utils/validators.js';
 import {
   processProjectTemplates,
   createTemplateData,
 } from '../utils/template-engine.js';
-import { loadBrandAssets } from '@astro-base-zero/core';
+import { loadBrandAssets, projectStore, type CreateProjectOptions as ProjectStoreCreateOptions } from '@astro-base-zero/core';
 
 export interface CreateOptions {
   template?: string;
@@ -41,6 +41,22 @@ const AVAILABLE_TEMPLATES = [
     features: ['React组件', 'API集成', '数据可视化', '工具集成'],
   },
 ];
+
+/**
+ * 映射模板类型到ProjectInfo类型
+ */
+function mapTemplateToProjectType(template: string): ProjectStoreCreateOptions['type'] {
+  switch (template) {
+    case 'base':
+      return 'showcase';
+    case 'blog':
+      return 'blog';
+    case 'tool':
+      return 'tool';
+    default:
+      return 'demo';
+  }
+}
 
 /**
  * 获取模板源路径
@@ -229,7 +245,7 @@ export async function createProject(
 ): Promise<void> {
   try {
     // 验证项目名称
-    validateProjectName(projectName);
+    validateProjectNameOrExit(projectName);
 
     // 修正：目标目录应该是 apps/<project-name>
     const appsDir = path.resolve(process.cwd(), 'apps');
@@ -276,9 +292,19 @@ export async function createProject(
 
     // 处理模板变量（如果未跳过）
     if (!options.skipTemplate) {
+      const spinner = ora('处理模板变量...').start();
+      
       try {
         // 加载品牌配置
-        const brandConfig = await loadBrandAssets();
+        let brandConfig = null;
+        try {
+          brandConfig = await loadBrandAssets();
+          spinner.text = '品牌配置加载成功，正在注入模板...';
+        } catch (brandError) {
+          spinner.warn('未找到品牌配置，使用默认值');
+          console.log(chalk.gray('  💡 提示: 运行 `pnpm cli config brand` 来设置个人品牌信息'));
+          brandConfig = null;
+        }
 
         // 创建模板数据
         const templateData = createTemplateData(
@@ -291,19 +317,55 @@ export async function createProject(
           brandConfig
         );
 
+        // 显示模板数据摘要
+        console.log(chalk.cyan('\n📝 模板数据摘要:'));
+        console.log(`  作者: ${chalk.white(templateData.brand.personal.name)}`);
+        console.log(`  邮箱: ${chalk.white(templateData.brand.personal.email)}`);
+        console.log(`  主色调: ${chalk.white(templateData.brand.visual.colors.primary)}`);
+        console.log(`  强调色: ${chalk.white(templateData.brand.visual.colors.accent)}`);
+        console.log();
+
         // 处理模板文件
         await processProjectTemplates(targetPath, templateData);
+        
+        spinner.succeed('模板变量处理完成');
       } catch (error) {
-        console.warn(chalk.yellow('⚠ 模板处理失败，请手动修改配置文件'));
-        console.warn(
-          chalk.gray(error instanceof Error ? error.message : String(error))
-        );
+        spinner.fail('模板处理失败');
+        console.warn(chalk.yellow('⚠ 模板处理失败，项目已创建但可能需要手动配置'));
+        console.warn(chalk.gray(`  错误详情: ${error instanceof Error ? error.message : String(error)}`));
+        console.warn(chalk.gray('  💡 提示: 您可以手动编辑项目文件中的占位符'));
       }
     }
 
     // 安装依赖
     if (!config.skipInstall) {
       await installDependencies(targetPath);
+    }
+
+    // 保存项目元数据到projectStore
+    try {
+      const spinner = ora('保存项目元数据...').start();
+      
+      // 初始化projectStore
+      await projectStore.initialize();
+      
+      // 映射模板类型到ProjectInfo类型
+      const projectType = mapTemplateToProjectType(config.template);
+      
+      const projectOptions: ProjectStoreCreateOptions = {
+        name: projectName,
+        description: config.description,
+        type: projectType,
+        path: targetPath,
+        repository: config.repository || undefined,
+        tags: [config.template], // 使用模板名作为标签
+      };
+      
+      await projectStore.createProject(projectOptions);
+      spinner.succeed('项目元数据保存成功');
+    } catch (error) {
+      console.warn(chalk.yellow('⚠ 项目元数据保存失败，但项目已成功创建'));
+      console.warn(chalk.gray(`  错误详情: ${error instanceof Error ? error.message : String(error)}`));
     }
 
     // 成功提示
@@ -341,6 +403,99 @@ export function createCreateCommand(): Command {
     .option('--skip-template', '跳过模板变量处理')
     .action(async (projectName: string, options: CreateOptions) => {
       await createProject(projectName, options);
+    });
+
+  return cmd;
+}
+
+/**
+ * 创建 list 命令
+ */
+export function createListCommand(): Command {
+  const cmd = new Command('list');
+
+  cmd
+    .description('列出所有已创建的项目')
+    .option('-t, --type <type>', '按类型过滤 (demo/tool/showcase/blog/docs/portfolio)')
+    .option('-s, --status <status>', '按状态过滤 (active/archived/draft)')
+    .option('--search <keyword>', '搜索关键词')
+    .option('--sort <field>', '排序字段 (name/createdAt/updatedAt/type)', 'updatedAt')
+    .option('--order <direction>', '排序方向 (asc/desc)', 'desc')
+    .action(async (options) => {
+      try {
+        const spinner = ora('加载项目列表...').start();
+        
+        // 初始化projectStore
+        await projectStore.initialize();
+        
+        // 构建过滤选项
+        const filterOptions: any = {};
+        if (options.type) filterOptions.type = options.type;
+        if (options.status) filterOptions.status = options.status;
+        if (options.search) filterOptions.search = options.search;
+        
+        // 构建排序选项
+        const sortOptions = {
+          field: options.sort as any,
+          direction: options.order as 'asc' | 'desc',
+        };
+        
+        // 获取项目列表
+        const projects = await projectStore.filterProjects(filterOptions, sortOptions);
+        
+        spinner.stop();
+        
+        if (projects.length === 0) {
+          console.log(chalk.yellow('📂 暂无项目'));
+          console.log(chalk.gray('  💡 使用 `pnpm cli create <project-name>` 创建新项目'));
+          return;
+        }
+        
+        // 显示项目统计
+        const stats = await projectStore.getProjectStats();
+        console.log(chalk.cyan('\n📊 项目统计:'));
+        console.log(`  总计: ${chalk.white(stats.total)} 个项目`);
+        console.log(`  活跃: ${chalk.green(stats.byStatus.active)}`);
+        console.log(`  归档: ${chalk.gray(stats.byStatus.archived)}`);
+        console.log(`  草稿: ${chalk.yellow(stats.byStatus.draft)}`);
+        console.log(`  最近活跃: ${chalk.blue(stats.recentlyActive)}`);
+        
+        // 显示项目列表
+        console.log(chalk.cyan('\n📋 项目列表:'));
+        
+        projects.forEach((project, index) => {
+          const statusColor = project.status === 'active' ? chalk.green : 
+                             project.status === 'archived' ? chalk.gray : chalk.yellow;
+          const typeColor = chalk.blue;
+          
+          console.log(`\n${chalk.white(`${index + 1}.`)} ${chalk.bold(project.name)}`);
+          console.log(`   ${chalk.gray('描述:')} ${project.description}`);
+          console.log(`   ${chalk.gray('类型:')} ${typeColor(project.type)} | ${chalk.gray('状态:')} ${statusColor(project.status)}`);
+          console.log(`   ${chalk.gray('路径:')} ${project.path}`);
+          if (project.repository) {
+            console.log(`   ${chalk.gray('仓库:')} ${chalk.blue(project.repository)}`);
+          }
+          if (project.site) {
+            console.log(`   ${chalk.gray('网站:')} ${chalk.blue(project.site)}`);
+          }
+          if (project.tags && project.tags.length > 0) {
+            console.log(`   ${chalk.gray('标签:')} ${project.tags.map(tag => chalk.cyan(`#${tag}`)).join(' ')}`);
+          }
+          console.log(`   ${chalk.gray('创建:')} ${chalk.white(new Date(project.createdAt).toLocaleString())}`);
+          console.log(`   ${chalk.gray('更新:')} ${chalk.white(new Date(project.updatedAt).toLocaleString())}`);
+        });
+        
+        // 显示帮助信息
+        console.log(chalk.gray('\n💡 提示:'));
+        console.log(chalk.gray('  • 使用 --type 过滤特定类型的项目'));
+        console.log(chalk.gray('  • 使用 --search 搜索项目名称或描述'));
+        console.log(chalk.gray('  • 使用 --sort 和 --order 自定义排序'));
+        
+      } catch (error) {
+        console.error(chalk.red('❌ 获取项目列表失败:'));
+        console.error(chalk.red(error instanceof Error ? error.message : String(error)));
+        process.exit(1);
+      }
     });
 
   return cmd;

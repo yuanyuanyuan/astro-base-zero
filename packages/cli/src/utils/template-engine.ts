@@ -3,6 +3,22 @@ import fs from 'fs-extra';
 import * as path from 'path';
 import { glob } from 'glob';
 
+// 注册Handlebars helpers
+Handlebars.registerHelper('default', (value: any, defaultValue: any) => {
+  return value || defaultValue;
+});
+
+Handlebars.registerHelper('if_exists', (value: any, options: any) => {
+  if (value && value !== '') {
+    return options.fn({});
+  }
+  return options.inverse({});
+});
+
+Handlebars.registerHelper('json', (context: any) => {
+  return JSON.stringify(context);
+});
+
 export interface TemplateData {
   project: {
     name: string;
