@@ -4,4 +4,4 @@ export default defineConfig({
   test: {
     // 在这里配置你的测试选项
   },
-}); 
+});

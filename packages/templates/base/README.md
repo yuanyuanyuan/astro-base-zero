@@ -2,7 +2,8 @@
 
 {{project.description}}
 
-> 由 [Astro Base Zero](https://github.com/astro-base-zero) 生成的项目，基于 [Astro](https://astro.build/) 构建。
+> 由 [Astro Base Zero](https://github.com/astro-base-zero) 生成的项目，基于
+> [Astro](https://astro.build/) 构建。
 
 ## ✨ 特性
 
@@ -60,14 +61,14 @@ pnpm preview
 
 ```yaml
 personal:
-  name: "{{brand.personal.name}}"
-  bio: "{{brand.personal.bio}}"
+  name: '{{brand.personal.name}}'
+  bio: '{{brand.personal.bio}}'
   # ... 其他配置
 
 visual:
   colors:
-    primary: "{{brand.visual.colors.primary}}"
-    accent: "{{brand.visual.colors.accent}}"
+    primary: '{{brand.visual.colors.primary}}'
+    accent: '{{brand.visual.colors.accent}}'
     # ... 其他颜色
 ```
 
@@ -110,6 +111,6 @@ MIT License
 
 **作者**: {{brand.personal.name}}  
 **邮箱**: {{brand.personal.email}}  
-**项目**: {{project.repository}}  
+**项目**: {{project.repository}}
 
-由 ❤️ 和 [Astro Base Zero](https://github.com/astro-base-zero) 制作 
+由 ❤️ 和 [Astro Base Zero](https://github.com/astro-base-zero) 制作

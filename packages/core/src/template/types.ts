@@ -1,8 +1,8 @@
 /**
  * 模板处理系统类型定义
- * 
+ *
  * 支持模板文件的变量替换和动态生成
- * 
+ *
  * @version 1.0
  * @date 2025-01-11
  */
@@ -138,7 +138,11 @@ export interface FileProcessor {
   /** 支持的文件扩展名 */
   extensions: string[];
   /** 处理函数 */
-  process: (content: string, context: TemplateContext, filePath: string) => Promise<string>;
+  process: (
+    content: string,
+    context: TemplateContext,
+    filePath: string
+  ) => Promise<string>;
 }
 
 // =============================================================================
@@ -232,7 +236,11 @@ export interface TemplateValidationError {
 /**
  * 模板渲染状态
  */
-export type TemplateRenderStatus = 'pending' | 'processing' | 'completed' | 'error';
+export type TemplateRenderStatus =
+  | 'pending'
+  | 'processing'
+  | 'completed'
+  | 'error';
 
 /**
  * 模板渲染进度
@@ -257,4 +265,4 @@ export interface TemplateRenderProgress {
 /**
  * 模板渲染回调函数
  */
-export type TemplateRenderCallback = (progress: TemplateRenderProgress) => void; 
+export type TemplateRenderCallback = (progress: TemplateRenderProgress) => void;

@@ -10,7 +10,12 @@
       "outputs": []
     },
     "lint": {
-      "outputs": []
+      "outputs": [],
+      "dependsOn": []
+    },
+    "format": {
+      "outputs": [],
+      "dependsOn": []
     },
     "dev": {
       "cache": false,

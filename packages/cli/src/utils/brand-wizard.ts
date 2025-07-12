@@ -1,21 +1,21 @@
 /**
  * 品牌配置向导
- * 
+ *
  * 提供交互式的品牌信息收集和配置功能
- * 
+ *
  * @version 1.0
  * @date 2025-01-11
  */
 
 import inquirer from 'inquirer';
-import { 
-  createBrandStore, 
+import {
+  createBrandStore,
   BrandStore,
   type Brand,
-  type PersonalInfo, 
-  type SocialLink, 
+  type PersonalInfo,
+  type SocialLink,
   type VisualBrand,
-  type BrandDefaults
+  type BrandDefaults,
 } from '@astro-base-zero/core';
 import { logger } from './logger.js';
 import { SocialPlatformSchema } from './validators.js';
@@ -27,7 +27,12 @@ import { SocialPlatformSchema } from './validators.js';
 /**
  * 向导步骤类型
  */
-export type WizardStep = 'personal' | 'visual' | 'social' | 'defaults' | 'review';
+export type WizardStep =
+  | 'personal'
+  | 'visual'
+  | 'social'
+  | 'defaults'
+  | 'review';
 
 /**
  * 向导选项
@@ -56,7 +61,7 @@ export class BrandWizard {
    */
   async run(): Promise<Brand> {
     logger.info('🎨 Welcome to the Brand Configuration Wizard!');
-    logger.info('Let\'s set up your personal brand information step by step.\n');
+    logger.info("Let's set up your personal brand information step by step.\n");
 
     try {
       // 初始化品牌存储
@@ -82,21 +87,23 @@ export class BrandWizard {
 
       // 保存最终配置
       if (this.currentBrand && this.brandStore) {
-        await this.brandStore.save(this.currentBrand, { 
-          validate: true, 
-          createBackup: true 
+        await this.brandStore.save(this.currentBrand, {
+          validate: true,
+          createBackup: true,
         });
-        
+
         logger.success('✅ Brand configuration saved successfully!');
         const stats = await this.brandStore.getStats();
         logger.info(`📁 Configuration saved to: ${stats.path}`);
-        
+
         return this.currentBrand;
       } else {
         throw new Error('Configuration was not completed properly');
       }
     } catch (error) {
-      logger.error(`❌ Brand wizard failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      logger.error(
+        `❌ Brand wizard failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
       throw error;
     }
   }
@@ -107,16 +114,16 @@ export class BrandWizard {
   private async runAllSteps(): Promise<void> {
     // 1. 个人信息配置
     await this.configurePersonalInfo();
-    
+
     // 2. 社交媒体配置
     await this.configureSocialLinks();
-    
+
     // 3. 视觉品牌配置
     await this.configureVisualBrand();
-    
+
     // 4. 默认设置配置
     await this.configureDefaults();
-    
+
     // 5. 审查和确认
     if (!this.options.skipConfirmation) {
       await this.reviewConfiguration();
@@ -155,21 +162,23 @@ export class BrandWizard {
     logger.info('👤 Personal Information');
     logger.info('Please provide your basic personal information:\n');
 
-    const currentPersonal: Partial<PersonalInfo> = this.currentBrand?.personal || {};
-    
+    const currentPersonal: Partial<PersonalInfo> =
+      this.currentBrand?.personal || {};
+
     const personalQuestions = [
       {
         type: 'input',
         name: 'name',
         message: 'Your name or nickname:',
         default: currentPersonal.name || '',
-        validate: (input: string) => input.trim().length > 0 || 'Name is required'
+        validate: (input: string) =>
+          input.trim().length > 0 || 'Name is required',
       },
       {
         type: 'input',
         name: 'displayName',
         message: 'Display name (leave empty to use name):',
-        default: currentPersonal.displayName || ''
+        default: currentPersonal.displayName || '',
       },
       {
         type: 'input',
@@ -180,20 +189,21 @@ export class BrandWizard {
           if (!input.trim()) return 'Email is required';
           const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
           return emailRegex.test(input) || 'Please enter a valid email address';
-        }
+        },
       },
       {
         type: 'input',
         name: 'bio',
         message: 'Short bio or tagline:',
         default: currentPersonal.bio || '',
-        validate: (input: string) => input.trim().length > 0 || 'Bio is required'
+        validate: (input: string) =>
+          input.trim().length > 0 || 'Bio is required',
       },
       {
         type: 'input',
         name: 'description',
         message: 'Detailed description (optional):',
-        default: currentPersonal.description || ''
+        default: currentPersonal.description || '',
       },
       {
         type: 'input',
@@ -208,26 +218,26 @@ export class BrandWizard {
           } catch {
             return 'Please enter a valid URL';
           }
-        }
+        },
       },
       {
         type: 'input',
         name: 'location',
         message: 'Location (optional):',
-        default: currentPersonal.location || ''
+        default: currentPersonal.location || '',
       },
       {
         type: 'input',
         name: 'profession',
         message: 'Profession/Job title (optional):',
-        default: currentPersonal.profession || ''
+        default: currentPersonal.profession || '',
       },
       {
         type: 'input',
         name: 'company',
         message: 'Company/Organization (optional):',
-        default: currentPersonal.company || ''
-      }
+        default: currentPersonal.company || '',
+      },
     ];
 
     const personalAnswers = await inquirer.prompt(personalQuestions);
@@ -238,8 +248,8 @@ export class BrandWizard {
         type: 'input',
         name: 'skills',
         message: 'Skills (comma-separated, optional):',
-        default: currentPersonal.skills?.join(', ') || ''
-      }
+        default: currentPersonal.skills?.join(', ') || '',
+      },
     ]);
 
     // 兴趣爱好配置
@@ -248,18 +258,24 @@ export class BrandWizard {
         type: 'input',
         name: 'interests',
         message: 'Interests (comma-separated, optional):',
-        default: currentPersonal.interests?.join(', ') || ''
-      }
+        default: currentPersonal.interests?.join(', ') || '',
+      },
     ]);
 
     // 处理技能和兴趣数组
-    const skills = skillsAnswer.skills ? 
-      skillsAnswer.skills.split(',').map((s: string) => s.trim()).filter(Boolean) : 
-      [];
-    
-    const interests = interestsAnswer.interests ? 
-      interestsAnswer.interests.split(',').map((i: string) => i.trim()).filter(Boolean) : 
-      [];
+    const skills = skillsAnswer.skills
+      ? skillsAnswer.skills
+          .split(',')
+          .map((s: string) => s.trim())
+          .filter(Boolean)
+      : [];
+
+    const interests = interestsAnswer.interests
+      ? interestsAnswer.interests
+          .split(',')
+          .map((i: string) => i.trim())
+          .filter(Boolean)
+      : [];
 
     // 更新当前品牌配置
     if (!this.currentBrand) {
@@ -269,7 +285,7 @@ export class BrandWizard {
         updatedAt: new Date().toISOString(),
         personal: {} as PersonalInfo,
         visual: { colors: { primary: '#3b82f6', accent: '#f59e0b' } },
-        defaults: { license: 'MIT', copyrightText: '' }
+        defaults: { license: 'MIT', copyrightText: '' },
       };
     }
 
@@ -278,7 +294,7 @@ export class BrandWizard {
       ...personalAnswers,
       skills: skills.length > 0 ? skills : undefined,
       interests: interests.length > 0 ? interests : undefined,
-      social: this.currentBrand.personal.social || { links: [] }
+      social: this.currentBrand.personal.social || { links: [] },
     };
 
     logger.success('✅ Personal information configured!\n');
@@ -289,7 +305,7 @@ export class BrandWizard {
    */
   private async configureSocialLinks(): Promise<void> {
     logger.info('🔗 Social Media Links');
-    logger.info('Let\'s add your social media profiles:\n');
+    logger.info("Let's add your social media profiles:\n");
 
     const currentLinks = this.currentBrand?.personal?.social?.links || [];
     const newLinks: SocialLink[] = [];
@@ -306,22 +322,22 @@ export class BrandWizard {
       { name: 'Juejin', value: 'juejin' },
       { name: 'Personal Website', value: 'website' },
       { name: 'Blog', value: 'blog' },
-      { name: 'Custom', value: 'custom' }
+      { name: 'Custom', value: 'custom' },
     ];
 
     // 添加社交链接的循环
     let addMore = true;
-    
+
     while (addMore) {
       const { platform } = await inquirer.prompt([
         {
           type: 'list',
           name: 'platform',
           message: 'Choose a social platform to add:',
-          choices: platformOptions.filter(option => 
-            !newLinks.some(link => link.platform === option.value)
-          )
-        }
+          choices: platformOptions.filter(
+            option => !newLinks.some(link => link.platform === option.value)
+          ),
+        },
       ]);
 
       const linkQuestions = [
@@ -329,7 +345,10 @@ export class BrandWizard {
           type: 'input',
           name: 'label',
           message: `Display label for ${platform}:`,
-          default: platform === 'custom' ? '' : platformOptions.find(p => p.value === platform)?.name
+          default:
+            platform === 'custom'
+              ? ''
+              : platformOptions.find(p => p.value === platform)?.name,
         },
         {
           type: 'input',
@@ -343,8 +362,8 @@ export class BrandWizard {
             } catch {
               return 'Please enter a valid URL';
             }
-          }
-        }
+          },
+        },
       ];
 
       const linkAnswers = await inquirer.prompt(linkQuestions);
@@ -354,7 +373,7 @@ export class BrandWizard {
         label: linkAnswers.label,
         url: linkAnswers.url,
         openInNewTab: true,
-        order: newLinks.length
+        order: newLinks.length,
       });
 
       // 询问是否继续添加
@@ -363,8 +382,8 @@ export class BrandWizard {
           type: 'confirm',
           name: 'continueAdding',
           message: 'Add another social link?',
-          default: false
-        }
+          default: false,
+        },
       ]);
 
       addMore = continueAdding && newLinks.length < platformOptions.length;
@@ -378,10 +397,13 @@ export class BrandWizard {
       {
         type: 'number',
         name: 'primaryCount',
-        message: 'How many links to show prominently? (others will be under "more"):',
+        message:
+          'How many links to show prominently? (others will be under "more"):',
         default: Math.min(allLinks.length, 4),
-        validate: (input: number) => input > 0 && input <= allLinks.length || `Please enter a number between 1 and ${allLinks.length}`
-      }
+        validate: (input: number) =>
+          (input > 0 && input <= allLinks.length) ||
+          `Please enter a number between 1 and ${allLinks.length}`,
+      },
     ]);
 
     // 更新社交链接配置
@@ -389,7 +411,7 @@ export class BrandWizard {
       this.currentBrand.personal.social = {
         links: allLinks,
         primaryCount,
-        showMoreButton: allLinks.length > primaryCount
+        showMoreButton: allLinks.length > primaryCount,
       };
     }
 
@@ -401,10 +423,13 @@ export class BrandWizard {
    */
   private async configureVisualBrand(): Promise<void> {
     logger.info('🎨 Visual Brand');
-    logger.info('Let\'s configure your brand colors and visual style:\n');
+    logger.info("Let's configure your brand colors and visual style:\n");
 
     const currentVisual: Partial<VisualBrand> = this.currentBrand?.visual || {};
-    const currentColors = currentVisual.colors || { primary: '#3b82f6', accent: '#f59e0b' };
+    const currentColors = currentVisual.colors || {
+      primary: '#3b82f6',
+      accent: '#f59e0b',
+    };
 
     const colorQuestions = [
       {
@@ -414,8 +439,11 @@ export class BrandWizard {
         default: currentColors.primary || '#3b82f6',
         validate: (input: string) => {
           const hexRegex = /^#[0-9a-f]{3,8}$/i;
-          return hexRegex.test(input) || 'Please enter a valid hex color (e.g., #3b82f6)';
-        }
+          return (
+            hexRegex.test(input) ||
+            'Please enter a valid hex color (e.g., #3b82f6)'
+          );
+        },
       },
       {
         type: 'input',
@@ -424,15 +452,18 @@ export class BrandWizard {
         default: currentColors.accent || '#f59e0b',
         validate: (input: string) => {
           const hexRegex = /^#[0-9a-f]{3,8}$/i;
-          return hexRegex.test(input) || 'Please enter a valid hex color (e.g., #f59e0b)';
-        }
+          return (
+            hexRegex.test(input) ||
+            'Please enter a valid hex color (e.g., #f59e0b)'
+          );
+        },
       },
       {
         type: 'input',
         name: 'secondary',
         message: 'Secondary color (optional, hex format):',
-        default: currentColors.secondary || ''
-      }
+        default: currentColors.secondary || '',
+      },
     ];
 
     const colorAnswers = await inquirer.prompt(colorQuestions);
@@ -447,9 +478,9 @@ export class BrandWizard {
           { name: 'None (sharp corners)', value: 'none' },
           { name: 'Small (subtle rounding)', value: 'small' },
           { name: 'Medium (moderate rounding)', value: 'medium' },
-          { name: 'Large (very rounded)', value: 'large' }
+          { name: 'Large (very rounded)', value: 'large' },
         ],
-        default: currentVisual.borderRadius || 'medium'
+        default: currentVisual.borderRadius || 'medium',
       },
       {
         type: 'list',
@@ -459,16 +490,16 @@ export class BrandWizard {
           { name: 'None', value: 'none' },
           { name: 'Subtle', value: 'subtle' },
           { name: 'Normal', value: 'normal' },
-          { name: 'Strong', value: 'strong' }
+          { name: 'Strong', value: 'strong' },
         ],
-        default: currentVisual.shadowStyle || 'normal'
+        default: currentVisual.shadowStyle || 'normal',
       },
       {
         type: 'confirm',
         name: 'supportDarkMode',
         message: 'Enable dark mode support?',
-        default: currentVisual.supportDarkMode !== false
-      }
+        default: currentVisual.supportDarkMode !== false,
+      },
     ];
 
     const styleAnswers = await inquirer.prompt(styleQuestions);
@@ -481,11 +512,11 @@ export class BrandWizard {
           ...currentColors,
           primary: colorAnswers.primary,
           accent: colorAnswers.accent,
-          ...(colorAnswers.secondary && { secondary: colorAnswers.secondary })
+          ...(colorAnswers.secondary && { secondary: colorAnswers.secondary }),
         },
         borderRadius: styleAnswers.borderRadius,
         shadowStyle: styleAnswers.shadowStyle,
-        supportDarkMode: styleAnswers.supportDarkMode
+        supportDarkMode: styleAnswers.supportDarkMode,
       };
     }
 
@@ -499,7 +530,8 @@ export class BrandWizard {
     logger.info('⚙️ Default Settings');
     logger.info('Configure default values for your projects:\n');
 
-    const currentDefaults: Partial<BrandDefaults> = this.currentBrand?.defaults || {};
+    const currentDefaults: Partial<BrandDefaults> =
+      this.currentBrand?.defaults || {};
 
     const defaultsQuestions = [
       {
@@ -513,28 +545,28 @@ export class BrandWizard {
           'BSD-3-Clause',
           'ISC',
           'Unlicense',
-          'Custom'
+          'Custom',
         ],
-        default: currentDefaults.license || 'MIT'
+        default: currentDefaults.license || 'MIT',
       },
       {
         type: 'input',
         name: 'language',
         message: 'Default language code (e.g., en, zh-CN):',
-        default: currentDefaults.language || 'en'
+        default: currentDefaults.language || 'en',
       },
       {
         type: 'input',
         name: 'timezone',
         message: 'Default timezone (e.g., UTC, Asia/Shanghai):',
-        default: currentDefaults.timezone || 'UTC'
+        default: currentDefaults.timezone || 'UTC',
       },
       {
         type: 'input',
         name: 'analyticsId',
         message: 'Google Analytics ID (optional):',
-        default: currentDefaults.analyticsId || ''
-      }
+        default: currentDefaults.analyticsId || '',
+      },
     ];
 
     const defaultsAnswers = await inquirer.prompt(defaultsQuestions);
@@ -545,13 +577,16 @@ export class BrandWizard {
         type: 'input',
         name: 'defaultKeywords',
         message: 'Default SEO keywords (comma-separated, optional):',
-        default: currentDefaults.defaultKeywords?.join(', ') || ''
-      }
+        default: currentDefaults.defaultKeywords?.join(', ') || '',
+      },
     ]);
 
-    const keywordsArray = defaultKeywords ? 
-      defaultKeywords.split(',').map((k: string) => k.trim()).filter(Boolean) : 
-      [];
+    const keywordsArray = defaultKeywords
+      ? defaultKeywords
+          .split(',')
+          .map((k: string) => k.trim())
+          .filter(Boolean)
+      : [];
 
     // 版权文本配置
     const currentYear = new Date().getFullYear();
@@ -562,8 +597,8 @@ export class BrandWizard {
         type: 'input',
         name: 'copyrightText',
         message: 'Copyright text:',
-        default: currentDefaults.copyrightText || defaultCopyrightText
-      }
+        default: currentDefaults.copyrightText || defaultCopyrightText,
+      },
     ]);
 
     // 更新默认设置配置
@@ -573,7 +608,7 @@ export class BrandWizard {
         ...defaultsAnswers,
         copyrightText,
         defaultKeywords: keywordsArray.length > 0 ? keywordsArray : undefined,
-        defaultAuthor: this.currentBrand.personal.name
+        defaultAuthor: this.currentBrand.personal.name,
       };
     }
 
@@ -610,8 +645,12 @@ export class BrandWizard {
     console.log('🎨 Visual Brand:');
     console.log(`   Primary Color: ${this.currentBrand.visual.colors.primary}`);
     console.log(`   Accent Color: ${this.currentBrand.visual.colors.accent}`);
-    console.log(`   Border Radius: ${this.currentBrand.visual.borderRadius || 'medium'}`);
-    console.log(`   Dark Mode: ${this.currentBrand.visual.supportDarkMode ? 'Yes' : 'No'}`);
+    console.log(
+      `   Border Radius: ${this.currentBrand.visual.borderRadius || 'medium'}`
+    );
+    console.log(
+      `   Dark Mode: ${this.currentBrand.visual.supportDarkMode ? 'Yes' : 'No'}`
+    );
     console.log('');
 
     console.log('⚙️ Defaults:');
@@ -625,8 +664,8 @@ export class BrandWizard {
         type: 'confirm',
         name: 'confirmSave',
         message: 'Save this configuration?',
-        default: true
-      }
+        default: true,
+      },
     ]);
 
     if (!confirmSave) {
@@ -640,9 +679,9 @@ export class BrandWizard {
             { name: 'Edit social links', value: 'social' },
             { name: 'Edit visual brand', value: 'visual' },
             { name: 'Edit default settings', value: 'defaults' },
-            { name: 'Cancel and exit', value: 'cancel' }
-          ]
-        }
+            { name: 'Cancel and exit', value: 'cancel' },
+          ],
+        },
       ]);
 
       if (action === 'cancel') {
@@ -662,7 +701,9 @@ export class BrandWizard {
 /**
  * 运行品牌配置向导
  */
-export async function runBrandWizard(options: BrandWizardOptions = {}): Promise<Brand> {
+export async function runBrandWizard(
+  options: BrandWizardOptions = {}
+): Promise<Brand> {
   const wizard = new BrandWizard(options);
   return await wizard.run();
 }
@@ -670,6 +711,9 @@ export async function runBrandWizard(options: BrandWizardOptions = {}): Promise<
 /**
  * 运行特定步骤的配置向导
  */
-export async function runBrandWizardStep(step: WizardStep, options: Omit<BrandWizardOptions, 'step'> = {}): Promise<Brand> {
+export async function runBrandWizardStep(
+  step: WizardStep,
+  options: Omit<BrandWizardOptions, 'step'> = {}
+): Promise<Brand> {
   return runBrandWizard({ ...options, step });
-} 
+}

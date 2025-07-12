@@ -2,7 +2,8 @@
 
 {{project.description}}
 
-> 由 [Astro Base Zero](https://github.com/astro-base-zero) 博客模板生成，基于 [Astro](https://astro.build/) 构建。
+> 由 [Astro Base Zero](https://github.com/astro-base-zero) 博客模板生成，基于
+> [Astro](https://astro.build/) 构建。
 
 ## ✨ 特性
 
@@ -84,12 +85,11 @@ publishDate: 2025-01-11
 category: '分类名称'
 tags: ['标签1', '标签2']
 author: '{{brand.personal.name}}'
-featured: false      # 是否为精选文章
-readingTime: 5       # 预估阅读时间（分钟）
-heroImage: '/hero.jpg'  # 可选的主图
-draft: false         # 是否为草稿
+featured: false # 是否为精选文章
+readingTime: 5 # 预估阅读时间（分钟）
+heroImage: '/hero.jpg' # 可选的主图
+draft: false # 是否为草稿
 ---
-
 # 文章内容
 
 这里是你的文章内容...
@@ -122,14 +122,14 @@ draft: false         # 是否为草稿
 
 ```yaml
 personal:
-  name: "{{brand.personal.name}}"
-  bio: "{{brand.personal.bio}}"
+  name: '{{brand.personal.name}}'
+  bio: '{{brand.personal.bio}}'
   # ... 其他配置
 
 visual:
   colors:
-    primary: "{{brand.visual.colors.primary}}"
-    accent: "{{brand.visual.colors.accent}}"
+    primary: '{{brand.visual.colors.primary}}'
+    accent: '{{brand.visual.colors.accent}}'
     # ... 其他颜色
 
 # 博客特定配置
@@ -140,7 +140,7 @@ blog:
   enableComments: false
   rss:
     enabled: true
-    title: "博客 RSS 订阅"
+    title: '博客 RSS 订阅'
 ```
 
 ### 导航菜单
@@ -193,6 +193,6 @@ const navigation = [
 
 **作者**: {{brand.personal.name}}  
 **邮箱**: {{brand.personal.email}}  
-**网站**: {{brand.personal.social.links[0].url}}  
+**网站**: {{brand.personal.social.links[0].url}}
 
-由 ❤️ 和 [Astro Base Zero](https://github.com/astro-base-zero) 制作 
+由 ❤️ 和 [Astro Base Zero](https://github.com/astro-base-zero) 制作

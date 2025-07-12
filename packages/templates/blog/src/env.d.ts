@@ -30,7 +30,7 @@ declare module 'virtual:brand-config' {
       };
     };
   }
-  
+
   const brand: BrandConfig;
   export default brand;
 }
@@ -55,4 +55,4 @@ declare global {
     body: string;
     render: () => Promise<{ Content: any; headings: any[] }>;
   }
-} 
+}

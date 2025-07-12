@@ -27,4 +27,4 @@ export const logger = {
   error,
   warn,
   spinner,
-}; 
+};

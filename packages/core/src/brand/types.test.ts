@@ -4,14 +4,14 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import type { 
-  Brand, 
-  PersonalInfo, 
-  VisualBrand, 
+import type {
+  Brand,
+  PersonalInfo,
+  VisualBrand,
   SocialLink,
   TemplateContext,
   BrandValidationResult,
-  SocialPlatform
+  SocialPlatform,
 } from './types.js';
 
 describe('Brand Assets Types', () => {
@@ -26,30 +26,30 @@ describe('Brand Assets Types', () => {
         bio: 'Creative developer and designer',
         email: 'jane@example.com',
         social: {
-          links: []
-        }
+          links: [],
+        },
       },
       visual: {
         colors: {
           primary: '#8b5cf6',
-          accent: '#ec4899'
-        }
+          accent: '#ec4899',
+        },
       },
       defaults: {
         license: 'MIT',
         copyrightText: '© 2025 Jane Smith. All rights reserved.',
         language: 'en',
-        defaultKeywords: ['developer', 'designer', 'creative']
+        defaultKeywords: ['developer', 'designer', 'creative'],
       },
       projectTypes: [
         {
           projectType: 'blog',
           templateVariables: {
             postsPerPage: 10,
-            enableComments: true
-          }
-        }
-      ]
+            enableComments: true,
+          },
+        },
+      ],
     };
 
     // 验证类型结构
@@ -78,19 +78,19 @@ describe('Brand Assets Types', () => {
             label: 'GitHub',
             url: 'https://github.com/johndoe',
             openInNewTab: true,
-            order: 1
+            order: 1,
           },
           {
             platform: 'twitter',
             label: 'Twitter',
             url: 'https://twitter.com/johndoe',
             openInNewTab: true,
-            order: 2
-          }
+            order: 2,
+          },
         ],
         primaryCount: 3,
-        showMoreButton: true
-      }
+        showMoreButton: true,
+      },
     };
 
     // 验证类型结构
@@ -107,22 +107,22 @@ describe('Brand Assets Types', () => {
         accent: '#f59e0b',
         secondary: '#6b7280',
         background: '#ffffff',
-        text: '#1f2937'
+        text: '#1f2937',
       },
       typography: {
         primaryFont: 'Inter, sans-serif',
         codeFont: 'Fira Code, monospace',
         scale: 1.2,
-        lineHeight: 1.6
+        lineHeight: 1.6,
       },
       icons: {
         logo: 'https://example.com/logo.svg',
-        favicon: 'https://example.com/favicon.ico'
+        favicon: 'https://example.com/favicon.ico',
       },
       themeName: 'modern-blue',
       supportDarkMode: true,
       borderRadius: 'medium',
-      shadowStyle: 'normal'
+      shadowStyle: 'normal',
     };
 
     // 验证类型结构
@@ -146,19 +146,19 @@ describe('Brand Assets Types', () => {
       'email',
       'website',
       'blog',
-      'custom'
+      'custom',
     ];
 
     // 验证所有平台类型都被支持
     expect(validPlatforms).toContain('github');
     expect(validPlatforms).toContain('bilibili');
     expect(validPlatforms).toContain('zhihu');
-    
+
     // 测试类型约束生效
     const socialLink: SocialLink = {
       platform: 'github', // 这应该通过类型检查
       label: 'GitHub Profile',
-      url: 'https://github.com/user'
+      url: 'https://github.com/user',
     };
 
     expect(socialLink.platform).toBe('github');
@@ -177,30 +177,30 @@ describe('Brand Assets Types', () => {
           bio: 'Test bio',
           email: 'test@example.com',
           social: {
-            links: []
-          }
+            links: [],
+          },
         },
         visual: {
           colors: {
             primary: '#000000',
-            accent: '#ffffff'
-          }
+            accent: '#ffffff',
+          },
         },
         defaults: {
           license: 'MIT',
-          copyrightText: '© 2025 Test User'
-        }
+          copyrightText: '© 2025 Test User',
+        },
       },
       project: {
         name: 'My Awesome Project',
         description: 'A fantastic project description',
-        type: 'demo'
+        type: 'demo',
       },
       generatedAt: '2025-01-11T12:00:00Z',
       extra: {
         buildId: 'build-123',
-        environment: 'production'
-      }
+        environment: 'production',
+      },
     };
 
     // 验证类型结构
@@ -215,7 +215,7 @@ describe('Brand Assets Types', () => {
       isValid: false,
       errors: ['Missing required field: personal.name'],
       warnings: ['Avatar URL format may not be optimal'],
-      missingFields: ['personal.name', 'visual.colors.primary']
+      missingFields: ['personal.name', 'visual.colors.primary'],
     };
 
     // 验证类型结构
@@ -256,4 +256,4 @@ describe('Compile-time Type Safety', () => {
     expect(typeof brandAssets).toBe('object');
     expect(typeof personalInfo).toBe('object');
   });
-}); 
+});

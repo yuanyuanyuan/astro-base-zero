@@ -4,4 +4,4 @@ import Features from './Features.astro';
 export const WIDGETS = {
   Hero,
   Features,
-}; 
+};

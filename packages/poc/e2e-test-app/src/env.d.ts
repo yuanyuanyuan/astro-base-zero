@@ -4,4 +4,4 @@
 declare module 'virtual:brand' {
   const brand: import('@astro-base-zero/core/brand').Brand;
   export default brand;
-} 
+}

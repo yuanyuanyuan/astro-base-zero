@@ -13,7 +13,7 @@ describe('validateProjectName', () => {
   it('should return an error message for names starting with a number', () => {
     expect(typeof validateProjectName('123project')).toBe('string');
   });
-  
+
   // 验证标准 3: 包含空格
   it('should return an error message for names containing spaces', () => {
     expect(typeof validateProjectName('my project')).toBe('string');
@@ -27,7 +27,7 @@ describe('validateProjectName', () => {
   it('should return an error message for names containing special characters', () => {
     expect(typeof validateProjectName('my_project!')).toBe('string');
   });
-  
+
   it('should return an error message for empty names', () => {
     expect(typeof validateProjectName('')).toBe('string');
   });
@@ -35,4 +35,4 @@ describe('validateProjectName', () => {
   it('should return an error message for names starting with a hyphen', () => {
     expect(typeof validateProjectName('-my-project')).toBe('string');
   });
-}); 
+});

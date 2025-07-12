@@ -1,9 +1,9 @@
 /**
  * 项目数据存储系统
- * 
+ *
  * 使用 lowdb 实现项目元数据的持久化存储
  * 存储位置: ~/.astro-launcher/projects.json
- * 
+ *
  * @version 1.0
  * @date 2025-01-11
  */
@@ -14,14 +14,14 @@ import { mkdir, access, constants } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { Low } from 'lowdb';
 import { JSONFile } from 'lowdb/node';
-import type { 
+import type {
   ProjectInfo,
   ProjectDatabase,
   CreateProjectOptions,
   UpdateProjectOptions,
   ProjectFilterOptions,
   ProjectSortOptions,
-  ProjectStats
+  ProjectStats,
 } from './types.js';
 
 // =============================================================================
@@ -57,7 +57,7 @@ function createDefaultProjectDatabase(): ProjectDatabase {
 
 /**
  * 项目数据存储管理器
- * 
+ *
  * 提供项目元数据的增删改查功能
  */
 export class ProjectStore {
@@ -111,14 +111,14 @@ export class ProjectStore {
     try {
       // 确保应用数据目录存在
       await this.ensureAppDataDir();
-      
+
       // 初始化数据库连接
       const adapter = new JSONFile<ProjectDatabase>(this.dataPath);
       this.db = new Low(adapter, createDefaultProjectDatabase());
-      
+
       // 检查文件是否存在
       const fileExists = existsSync(this.dataPath);
-      
+
       if (!fileExists) {
         // 文件不存在，创建默认数据
         this.db.data = createDefaultProjectDatabase();
@@ -126,7 +126,7 @@ export class ProjectStore {
       } else {
         // 文件存在，读取数据
         await this.db.read();
-        
+
         // 如果读取后数据仍为空，写入默认数据
         if (!this.db.data || !this.db.data.projects) {
           this.db.data = createDefaultProjectDatabase();
@@ -134,7 +134,9 @@ export class ProjectStore {
         }
       }
     } catch (error) {
-      throw new Error(`Failed to initialize project store: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      throw new Error(
+        `Failed to initialize project store: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     }
   }
 
@@ -143,12 +145,14 @@ export class ProjectStore {
    */
   async getAllProjects(): Promise<ProjectInfo[]> {
     this.ensureInitialized();
-    
+
     try {
       await this.db!.read();
       return this.db!.data.projects;
     } catch (error) {
-      throw new Error(`Failed to load projects: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      throw new Error(
+        `Failed to load projects: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     }
   }
 
@@ -165,7 +169,7 @@ export class ProjectStore {
    */
   async createProject(options: CreateProjectOptions): Promise<ProjectInfo> {
     this.ensureInitialized();
-    
+
     const now = new Date().toISOString();
     const project: ProjectInfo = {
       id: this.generateProjectId(options.name),
@@ -186,23 +190,28 @@ export class ProjectStore {
       this.db!.data.projects.push(project);
       this.db!.data.meta.lastUpdated = now;
       await this.db!.write();
-      
+
       return project;
     } catch (error) {
-      throw new Error(`Failed to create project: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      throw new Error(
+        `Failed to create project: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     }
   }
 
   /**
    * 更新项目
    */
-  async updateProject(id: string, options: UpdateProjectOptions): Promise<ProjectInfo | null> {
+  async updateProject(
+    id: string,
+    options: UpdateProjectOptions
+  ): Promise<ProjectInfo | null> {
     this.ensureInitialized();
-    
+
     try {
       await this.db!.read();
       const projectIndex = this.db!.data.projects.findIndex(p => p.id === id);
-      
+
       if (projectIndex === -1) {
         return null;
       }
@@ -217,10 +226,12 @@ export class ProjectStore {
       this.db!.data.projects[projectIndex] = updatedProject;
       this.db!.data.meta.lastUpdated = new Date().toISOString();
       await this.db!.write();
-      
+
       return updatedProject;
     } catch (error) {
-      throw new Error(`Failed to update project: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      throw new Error(
+        `Failed to update project: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     }
   }
 
@@ -229,21 +240,23 @@ export class ProjectStore {
    */
   async deleteProject(id: string): Promise<boolean> {
     this.ensureInitialized();
-    
+
     try {
       await this.db!.read();
       const initialLength = this.db!.data.projects.length;
       this.db!.data.projects = this.db!.data.projects.filter(p => p.id !== id);
-      
+
       if (this.db!.data.projects.length < initialLength) {
         this.db!.data.meta.lastUpdated = new Date().toISOString();
         await this.db!.write();
         return true;
       }
-      
+
       return false;
     } catch (error) {
-      throw new Error(`Failed to delete project: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      throw new Error(
+        `Failed to delete project: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     }
   }
 
@@ -266,17 +279,18 @@ export class ProjectStore {
     }
 
     if (filter.tags && filter.tags.length > 0) {
-      projects = projects.filter(p => 
+      projects = projects.filter(p =>
         filter.tags!.some(tag => p.tags?.includes(tag))
       );
     }
 
     if (filter.search) {
       const searchLower = filter.search.toLowerCase();
-      projects = projects.filter(p => 
-        p.name.toLowerCase().includes(searchLower) ||
-        p.description.toLowerCase().includes(searchLower) ||
-        p.tags?.some(tag => tag.toLowerCase().includes(searchLower))
+      projects = projects.filter(
+        p =>
+          p.name.toLowerCase().includes(searchLower) ||
+          p.description.toLowerCase().includes(searchLower) ||
+          p.tags?.some(tag => tag.toLowerCase().includes(searchLower))
       );
     }
 
@@ -284,12 +298,12 @@ export class ProjectStore {
     projects.sort((a, b) => {
       const aValue = a[sort.field];
       const bValue = b[sort.field];
-      
+
       if (typeof aValue === 'string' && typeof bValue === 'string') {
         const comparison = aValue.localeCompare(bValue);
         return sort.direction === 'asc' ? comparison : -comparison;
       }
-      
+
       return 0;
     });
 
@@ -301,7 +315,7 @@ export class ProjectStore {
    */
   async getProjectStats(): Promise<ProjectStats> {
     const projects = await this.getAllProjects();
-    
+
     const stats: ProjectStats = {
       total: projects.length,
       byType: {
@@ -326,7 +340,7 @@ export class ProjectStore {
     projects.forEach(project => {
       stats.byType[project.type]++;
       stats.byStatus[project.status]++;
-      
+
       if (new Date(project.updatedAt) > thirtyDaysAgo) {
         stats.recentlyActive++;
       }
@@ -344,7 +358,7 @@ export class ProjectStore {
       .replace(/[^a-z0-9]/g, '-')
       .replace(/-+/g, '-')
       .replace(/^-|-$/g, '');
-    
+
     const timestamp = Date.now().toString(36);
     return `${safeName}-${timestamp}`;
   }
@@ -353,4 +367,4 @@ export class ProjectStore {
 /**
  * 默认项目存储实例
  */
-export const projectStore = new ProjectStore(); 
+export const projectStore = new ProjectStore();

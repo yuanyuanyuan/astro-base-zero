@@ -36,8 +36,10 @@ export function validateProjectName(name: string): void {
     .safeParse(name);
 
   if (!validationResult.success) {
-    const errorMessages = validationResult.error.errors.map((e) => e.message);
-    logger.error(`Project name "${name}" is invalid. ${errorMessages.join(' ')}`);
+    const errorMessages = validationResult.error.errors.map(e => e.message);
+    logger.error(
+      `Project name "${name}" is invalid. ${errorMessages.join(' ')}`
+    );
     process.exit(1);
   }
 }

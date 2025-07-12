@@ -163,4 +163,4 @@ meta:
       loadConfigWithInheritance(ProjectConfigSchema, [invalidConfigPath])
     ).toThrow(/Invalid merged configuration/);
   });
-}); 
+});

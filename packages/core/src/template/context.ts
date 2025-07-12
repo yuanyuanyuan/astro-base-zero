@@ -1,18 +1,18 @@
 /**
  * 模板上下文管理器
- * 
+ *
  * 负责构建和管理模板渲染所需的上下文数据
  * 整合品牌资产、项目信息和其他相关数据
- * 
+ *
  * @version 1.0
  * @date 2025-01-11
  */
 
 import type { Brand } from '../brand/types.js';
-import type { 
-  TemplateContext, 
-  ProjectInfo, 
-  TemplateMetadata 
+import type {
+  TemplateContext,
+  ProjectInfo,
+  TemplateMetadata,
 } from './types.js';
 
 // =============================================================================
@@ -91,19 +91,25 @@ export class TemplateContextBuilder {
 
     // 处理社交链接排序
     if (brand.personal.social?.links) {
-      brand.personal.social.links.sort((a, b) => (a.order || 999) - (b.order || 999));
+      brand.personal.social.links.sort(
+        (a, b) => (a.order || 999) - (b.order || 999)
+      );
     }
 
     // 添加计算属性
     const computed = {
       // 主要社交链接（前N个）
-      primarySocialLinks: brand.personal.social?.links?.slice(0, brand.personal.social.primaryCount || 4) || [],
-      
+      primarySocialLinks:
+        brand.personal.social?.links?.slice(
+          0,
+          brand.personal.social.primaryCount || 4
+        ) || [],
+
       // 完整的显示名称
-      fullDisplayName: brand.personal.company 
+      fullDisplayName: brand.personal.company
         ? `${brand.personal.displayName} @ ${brand.personal.company}`
         : brand.personal.displayName,
-      
+
       // CSS 变量友好的颜色名称
       cssVariables: this.generateCssVariables(brand.visual.colors),
     };
@@ -147,16 +153,16 @@ export class TemplateContextBuilder {
     const computed = {
       // 安全的项目名称（用于文件名等）
       safeName: project.name.replace(/[^a-zA-Z0-9-]/g, '-').toLowerCase(),
-      
+
       // 类名友好的名称
       className: this.toPascalCase(project.name),
-      
+
       // 包名友好的名称
       packageName: project.name.replace(/[^a-zA-Z0-9-]/g, '-').toLowerCase(),
-      
+
       // 是否为开源项目
       isOpenSource: Boolean(project.repository),
-      
+
       // 项目类型的显示名称
       typeDisplayName: this.getTypeDisplayName(project.type),
     };
@@ -170,7 +176,9 @@ export class TemplateContextBuilder {
   /**
    * 生成 CSS 变量
    */
-  private generateCssVariables(colors: Brand['visual']['colors']): Record<string, string> {
+  private generateCssVariables(
+    colors: Brand['visual']['colors']
+  ): Record<string, string> {
     const cssVars: Record<string, string> = {};
 
     Object.entries(colors).forEach(([key, value]) => {
@@ -252,8 +260,8 @@ export class TemplateContextBuilder {
    */
   private toPascalCase(str: string): string {
     return str
-      .replace(/[-_\s]+(.)?/g, (_, char) => char ? char.toUpperCase() : '')
-      .replace(/^(.)/, (char) => char.toUpperCase());
+      .replace(/[-_\s]+(.)?/g, (_, char) => (char ? char.toUpperCase() : ''))
+      .replace(/^(.)/, char => char.toUpperCase());
   }
 
   /**
@@ -309,7 +317,9 @@ export class TemplateContextBuilder {
  * @param options 构建选项
  * @returns 模板上下文
  */
-export function createTemplateContext(options: ContextBuilderOptions): TemplateContext {
+export function createTemplateContext(
+  options: ContextBuilderOptions
+): TemplateContext {
   return new TemplateContextBuilder(options).build();
 }
 
@@ -318,11 +328,13 @@ export function createTemplateContext(options: ContextBuilderOptions): TemplateC
  * @param context 现有上下文
  * @returns 上下文构建器
  */
-export function fromTemplateContext(context: TemplateContext): TemplateContextBuilder {
+export function fromTemplateContext(
+  context: TemplateContext
+): TemplateContextBuilder {
   return new TemplateContextBuilder({
     brand: context.brand,
     project: context.project,
     template: context.template,
     custom: context.custom,
   });
-} 
+}

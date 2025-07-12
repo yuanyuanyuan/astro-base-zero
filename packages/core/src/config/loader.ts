@@ -8,14 +8,17 @@ import { z } from 'zod';
  * @param source The source object to merge from.
  * @returns A new object with merged properties.
  */
-const deepMerge = <T extends Record<string, any>>(target: T, source: Partial<T>): T => {
+const deepMerge = <T extends Record<string, any>>(
+  target: T,
+  source: Partial<T>
+): T => {
   const result = { ...target };
-  
+
   for (const key in source) {
     if (source.hasOwnProperty(key)) {
       const sourceValue = source[key];
       const targetValue = result[key];
-      
+
       if (
         typeof sourceValue === 'object' &&
         sourceValue !== null &&
@@ -25,14 +28,17 @@ const deepMerge = <T extends Record<string, any>>(target: T, source: Partial<T>)
         !Array.isArray(targetValue)
       ) {
         // Recursively merge nested objects
-        result[key] = deepMerge(targetValue, sourceValue) as T[Extract<keyof T, string>];
+        result[key] = deepMerge(targetValue, sourceValue) as T[Extract<
+          keyof T,
+          string
+        >];
       } else if (sourceValue !== undefined) {
         // Override primitive values and arrays
         result[key] = sourceValue as T[Extract<keyof T, string>];
       }
     }
   }
-  
+
   return result;
 };
 
@@ -57,7 +63,10 @@ export const loadConfig = <T extends z.ZodTypeAny>(
       throw new Error(`Invalid configuration in ${filePath}`);
     }
     if (error instanceof Error) {
-      console.error(`Error loading configuration file ${filePath}:`, error.message);
+      console.error(
+        `Error loading configuration file ${filePath}:`,
+        error.message
+      );
       throw error;
     }
     throw new Error(`An unknown error occurred while loading ${filePath}`);
@@ -75,7 +84,7 @@ export const loadConfigWithInheritance = <T extends z.ZodTypeAny>(
   configPaths: string[]
 ): z.infer<T> => {
   let mergedConfig: any = {};
-  
+
   for (const configPath of configPaths) {
     try {
       if (fs.existsSync(configPath)) {
@@ -85,13 +94,16 @@ export const loadConfigWithInheritance = <T extends z.ZodTypeAny>(
       }
     } catch (error) {
       if (error instanceof Error) {
-        console.error(`Error loading configuration file ${configPath}:`, error.message);
+        console.error(
+          `Error loading configuration file ${configPath}:`,
+          error.message
+        );
         throw error;
       }
       throw new Error(`An unknown error occurred while loading ${configPath}`);
     }
   }
-  
+
   try {
     return schema.parse(mergedConfig);
   } catch (error) {
@@ -101,4 +113,4 @@ export const loadConfigWithInheritance = <T extends z.ZodTypeAny>(
     }
     throw error;
   }
-}; 
+};

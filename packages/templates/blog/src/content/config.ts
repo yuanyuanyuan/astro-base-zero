@@ -25,12 +25,14 @@ const authors = defineCollection({
     name: z.string(),
     avatar: z.string().url(),
     bio: z.string(),
-    social: z.object({
-      website: z.string().url().optional(),
-      twitter: z.string().optional(),
-      github: z.string().optional(),
-      email: z.string().email().optional(),
-    }).optional(),
+    social: z
+      .object({
+        website: z.string().url().optional(),
+        twitter: z.string().optional(),
+        github: z.string().optional(),
+        email: z.string().email().optional(),
+      })
+      .optional(),
   }),
 });
 
@@ -49,4 +51,4 @@ export const collections = {
   blog,
   authors,
   categories,
-}; 
+};

@@ -30,7 +30,7 @@ declare module 'virtual:brand-config' {
       };
     };
   }
-  
+
   const brand: BrandConfig;
   export default brand;
 }
@@ -45,10 +45,10 @@ declare global {
     showSourceCode: boolean;
     features: string[];
   }
-  
+
   interface UsageStats {
     totalUses: number;
     dailyUses: number;
     lastUsed: Date;
   }
-} 
+}

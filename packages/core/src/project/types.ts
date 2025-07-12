@@ -1,8 +1,8 @@
 /**
  * 项目数据管理类型定义
- * 
+ *
  * 定义项目元数据的数据结构和类型
- * 
+ *
  * @version 1.0
  * @date 2025-01-11
  */
@@ -123,4 +123,4 @@ export interface ProjectSortOptions {
   field: 'name' | 'createdAt' | 'updatedAt' | 'type';
   /** 排序方向 */
   direction: 'asc' | 'desc';
-} 
+}

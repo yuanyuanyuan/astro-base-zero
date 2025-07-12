@@ -1,9 +1,9 @@
 /**
  * 模板文件渲染器
- * 
+ *
  * 处理整个模板目录的文件生成和变量替换
  * 支持文件过滤、路径映射和进度回调
- * 
+ *
  * @version 1.0
  * @date 2025-01-11
  */
@@ -33,7 +33,25 @@ const defaultProcessors: Record<string, FileProcessor> = {
   // 文本文件处理器（支持模板变量）
   text: {
     name: 'text',
-    extensions: ['.md', '.txt', '.yml', '.yaml', '.json', '.js', '.ts', '.jsx', '.tsx', '.vue', '.svelte', '.astro', '.html', '.css', '.scss', '.sass', '.less'],
+    extensions: [
+      '.md',
+      '.txt',
+      '.yml',
+      '.yaml',
+      '.json',
+      '.js',
+      '.ts',
+      '.jsx',
+      '.tsx',
+      '.vue',
+      '.svelte',
+      '.astro',
+      '.html',
+      '.css',
+      '.scss',
+      '.sass',
+      '.less',
+    ],
     process: async (content: string, context: TemplateContext) => {
       return defaultTemplateEngine.render(content, context);
     },
@@ -42,7 +60,21 @@ const defaultProcessors: Record<string, FileProcessor> = {
   // 二进制文件处理器（直接复制）
   binary: {
     name: 'binary',
-    extensions: ['.png', '.jpg', '.jpeg', '.gif', '.svg', '.ico', '.woff', '.woff2', '.ttf', '.eot', '.pdf', '.zip', '.tar.gz'],
+    extensions: [
+      '.png',
+      '.jpg',
+      '.jpeg',
+      '.gif',
+      '.svg',
+      '.ico',
+      '.woff',
+      '.woff2',
+      '.ttf',
+      '.eot',
+      '.pdf',
+      '.zip',
+      '.tar.gz',
+    ],
     process: async (content: string) => {
       return content; // 二进制文件不做处理
     },
@@ -101,7 +133,7 @@ export class TemplateRenderer {
         callback?.(progress);
 
         await this.processFile(file, options);
-        
+
         progress.processedFiles++;
         callback?.(progress);
       }
@@ -112,7 +144,6 @@ export class TemplateRenderer {
       callback?.(progress);
 
       return progress;
-
     } catch (error) {
       progress.status = 'error';
       progress.error = error instanceof Error ? error.message : String(error);
@@ -127,16 +158,22 @@ export class TemplateRenderer {
    * @param relativePath 相对路径
    * @param options 渲染选项
    */
-  private async processFile(relativePath: string, options: TemplateRenderOptions): Promise<void> {
+  private async processFile(
+    relativePath: string,
+    options: TemplateRenderOptions
+  ): Promise<void> {
     const sourcePath = path.join(options.sourcePath, relativePath);
-    const outputPath = path.join(options.outputPath, this.processPath(relativePath, options.context));
+    const outputPath = path.join(
+      options.outputPath,
+      this.processPath(relativePath, options.context)
+    );
 
     // 确保输出目录存在
     const outputDir = path.dirname(outputPath);
     await fs.mkdir(outputDir, { recursive: true });
 
     // 检查是否需要覆盖
-    if (!options.overwrite && await this.fileExists(outputPath)) {
+    if (!options.overwrite && (await this.fileExists(outputPath))) {
       return;
     }
 
@@ -155,7 +192,11 @@ export class TemplateRenderer {
       } else {
         // 文本文件进行模板处理
         const content = await fs.readFile(sourcePath, 'utf-8');
-        const processedContent = await processor.process(content, options.context, relativePath);
+        const processedContent = await processor.process(
+          content,
+          options.context,
+          relativePath
+        );
         await fs.writeFile(outputPath, processedContent, 'utf-8');
       }
     }
@@ -178,7 +219,10 @@ export class TemplateRenderer {
    * @param ignore 忽略模式
    * @returns 文件列表
    */
-  private async getFiles(sourcePath: string, ignore: string[] = []): Promise<string[]> {
+  private async getFiles(
+    sourcePath: string,
+    ignore: string[] = []
+  ): Promise<string[]> {
     const defaultIgnore = [
       'node_modules/**',
       '.git/**',
@@ -192,7 +236,7 @@ export class TemplateRenderer {
     ];
 
     const allIgnore = [...defaultIgnore, ...ignore];
-    
+
     const files = await glob('**/*', {
       cwd: sourcePath,
       ignore: allIgnore,
@@ -209,7 +253,7 @@ export class TemplateRenderer {
    */
   private getProcessor(filePath: string): FileProcessor {
     const ext = path.extname(filePath).toLowerCase();
-    
+
     // 查找匹配的处理器
     for (const processor of Object.values(this.processors)) {
       if (processor.extensions.includes(ext)) {
@@ -259,7 +303,10 @@ export class TemplateRenderer {
    * @param context 模板上下文
    * @returns 验证结果
    */
-  async validateTemplate(templatePath: string, context: TemplateContext): Promise<TemplateValidationResult> {
+  async validateTemplate(
+    templatePath: string,
+    context: TemplateContext
+  ): Promise<TemplateValidationResult> {
     const result: TemplateValidationResult = {
       isValid: true,
       errors: [],
@@ -269,21 +316,21 @@ export class TemplateRenderer {
 
     try {
       const files = await this.getFiles(templatePath);
-      
+
       for (const file of files) {
         const filePath = path.join(templatePath, file);
         const stats = await fs.stat(filePath);
-        
+
         if (stats.isFile() && !this.isBinaryFile(file)) {
           try {
             const content = await fs.readFile(filePath, 'utf-8');
-            
+
             // 尝试编译模板
             this.engine.compile(content);
-            
+
             // 尝试渲染模板
             this.engine.render(content, context);
-            
+
             result.filesValidated++;
           } catch (error) {
             result.isValid = false;
@@ -327,4 +374,4 @@ export async function renderTemplate(
   callback?: TemplateRenderCallback
 ): Promise<TemplateRenderProgress> {
   return defaultTemplateRenderer.renderTemplate(options, callback);
-} 
+}

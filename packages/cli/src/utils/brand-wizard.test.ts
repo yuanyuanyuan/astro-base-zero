@@ -1,8 +1,8 @@
 /**
  * 品牌配置向导测试
- * 
+ *
  * 测试品牌向导的基础功能和数据处理逻辑
- * 
+ *
  * @version 1.0
  * @date 2025-01-11
  */
@@ -13,14 +13,14 @@ import {
   getBrandDataPath,
   getAppDataDir,
   createDefaultBrandAssets,
-  type Brand
+  type Brand,
 } from '@astro-base-zero/core';
 import { runBrandWizard } from './brand-wizard.js';
 import { vol, fs } from 'memfs';
 
 describe('BrandWizard', () => {
   const testBrandPath = getBrandDataPath();
-  
+
   beforeEach(() => {
     // 清理测试数据
     if (existsSync(testBrandPath)) {
@@ -44,7 +44,7 @@ describe('BrandWizard', () => {
     it('应该能够创建带选项的品牌向导实例', () => {
       const wizard = runBrandWizard({
         skipConfirmation: true,
-        useExistingDefaults: false
+        useExistingDefaults: false,
       });
       expect(wizard).toBeDefined();
     });
@@ -53,27 +53,29 @@ describe('BrandWizard', () => {
   describe('默认配置测试', () => {
     it('应该能够创建默认品牌资产', () => {
       const defaultAssets = createDefaultBrandAssets();
-      
+
       expect(defaultAssets).toBeDefined();
       expect(defaultAssets.version).toBe('1.0.0');
       expect(defaultAssets.personal).toBeDefined();
       expect(defaultAssets.visual).toBeDefined();
       expect(defaultAssets.defaults).toBeDefined();
-      
+
       // 检查必需的字段
       expect(defaultAssets.personal.name).toBe('');
       expect(defaultAssets.personal.email).toBe('');
       expect(defaultAssets.personal.bio).toBe('');
       expect(defaultAssets.personal.avatar).toBe('');
       expect(defaultAssets.personal.social.links).toEqual([]);
-      
+
       // 检查视觉品牌
       expect(defaultAssets.visual.colors.primary).toBe('#3b82f6');
       expect(defaultAssets.visual.colors.accent).toBe('#f59e0b');
-      
+
       // 检查默认设置
       expect(defaultAssets.defaults.license).toBe('MIT');
-      expect(defaultAssets.defaults.copyrightText).toContain('{{brand.personal.name}}');
+      expect(defaultAssets.defaults.copyrightText).toContain(
+        '{{brand.personal.name}}'
+      );
     });
   });
 
@@ -108,26 +110,26 @@ describe('BrandWizard', () => {
                 label: 'GitHub',
                 url: 'https://github.com/testuser',
                 openInNewTab: true,
-                order: 0
-              }
-            ]
-          }
+                order: 0,
+              },
+            ],
+          },
         },
         visual: {
           colors: {
             primary: '#3b82f6',
-            accent: '#f59e0b'
+            accent: '#f59e0b',
           },
           borderRadius: 'medium',
           shadowStyle: 'normal',
-          supportDarkMode: true
+          supportDarkMode: true,
         },
         defaults: {
           license: 'MIT',
           copyrightText: '© 2025 Test User. All rights reserved.',
           language: 'en',
-          timezone: 'UTC'
-        }
+          timezone: 'UTC',
+        },
       };
 
       // 验证数据结构
@@ -145,15 +147,15 @@ describe('BrandWizard', () => {
           label: 'GitHub',
           url: 'https://github.com/user',
           openInNewTab: true,
-          order: 0
+          order: 0,
         },
         {
           platform: 'twitter' as const,
           label: 'Twitter',
           url: 'https://twitter.com/user',
           openInNewTab: true,
-          order: 1
-        }
+          order: 1,
+        },
       ];
 
       expect(socialLinks).toHaveLength(2);
@@ -187,37 +189,37 @@ export const testUtils = {
             label: 'GitHub',
             url: 'https://github.com/testuser',
             openInNewTab: true,
-            order: 0
+            order: 0,
           },
           {
             platform: 'twitter',
             label: 'Twitter',
             url: 'https://twitter.com/testuser',
             openInNewTab: true,
-            order: 1
-          }
+            order: 1,
+          },
         ],
         primaryCount: 2,
-        showMoreButton: false
-      }
+        showMoreButton: false,
+      },
     },
     visual: {
       colors: {
         primary: '#3b82f6',
         accent: '#f59e0b',
-        secondary: '#10b981'
+        secondary: '#10b981',
       },
       typography: {
         primaryFont: 'Inter',
         secondaryFont: 'Roboto',
         codeFont: 'Fira Code',
         scale: 1.2,
-        lineHeight: 1.6
+        lineHeight: 1.6,
       },
       borderRadius: 'medium',
       shadowStyle: 'normal',
       supportDarkMode: true,
-      themeName: 'modern'
+      themeName: 'modern',
     },
     defaults: {
       license: 'MIT',
@@ -226,8 +228,8 @@ export const testUtils = {
       timezone: 'UTC',
       analyticsId: 'GA-123456789',
       defaultKeywords: ['test', 'demo', 'example'],
-      defaultAuthor: 'Test User'
-    }
+      defaultAuthor: 'Test User',
+    },
   }),
 
   cleanupTestData: () => {
@@ -235,5 +237,5 @@ export const testUtils = {
     if (existsSync(testBrandPath)) {
       unlinkSync(testBrandPath);
     }
-  }
-}; 
+  },
+};

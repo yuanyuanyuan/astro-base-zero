@@ -2,7 +2,8 @@
 
 {{project.description}}
 
-> 由 [Astro Base Zero](https://github.com/astro-base-zero) 工具模板生成，基于 [Astro](https://astro.build/) 构建。
+> 由 [Astro Base Zero](https://github.com/astro-base-zero) 工具模板生成，基于
+> [Astro](https://astro.build/) 构建。
 
 ## ✨ 特性
 
@@ -89,7 +90,7 @@ const MyTool: React.FC = () => {
       <input
         type="text"
         value={input}
-        onChange={(e) => setInput(e.target.value)}
+        onChange={e => setInput(e.target.value)}
         className="w-full px-3 py-2 border border-gray-300 rounded-lg"
         placeholder="输入内容"
       />
@@ -129,7 +130,7 @@ const toolInfo = {
 };
 ---
 
-<ToolLayout 
+<ToolLayout
   title={toolInfo.title}
   description={toolInfo.description}
   toolCategory={toolInfo.category}
@@ -156,22 +157,22 @@ const toolInfo = {
 
 ```yaml
 personal:
-  name: "{{brand.personal.name}}"
-  bio: "{{brand.personal.bio}}"
+  name: '{{brand.personal.name}}'
+  bio: '{{brand.personal.bio}}'
 
 visual:
   colors:
-    primary: "{{brand.visual.colors.primary}}"
-    accent: "{{brand.visual.colors.accent}}"
+    primary: '{{brand.visual.colors.primary}}'
+    accent: '{{brand.visual.colors.accent}}'
 
 # 工具特定配置
 tool:
-  category: "实用工具"
+  category: '实用工具'
   features:
-    - "完全免费使用"
-    - "无需注册登录"
-    - "数据不会上传到服务器"
-    - "开源代码可查看"
+    - '完全免费使用'
+    - '无需注册登录'
+    - '数据不会上传到服务器'
+    - '开源代码可查看'
 ```
 
 ### 样式定制
@@ -253,6 +254,6 @@ const exportResult = (data: string, filename: string) => {
 
 **作者**: {{brand.personal.name}}  
 **邮箱**: {{brand.personal.email}}  
-**网站**: {{brand.personal.social.links[0].url}}  
+**网站**: {{brand.personal.social.links[0].url}}
 
-由 ❤️ 和 [Astro Base Zero](https://github.com/astro-base-zero) 制作 
+由 ❤️ 和 [Astro Base Zero](https://github.com/astro-base-zero) 制作

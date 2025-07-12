@@ -45,7 +45,7 @@ export function brandAssetInjector({
         try {
           const fileContent = await _readFile(brandConfigPath, 'utf-8');
           const brandData = yaml.load(fileContent as string) as Partial<Brand>;
-          
+
           // Deep merge with structured data
           const mergedBrand: Brand = {
             ...DEFAULT_BRAND,
@@ -58,7 +58,10 @@ export function brandAssetInjector({
                 ...((brandData.personal && brandData.personal.social) || {}),
                 links: [
                   ...DEFAULT_BRAND.personal.social.links,
-                  ...((brandData.personal && brandData.personal.social && brandData.personal.social.links) || []),
+                  ...((brandData.personal &&
+                    brandData.personal.social &&
+                    brandData.personal.social.links) ||
+                    []),
                 ],
               },
             },
@@ -70,13 +73,13 @@ export function brandAssetInjector({
                 ...((brandData.visual && brandData.visual.colors) || {}),
               },
               typography: {
-                  ...DEFAULT_BRAND.visual.typography,
-                  ...((brandData.visual && brandData.visual.typography) || {}),
+                ...DEFAULT_BRAND.visual.typography,
+                ...((brandData.visual && brandData.visual.typography) || {}),
               },
               icons: {
-                  ...DEFAULT_BRAND.visual.icons,
-                  ...((brandData.visual && brandData.visual.icons) || {}),
-              }
+                ...DEFAULT_BRAND.visual.icons,
+                ...((brandData.visual && brandData.visual.icons) || {}),
+              },
             },
             defaults: {
               ...DEFAULT_BRAND.defaults,
@@ -87,7 +90,9 @@ export function brandAssetInjector({
           return `export default ${JSON.stringify(mergedBrand, null, 2)};`;
         } catch (error) {
           // If the file doesn't exist or is invalid, use defaults
-          console.warn(`[astro-base:brand-injector] brand.yaml not found or invalid. Using default brand settings.`);
+          console.warn(
+            `[astro-base:brand-injector] brand.yaml not found or invalid. Using default brand settings.`
+          );
           return `export default ${JSON.stringify(DEFAULT_BRAND, null, 2)};`;
         }
       }
@@ -100,7 +105,9 @@ export function brandAssetInjector({
 
     async handleHotUpdate({ file, server }) {
       if (file === brandConfigPath) {
-        const module = server.moduleGraph.getModuleById(RESOLVED_VIRTUAL_MODULE_ID);
+        const module = server.moduleGraph.getModuleById(
+          RESOLVED_VIRTUAL_MODULE_ID
+        );
         if (module) {
           server.moduleGraph.invalidateModule(module);
           server.ws.send({
@@ -111,4 +118,4 @@ export function brandAssetInjector({
       }
     },
   };
-} 
+}

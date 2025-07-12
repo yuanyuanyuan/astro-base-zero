@@ -56,20 +56,28 @@ export interface TemplateData {
 /**
  * 编译模板字符串
  */
-export function compileTemplate(templateContent: string, data: TemplateData): string {
+export function compileTemplate(
+  templateContent: string,
+  data: TemplateData
+): string {
   try {
     const template = Handlebars.compile(templateContent);
     return template(data);
   } catch (error) {
     console.error('模板编译失败:', error);
-    throw new Error(`模板编译失败: ${error instanceof Error ? error.message : String(error)}`);
+    throw new Error(
+      `模板编译失败: ${error instanceof Error ? error.message : String(error)}`
+    );
   }
 }
 
 /**
  * 处理单个文件的模板替换
  */
-export async function processTemplateFile(filePath: string, data: TemplateData): Promise<void> {
+export async function processTemplateFile(
+  filePath: string,
+  data: TemplateData
+): Promise<void> {
   try {
     const content = await fs.readFile(filePath, 'utf-8');
     const processedContent = compileTemplate(content, data);
@@ -117,15 +125,15 @@ const EXCLUDE_PATTERNS = [
  * 处理整个项目目录的模板替换
  */
 export async function processProjectTemplates(
-  projectPath: string, 
+  projectPath: string,
   data: TemplateData
 ): Promise<void> {
   console.log('开始处理项目模板...');
-  
+
   try {
     // 获取所有需要处理的文件
     const files: string[] = [];
-    
+
     for (const pattern of TEMPLATE_FILE_PATTERNS) {
       const matchedFiles = await glob(pattern, {
         cwd: projectPath,
@@ -134,22 +142,24 @@ export async function processProjectTemplates(
       });
       files.push(...matchedFiles);
     }
-    
+
     // 去重
     const uniqueFiles = [...new Set(files)];
-    
+
     console.log(`找到 ${uniqueFiles.length} 个文件需要处理`);
-    
+
     // 处理每个文件
     for (const filePath of uniqueFiles) {
       try {
         await processTemplateFile(filePath, data);
         console.log(`✓ 处理完成: ${path.relative(projectPath, filePath)}`);
       } catch (error) {
-        console.warn(`⚠ 跳过文件 ${path.relative(projectPath, filePath)}: ${error instanceof Error ? error.message : String(error)}`);
+        console.warn(
+          `⚠ 跳过文件 ${path.relative(projectPath, filePath)}: ${error instanceof Error ? error.message : String(error)}`
+        );
       }
     }
-    
+
     console.log('✅ 项目模板处理完成');
   } catch (error) {
     console.error('处理项目模板失败:', error);
@@ -174,12 +184,17 @@ export function createTemplateData(
       name: projectConfig.name,
       description: projectConfig.description,
       type: projectConfig.type,
-      repository: projectConfig.repository || `https://github.com/your-username/${projectConfig.name}`,
+      repository:
+        projectConfig.repository ||
+        `https://github.com/your-username/${projectConfig.name}`,
     },
     brand: {
       personal: {
         name: brandConfig?.personal?.name || projectConfig.name,
-        displayName: brandConfig?.personal?.displayName || brandConfig?.personal?.name || projectConfig.name,
+        displayName:
+          brandConfig?.personal?.displayName ||
+          brandConfig?.personal?.name ||
+          projectConfig.name,
         avatar: brandConfig?.personal?.avatar || '',
         bio: brandConfig?.personal?.bio || '',
         email: brandConfig?.personal?.email || 'hello@example.com',
@@ -197,8 +212,12 @@ export function createTemplateData(
           text: brandConfig?.visual?.colors?.text || '#1F2937',
         },
         typography: {
-          primaryFont: brandConfig?.visual?.typography?.primaryFont || 'Inter, system-ui, sans-serif',
-          codeFont: brandConfig?.visual?.typography?.codeFont || 'JetBrains Mono, Consolas, monospace',
+          primaryFont:
+            brandConfig?.visual?.typography?.primaryFont ||
+            'Inter, system-ui, sans-serif',
+          codeFont:
+            brandConfig?.visual?.typography?.codeFont ||
+            'JetBrains Mono, Consolas, monospace',
         },
         icons: {
           logo: brandConfig?.visual?.icons?.logo || '',
@@ -211,4 +230,4 @@ export function createTemplateData(
       },
     },
   };
-} 
+}

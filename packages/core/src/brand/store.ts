@@ -1,9 +1,9 @@
 /**
  * 品牌资产存储系统
- * 
+ *
  * 使用 lowdb 实现品牌信息的持久化存储
  * 存储位置: ~/.astro-launcher/brand.json
- * 
+ *
  * @version 1.0
  * @date 2025-01-11
  */
@@ -14,13 +14,13 @@ import { mkdir, access, constants, stat } from 'node:fs/promises';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { Low } from 'lowdb';
 import { JSONFile } from 'lowdb/node';
-import type { 
-  Brand, 
-  BrandUpdateOptions, 
+import type {
+  Brand,
+  BrandUpdateOptions,
   BrandValidationResult,
   PersonalInfo,
   VisualBrand,
-  BrandDefaults
+  BrandDefaults,
 } from './types.js';
 
 // =============================================================================
@@ -70,7 +70,7 @@ export function getBrandBackupPath(): string {
  */
 export function createDefaultBrandAssets(): Brand {
   const now = new Date().toISOString();
-  
+
   return {
     version: '1.0.0',
     createdAt: now,
@@ -81,19 +81,19 @@ export function createDefaultBrandAssets(): Brand {
       bio: '',
       email: '',
       social: {
-        links: []
-      }
+        links: [],
+      },
     },
     visual: {
       colors: {
         primary: '#3b82f6',
-        accent: '#f59e0b'
-      }
+        accent: '#f59e0b',
+      },
     },
     defaults: {
       license: 'MIT',
-      copyrightText: `© ${new Date().getFullYear()} {{brand.personal.name}}. All rights reserved.`
-    }
+      copyrightText: `© ${new Date().getFullYear()} {{brand.personal.name}}. All rights reserved.`,
+    },
   };
 }
 
@@ -128,14 +128,14 @@ export class BrandStore {
     try {
       // 确保应用数据目录存在
       await this.ensureAppDataDir();
-      
+
       // 初始化数据库连接
       const adapter = new JSONFile<BrandDatabase>(this.dataPath);
       this.db = new Low(adapter, { brand: createDefaultBrandAssets() });
-      
+
       // 检查文件是否存在
       const fileExists = existsSync(this.dataPath);
-      
+
       if (!fileExists) {
         // 文件不存在，创建默认数据
         this.db.data = { brand: createDefaultBrandAssets() };
@@ -143,7 +143,7 @@ export class BrandStore {
       } else {
         // 文件存在，读取数据
         await this.db.read();
-        
+
         // 如果读取后数据仍为空，写入默认数据
         if (!this.db.data || !this.db.data.brand) {
           this.db.data = { brand: createDefaultBrandAssets() };
@@ -151,7 +151,9 @@ export class BrandStore {
         }
       }
     } catch (error) {
-      throw new Error(`Failed to initialize brand store: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      throw new Error(
+        `Failed to initialize brand store: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     }
   }
 
@@ -181,26 +183,31 @@ export class BrandStore {
    */
   async load(): Promise<Brand> {
     this.ensureInitialized();
-    
+
     try {
       await this.db!.read();
       return this.db!.data.brand;
     } catch (error) {
-      throw new Error(`Failed to load brand data: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      throw new Error(
+        `Failed to load brand data: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     }
   }
 
   /**
    * 保存品牌资产数据
    */
-  async save(brandAssets: Brand, options: BrandUpdateOptions = {}): Promise<void> {
+  async save(
+    brandAssets: Brand,
+    options: BrandUpdateOptions = {}
+  ): Promise<void> {
     this.ensureInitialized();
-    
+
     const {
       merge = false,
       validate = true,
       updateTimestamp = true,
-      createBackup = true
+      createBackup = true,
     } = options;
 
     try {
@@ -208,7 +215,9 @@ export class BrandStore {
       if (validate) {
         const validation = this.validateBrandAssets(brandAssets);
         if (!validation.isValid) {
-          throw new Error(`Brand assets validation failed: ${validation.errors.join(', ')}`);
+          throw new Error(
+            `Brand assets validation failed: ${validation.errors.join(', ')}`
+          );
         }
       }
 
@@ -239,7 +248,9 @@ export class BrandStore {
       this.db!.data.brand = updatedBrandAssets;
       await this.db!.write();
     } catch (error) {
-      throw new Error(`Failed to save brand data: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      throw new Error(
+        `Failed to save brand data: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     }
   }
 
@@ -250,7 +261,7 @@ export class BrandStore {
     const current = await this.load();
     const updated: Brand = {
       ...current,
-      personal: { ...current.personal, ...personalInfo }
+      personal: { ...current.personal, ...personalInfo },
     };
     await this.save(updated, { merge: true });
   }
@@ -262,7 +273,7 @@ export class BrandStore {
     const current = await this.load();
     const updated: Brand = {
       ...current,
-      visual: { ...current.visual, ...visualBrand }
+      visual: { ...current.visual, ...visualBrand },
     };
     await this.save(updated, { merge: true });
   }
@@ -274,7 +285,7 @@ export class BrandStore {
     const current = await this.load();
     const updated: Brand = {
       ...current,
-      defaults: { ...current.defaults, ...defaults }
+      defaults: { ...current.defaults, ...defaults },
     };
     await this.save(updated, { merge: true });
   }
@@ -284,9 +295,9 @@ export class BrandStore {
    */
   async reset(): Promise<void> {
     const defaultAssets = createDefaultBrandAssets();
-    await this.save(defaultAssets, { 
-      merge: false, 
-      createBackup: true 
+    await this.save(defaultAssets, {
+      merge: false,
+      createBackup: true,
     });
   }
 
@@ -295,13 +306,15 @@ export class BrandStore {
    */
   async createBackup(): Promise<string> {
     const backupPath = getBrandBackupPath();
-    
+
     try {
       const currentData = readFileSync(this.dataPath, 'utf-8');
       writeFileSync(backupPath, currentData, 'utf-8');
       return backupPath;
     } catch (error) {
-      throw new Error(`Failed to create backup: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      throw new Error(
+        `Failed to create backup: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     }
   }
 
@@ -310,7 +323,7 @@ export class BrandStore {
    */
   async restoreFromBackup(): Promise<void> {
     const backupPath = getBrandBackupPath();
-    
+
     if (!existsSync(backupPath)) {
       throw new Error('No backup file found');
     }
@@ -318,18 +331,20 @@ export class BrandStore {
     try {
       const backupData = readFileSync(backupPath, 'utf-8');
       const parsedData = JSON.parse(backupData);
-      
+
       if (parsedData && parsedData.brand) {
-        await this.save(parsedData.brand, { 
-          merge: false, 
+        await this.save(parsedData.brand, {
+          merge: false,
           validate: true,
-          createBackup: false 
+          createBackup: false,
         });
       } else {
         throw new Error('Invalid backup data format');
       }
     } catch (error) {
-      throw new Error(`Failed to restore from backup: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      throw new Error(
+        `Failed to restore from backup: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     }
   }
 
@@ -366,7 +381,7 @@ export class BrandStore {
       path: this.dataPath,
       size,
       lastModified,
-      hasBackup
+      hasBackup,
     };
   }
 
@@ -382,30 +397,44 @@ export class BrandStore {
     if (!brandAssets.version) {
       missingFields.push('version');
     }
-    
+
     if (!brandAssets.visual?.colors?.primary) {
       missingFields.push('visual.colors.primary');
     }
-    
+
     if (!brandAssets.visual?.colors?.accent) {
       missingFields.push('visual.colors.accent');
     }
 
     // 检查数据格式 - 只有当字段存在且非空时才验证
-    if (brandAssets.personal?.email && brandAssets.personal.email.trim() !== '' && !this.isValidEmail(brandAssets.personal.email)) {
+    if (
+      brandAssets.personal?.email &&
+      brandAssets.personal.email.trim() !== '' &&
+      !this.isValidEmail(brandAssets.personal.email)
+    ) {
       errors.push('Invalid email format');
     }
 
-    if (brandAssets.personal?.avatar && brandAssets.personal.avatar.trim() !== '' && !this.isValidUrl(brandAssets.personal.avatar)) {
+    if (
+      brandAssets.personal?.avatar &&
+      brandAssets.personal.avatar.trim() !== '' &&
+      !this.isValidUrl(brandAssets.personal.avatar)
+    ) {
       warnings.push('Avatar URL format may not be optimal');
     }
 
     // 检查颜色格式
-    if (brandAssets.visual?.colors?.primary && !this.isValidColor(brandAssets.visual.colors.primary)) {
+    if (
+      brandAssets.visual?.colors?.primary &&
+      !this.isValidColor(brandAssets.visual.colors.primary)
+    ) {
       errors.push('Invalid primary color format');
     }
 
-    if (brandAssets.visual?.colors?.accent && !this.isValidColor(brandAssets.visual.colors.accent)) {
+    if (
+      brandAssets.visual?.colors?.accent &&
+      !this.isValidColor(brandAssets.visual.colors.accent)
+    ) {
       errors.push('Invalid accent color format');
     }
 
@@ -413,24 +442,27 @@ export class BrandStore {
       isValid: errors.length === 0 && missingFields.length === 0,
       errors,
       warnings,
-      missingFields
+      missingFields,
     };
   }
 
   /**
    * 深度合并对象
    */
-  private deepMerge<T extends Record<string, any>>(target: T, source: Partial<T>): T {
+  private deepMerge<T extends Record<string, any>>(
+    target: T,
+    source: Partial<T>
+  ): T {
     const result = { ...target };
-    
+
     for (const key in source) {
       if (source[key] !== undefined) {
         if (
-          typeof source[key] === 'object' && 
-          source[key] !== null && 
+          typeof source[key] === 'object' &&
+          source[key] !== null &&
           !Array.isArray(source[key]) &&
-          typeof target[key] === 'object' && 
-          target[key] !== null && 
+          typeof target[key] === 'object' &&
+          target[key] !== null &&
           !Array.isArray(target[key])
         ) {
           result[key] = this.deepMerge(target[key], source[key] as any);
@@ -439,7 +471,7 @@ export class BrandStore {
         }
       }
     }
-    
+
     return result;
   }
 
@@ -468,7 +500,8 @@ export class BrandStore {
    */
   private isValidColor(color: string): boolean {
     // 支持 hex, rgb, rgba, hsl, hsla 格式
-    const colorRegex = /^(#[0-9a-f]{3,8}|rgb\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*\)|rgba\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*,\s*[\d.]+\s*\)|hsl\(\s*\d+\s*,\s*\d+%\s*,\s*\d+%\s*\)|hsla\(\s*\d+\s*,\s*\d+%\s*,\s*\d+%\s*,\s*[\d.]+\s*\))$/i;
+    const colorRegex =
+      /^(#[0-9a-f]{3,8}|rgb\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*\)|rgba\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*,\s*[\d.]+\s*\)|hsl\(\s*\d+\s*,\s*\d+%\s*,\s*\d+%\s*\)|hsla\(\s*\d+\s*,\s*\d+%\s*,\s*\d+%\s*,\s*[\d.]+\s*\))$/i;
     return colorRegex.test(color);
   }
 }
@@ -497,7 +530,10 @@ export async function loadBrandAssets(): Promise<Brand> {
 /**
  * 快速保存品牌资产
  */
-export async function saveBrandAssets(brandAssets: Brand, options?: BrandUpdateOptions): Promise<void> {
+export async function saveBrandAssets(
+  brandAssets: Brand,
+  options?: BrandUpdateOptions
+): Promise<void> {
   const store = await createBrandStore();
   await store.save(brandAssets, options);
 }
@@ -525,7 +561,4 @@ export async function getBrandDataSize(): Promise<number> {
 // 导出所有功能
 // =============================================================================
 
-export {
-  BrandStore as default,
-  type BrandDatabase
-}; 
+export { BrandStore as default, type BrandDatabase };

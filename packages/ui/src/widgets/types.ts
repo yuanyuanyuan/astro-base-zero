@@ -58,4 +58,4 @@ export interface FeatureItem {
 export interface FeaturesWidgetProps extends BaseWidgetProps {
   items: FeatureItem[];
   layout?: 'grid' | 'list' | 'cards';
-} 
+}

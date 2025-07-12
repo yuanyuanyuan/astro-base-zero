@@ -20,13 +20,18 @@ export const ProjectConfigSchema = z.object({
     description: z.string().optional(),
     repository: z.string().url('仓库地址必须是有效的URL').optional(),
   }),
-  theme: z.object({
-    name: z.string().default('default'),
-    primaryColor: z.string().regex(/^#([0-9a-f]{3}){1,2}$/i, '颜色必须是十六进制格式').optional(),
-  }).default({}),
+  theme: z
+    .object({
+      name: z.string().default('default'),
+      primaryColor: z
+        .string()
+        .regex(/^#([0-9a-f]{3}){1,2}$/i, '颜色必须是十六进制格式')
+        .optional(),
+    })
+    .default({}),
   features: z.record(z.boolean()).optional(),
 });
 
 // 类型推断
 export type PlatformConfig = z.infer<typeof PlatformConfigSchema>;
-export type ProjectConfig = z.infer<typeof ProjectConfigSchema>; 
+export type ProjectConfig = z.infer<typeof ProjectConfigSchema>;

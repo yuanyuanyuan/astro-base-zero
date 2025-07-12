@@ -30,7 +30,7 @@ declare module 'virtual:brand-config' {
       };
     };
   }
-  
+
   const brand: BrandConfig;
   export default brand;
-} 
+}

@@ -1,9 +1,9 @@
 /**
  * 内容集合类型安全配置生成器
- * 
+ *
  * 为不同项目模板生成 Astro Content Collections 配置
  * 确保内容的类型安全和开发体验
- * 
+ *
  * @version 1.0
  * @date 2025-01-11
  */
@@ -274,14 +274,18 @@ export class CollectionConfigGenerator {
    * 生成集合定义
    */
   private generateCollectionDefinitions(): string {
-    const definitions = Array.from(this.collections.values()).map(collection => {
-      const comment = collection.description ? `// ${collection.description}\n` : '';
-      
-      return `${comment}const ${collection.name} = defineCollection({
+    const definitions = Array.from(this.collections.values()).map(
+      collection => {
+        const comment = collection.description
+          ? `// ${collection.description}\n`
+          : '';
+
+        return `${comment}const ${collection.name} = defineCollection({
   type: '${collection.type}',
   schema: ${collection.schema},
 });`;
-    });
+      }
+    );
 
     return definitions.join('\n\n');
   }
@@ -390,7 +394,9 @@ export const PORTFOLIO_COLLECTIONS: CollectionDefinition[] = [
  * @param options 配置选项
  * @returns 配置文件内容
  */
-export function generateCollectionConfig(options: CollectionConfigOptions): string {
+export function generateCollectionConfig(
+  options: CollectionConfigOptions
+): string {
   const generator = new CollectionConfigGenerator(options);
   return generator.generate();
 }
@@ -400,7 +406,9 @@ export function generateCollectionConfig(options: CollectionConfigOptions): stri
  * @param projectType 项目类型
  * @returns 集合定义数组
  */
-export function getCollectionsForProjectType(projectType: ProjectInfo['type']): CollectionDefinition[] {
+export function getCollectionsForProjectType(
+  projectType: ProjectInfo['type']
+): CollectionDefinition[] {
   switch (projectType) {
     case 'blog':
       return BLOG_COLLECTIONS;
@@ -445,7 +453,9 @@ export function validateCollections(collections: CollectionDefinition[]): {
 
     // 检查名称格式
     if (!/^[a-zA-Z][a-zA-Z0-9_]*$/.test(collection.name)) {
-      errors.push(`集合名称 ${collection.name} 格式不正确，应以字母开头，只含字母、数字和下划线`);
+      errors.push(
+        `集合名称 ${collection.name} 格式不正确，应以字母开头，只含字母、数字和下划线`
+      );
     }
   }
 
@@ -453,4 +463,4 @@ export function validateCollections(collections: CollectionDefinition[]): {
     isValid: errors.length === 0,
     errors,
   };
-} 
+}

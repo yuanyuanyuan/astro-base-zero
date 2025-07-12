@@ -75,4 +75,4 @@ describe('Configuration Schemas', () => {
       expect(result.theme.name).toBe('default');
     });
   });
-}); 
+});

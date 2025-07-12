@@ -1,9 +1,9 @@
 /**
  * 类型生成器
- * 
+ *
  * 基于项目配置文件自动生成 TypeScript 类型定义文件
  * 确保项目的类型安全和开发体验
- * 
+ *
  * @version 1.0
  * @date 2025-01-11
  */
@@ -103,7 +103,10 @@ export class TypeGenerator {
 
     // 写入文件
     if (this.options.outputPath) {
-      const outputFile = path.resolve(this.options.projectRoot, this.options.outputPath);
+      const outputFile = path.resolve(
+        this.options.projectRoot,
+        this.options.outputPath
+      );
       await this.ensureDirectoryExists(path.dirname(outputFile));
       await fs.writeFile(outputFile, typeDefinitions, 'utf-8');
     }
@@ -122,7 +125,11 @@ export class TypeGenerator {
       name: 'PersonalInfo',
       definition: this.generateInterfaceDefinition('PersonalInfo', {
         name: { type: 'string', description: '姓名' },
-        displayName: { type: 'string', optional: true, description: '显示名称' },
+        displayName: {
+          type: 'string',
+          optional: true,
+          description: '显示名称',
+        },
         avatar: { type: 'string', description: '头像URL' },
         bio: { type: 'string', description: '个人简介' },
         email: { type: 'string', description: '邮箱地址' },
@@ -175,10 +182,10 @@ export class TypeGenerator {
       definition: this.generateInterfaceDefinition('ProjectConfig', {
         name: { type: 'string', description: '项目名称' },
         description: { type: 'string', description: '项目描述' },
-        type: { 
-          type: `'${project.type}'`, 
+        type: {
+          type: `'${project.type}'`,
           description: '项目类型',
-          literal: true 
+          literal: true,
         },
         repository: { type: 'string', optional: true, description: '仓库地址' },
         site: { type: 'string', optional: true, description: '网站地址' },
@@ -196,10 +203,18 @@ export class TypeGenerator {
       name: 'PageMetadata',
       definition: this.generateInterfaceDefinition('PageMetadata', {
         title: { type: 'string', optional: true, description: '页面标题' },
-        description: { type: 'string', optional: true, description: '页面描述' },
+        description: {
+          type: 'string',
+          optional: true,
+          description: '页面描述',
+        },
         keywords: { type: 'string[]', optional: true, description: '关键词' },
         image: { type: 'string', optional: true, description: '社交分享图片' },
-        canonicalURL: { type: 'string', optional: true, description: '规范化URL' },
+        canonicalURL: {
+          type: 'string',
+          optional: true,
+          description: '规范化URL',
+        },
       }),
       description: '页面元数据接口',
       exported: true,
@@ -250,7 +265,11 @@ export class TypeGenerator {
         draft: { type: 'boolean', description: '是否为草稿' },
         author: { type: 'string', description: '作者' },
         featured: { type: 'boolean', description: '是否精选' },
-        readingTime: { type: 'number', optional: true, description: '阅读时间' },
+        readingTime: {
+          type: 'number',
+          optional: true,
+          description: '阅读时间',
+        },
       }),
       description: '博客文章接口',
       exported: true,
@@ -296,7 +315,11 @@ export class TypeGenerator {
         totalUses: { type: 'number', description: '总使用次数' },
         dailyUses: { type: 'number', description: '今日使用次数' },
         lastUsed: { type: 'Date', description: '最后使用时间' },
-        averageSessionTime: { type: 'number', optional: true, description: '平均使用时长' },
+        averageSessionTime: {
+          type: 'number',
+          optional: true,
+          description: '平均使用时长',
+        },
       }),
       description: '使用统计接口',
       exported: true,
@@ -314,22 +337,28 @@ export class TypeGenerator {
    * 生成接口定义
    */
   private generateInterfaceDefinition(
-    name: string, 
-    properties: Record<string, {
-      type: string;
-      optional?: boolean;
-      description?: string;
-      literal?: boolean;
-    }>
+    name: string,
+    properties: Record<
+      string,
+      {
+        type: string;
+        optional?: boolean;
+        description?: string;
+        literal?: boolean;
+      }
+    >
   ): string {
-    const props = Object.entries(properties).map(([key, prop]) => {
-      const optional = prop.optional ? '?' : '';
-      const comment = this.options.includeComments && prop.description 
-        ? `\n  /** ${prop.description} */`
-        : '';
-      
-      return `${comment}\n  ${key}${optional}: ${prop.type};`;
-    }).join('\n');
+    const props = Object.entries(properties)
+      .map(([key, prop]) => {
+        const optional = prop.optional ? '?' : '';
+        const comment =
+          this.options.includeComments && prop.description
+            ? `\n  /** ${prop.description} */`
+            : '';
+
+        return `${comment}\n  ${key}${optional}: ${prop.type};`;
+      })
+      .join('\n');
 
     return `interface ${name} {${props}\n}`;
   }
@@ -342,11 +371,12 @@ export class TypeGenerator {
     const imports = this.generateImports();
     const types = Array.from(this.generatedTypes.values())
       .map(type => {
-        const comment = this.options.includeComments && type.description 
-          ? `/**\n * ${type.description}\n */\n`
-          : '';
+        const comment =
+          this.options.includeComments && type.description
+            ? `/**\n * ${type.description}\n */\n`
+            : '';
         const exportKeyword = type.exported ? 'export ' : '';
-        
+
         return `${comment}${exportKeyword}${type.definition}`;
       })
       .join('\n\n');
@@ -423,7 +453,9 @@ export class TypeGenerator {
  * @param options 生成选项
  * @returns 生成的类型定义内容
  */
-export async function generateProjectTypes(options: TypeGeneratorOptions): Promise<string> {
+export async function generateProjectTypes(
+  options: TypeGeneratorOptions
+): Promise<string> {
   const generator = new TypeGenerator(options);
   return generator.generate();
 }
@@ -446,4 +478,4 @@ export async function generateTypesForTemplate(
     projectRoot,
     ...configData,
   });
-} 
+}

@@ -10,10 +10,7 @@ import { mkdtemp, rm } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { vol } from 'memfs';
 
-import {
-  BrandStore,
-  createDefaultBrandAssets
-} from './store.js';
+import { BrandStore, createDefaultBrandAssets } from './store.js';
 
 import type { Brand } from './types.js';
 
@@ -36,7 +33,7 @@ describe('Brand Assets Storage System', () => {
   describe('Default Brand Assets', () => {
     it('should create valid default brand assets', () => {
       const defaultAssets = createDefaultBrandAssets();
-      
+
       expect(defaultAssets.version).toBe('1.0.0');
       expect(defaultAssets.createdAt).toBeDefined();
       expect(defaultAssets.updatedAt).toBeDefined();
@@ -51,7 +48,9 @@ describe('Brand Assets Storage System', () => {
     it('should include current year in copyright text', () => {
       const defaultAssets = createDefaultBrandAssets();
       const currentYear = new Date().getFullYear();
-      expect(defaultAssets.defaults.copyrightText).toContain(currentYear.toString());
+      expect(defaultAssets.defaults.copyrightText).toContain(
+        currentYear.toString()
+      );
     });
   });
 
@@ -62,10 +61,10 @@ describe('Brand Assets Storage System', () => {
     beforeEach(async () => {
       // 创建自定义数据路径用于测试
       customDataPath = join(tempDir, 'test-brand.json');
-      
+
       // 创建一个测试用的 BrandStore 实例，传入自定义路径
       store = new BrandStore(customDataPath, tempDir);
-      
+
       await store.initialize();
     });
 
@@ -77,7 +76,7 @@ describe('Brand Assets Storage System', () => {
 
     it('should load default data after initialization', async () => {
       const data = await store.load();
-      
+
       expect(data.version).toBe('1.0.0');
       expect(data.personal.name).toBe('');
       expect(data.visual.colors.primary).toBe('#3b82f6');
@@ -100,21 +99,21 @@ describe('Brand Assets Storage System', () => {
               {
                 platform: 'github',
                 label: 'GitHub',
-                url: 'https://github.com/johndoe'
-              }
-            ]
-          }
+                url: 'https://github.com/johndoe',
+              },
+            ],
+          },
         },
         visual: {
           colors: {
             primary: '#8b5cf6',
-            accent: '#ec4899'
-          }
+            accent: '#ec4899',
+          },
         },
         defaults: {
           license: 'MIT',
-          copyrightText: '© 2025 John Doe. All rights reserved.'
-        }
+          copyrightText: '© 2025 John Doe. All rights reserved.',
+        },
       };
 
       // 保存数据
@@ -147,7 +146,9 @@ describe('Brand Assets Storage System', () => {
       const newData = await store.load();
 
       expect(newData.updatedAt).not.toBe(originalTimestamp);
-      expect(new Date(newData.updatedAt).getTime()).toBeGreaterThan(new Date(originalTimestamp).getTime());
+      expect(new Date(newData.updatedAt).getTime()).toBeGreaterThan(
+        new Date(originalTimestamp).getTime()
+      );
     });
 
     it('should validate brand assets before saving', async () => {
@@ -159,33 +160,35 @@ describe('Brand Assets Storage System', () => {
           name: 'Test User',
           avatar: '',
           bio: '',
-          email: 'invalid-email',  // 无效邮箱格式
+          email: 'invalid-email', // 无效邮箱格式
           social: {
-            links: []
-          }
+            links: [],
+          },
         },
         visual: {
           colors: {
-            primary: 'invalid-color',  // 无效颜色格式
-            accent: '#ff0000'
-          }
+            primary: 'invalid-color', // 无效颜色格式
+            accent: '#ff0000',
+          },
         },
         defaults: {
           license: 'MIT',
-          copyrightText: '© 2025'
-        }
+          copyrightText: '© 2025',
+        },
       };
 
       // 尝试保存无效数据，应该抛出错误
-      await expect(store.save(invalidData)).rejects.toThrow('Brand assets validation failed');
+      await expect(store.save(invalidData)).rejects.toThrow(
+        'Brand assets validation failed'
+      );
     });
 
     it('should update personal info partially', async () => {
       const originalData = await store.load();
-      
+
       await store.updatePersonal({
         name: 'Updated Name',
-        location: 'Shanghai, China'
+        location: 'Shanghai, China',
       });
 
       const updatedData = await store.load();
@@ -212,7 +215,7 @@ describe('Brand Assets Storage System', () => {
 
       // 创建新实例，使用相同的自定义路径
       const store2 = new BrandStore(customDataPath, tempDir);
-      
+
       await store2.initialize();
       const loadedData = await store2.load();
 
@@ -223,9 +226,11 @@ describe('Brand Assets Storage System', () => {
   describe('Error Handling', () => {
     it('should throw error when calling methods before initialization', async () => {
       const store = new BrandStore();
-      
+
       await expect(store.load()).rejects.toThrow('Brand store not initialized');
-      await expect(store.save(createDefaultBrandAssets())).rejects.toThrow('Brand store not initialized');
+      await expect(store.save(createDefaultBrandAssets())).rejects.toThrow(
+        'Brand store not initialized'
+      );
     });
   });
-}); 
+});

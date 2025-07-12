@@ -1,9 +1,9 @@
 /**
  * 类型守卫工具集
- * 
+ *
  * 提供运行时类型检查函数，确保数据类型安全
  * 支持复杂数据结构的验证和类型收窄
- * 
+ *
  * @version 1.0
  * @date 2025-01-11
  */
@@ -53,13 +53,16 @@ export function isBoolean(value: unknown): value is boolean {
 /**
  * 检查值是否为数组
  */
-export function isArray<T>(value: unknown, itemGuard?: (item: unknown) => item is T): value is T[] {
+export function isArray<T>(
+  value: unknown,
+  itemGuard?: (item: unknown) => item is T
+): value is T[] {
   if (!Array.isArray(value)) return false;
-  
+
   if (itemGuard) {
     return value.every(item => itemGuard(item));
   }
-  
+
   return true;
 }
 
@@ -89,7 +92,7 @@ export function isDate(value: unknown): value is Date {
  */
 export function isValidURL(value: unknown): value is string {
   if (!isString(value)) return false;
-  
+
   try {
     new URL(value);
     return true;
@@ -103,7 +106,7 @@ export function isValidURL(value: unknown): value is string {
  */
 export function isValidEmail(value: unknown): value is string {
   if (!isString(value)) return false;
-  
+
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(value);
 }
@@ -113,7 +116,7 @@ export function isValidEmail(value: unknown): value is string {
  */
 export function isValidHexColor(value: unknown): value is string {
   if (!isString(value)) return false;
-  
+
   const hexColorRegex = /^#([0-9a-fA-F]{3}){1,2}$/;
   return hexColorRegex.test(value);
 }
@@ -127,9 +130,9 @@ export function isValidHexColor(value: unknown): value is string {
  */
 export function isSocialLink(value: unknown): value is SocialLink {
   if (!isObject(value)) return false;
-  
+
   const link = value as Record<string, unknown>;
-  
+
   return (
     isNonEmptyString(link.platform) &&
     isNonEmptyString(link.label) &&
@@ -144,9 +147,9 @@ export function isSocialLink(value: unknown): value is SocialLink {
  */
 export function isPersonalInfo(value: unknown): value is PersonalInfo {
   if (!isObject(value)) return false;
-  
+
   const info = value as Record<string, unknown>;
-  
+
   return (
     isNonEmptyString(info.name) &&
     isValidURL(info.avatar) &&
@@ -166,11 +169,13 @@ export function isPersonalInfo(value: unknown): value is PersonalInfo {
 /**
  * 检查值是否为有效的品牌颜色配置
  */
-export function isBrandColors(value: unknown): value is Brand['visual']['colors'] {
+export function isBrandColors(
+  value: unknown
+): value is Brand['visual']['colors'] {
   if (!isObject(value)) return false;
-  
+
   const colors = value as Record<string, unknown>;
-  
+
   return (
     isValidHexColor(colors.primary) &&
     isValidHexColor(colors.accent) &&
@@ -185,9 +190,9 @@ export function isBrandColors(value: unknown): value is Brand['visual']['colors'
  */
 export function isBrand(value: unknown): value is Brand {
   if (!isObject(value)) return false;
-  
+
   const brand = value as Record<string, unknown>;
-  
+
   return (
     isNonEmptyString(brand.version) &&
     isNonEmptyString(brand.createdAt) &&
@@ -209,7 +214,14 @@ export function isBrand(value: unknown): value is Brand {
  * 检查值是否为有效的项目类型
  */
 export function isProjectType(value: unknown): value is ProjectInfo['type'] {
-  const validTypes: ProjectInfo['type'][] = ['demo', 'tool', 'showcase', 'blog', 'docs', 'portfolio'];
+  const validTypes: ProjectInfo['type'][] = [
+    'demo',
+    'tool',
+    'showcase',
+    'blog',
+    'docs',
+    'portfolio',
+  ];
   return isString(value) && validTypes.includes(value as ProjectInfo['type']);
 }
 
@@ -218,9 +230,9 @@ export function isProjectType(value: unknown): value is ProjectInfo['type'] {
  */
 export function isProjectInfo(value: unknown): value is ProjectInfo {
   if (!isObject(value)) return false;
-  
+
   const project = value as Record<string, unknown>;
-  
+
   return (
     isNonEmptyString(project.name) &&
     isNonEmptyString(project.description) &&
@@ -244,9 +256,9 @@ export function isProjectInfo(value: unknown): value is ProjectInfo {
  */
 export function isTemplateMetadata(value: unknown): value is TemplateMetadata {
   if (!isObject(value)) return false;
-  
+
   const template = value as Record<string, unknown>;
-  
+
   return (
     isNonEmptyString(template.name) &&
     isNonEmptyString(template.displayName) &&
@@ -281,9 +293,9 @@ export function isBlogPostData(value: unknown): value is {
   featured: boolean;
 } {
   if (!isObject(value)) return false;
-  
+
   const post = value as Record<string, unknown>;
-  
+
   return (
     isNonEmptyString(post.title) &&
     isNonEmptyString(post.description) &&
@@ -315,9 +327,9 @@ export function isToolConfig(value: unknown): value is {
   features: string[];
 } {
   if (!isObject(value)) return false;
-  
+
   const tool = value as Record<string, unknown>;
-  
+
   return (
     isNonEmptyString(tool.category) &&
     isStringArray(tool.tags) &&
@@ -337,14 +349,17 @@ export function isUsageStats(value: unknown): value is {
   lastUsed: Date;
 } {
   if (!isObject(value)) return false;
-  
+
   const stats = value as Record<string, unknown>;
-  
+
   return (
-    isNumber(stats.totalUses) && stats.totalUses >= 0 &&
-    isNumber(stats.dailyUses) && stats.dailyUses >= 0 &&
+    isNumber(stats.totalUses) &&
+    stats.totalUses >= 0 &&
+    isNumber(stats.dailyUses) &&
+    stats.dailyUses >= 0 &&
     isDate(stats.lastUsed) &&
-    (stats.averageSessionTime === undefined || isPositiveNumber(stats.averageSessionTime))
+    (stats.averageSessionTime === undefined ||
+      isPositiveNumber(stats.averageSessionTime))
   );
 }
 
@@ -361,24 +376,28 @@ export function isValidConfig<T>(
   fieldValidators: Partial<Record<keyof T, (v: unknown) => boolean>>
 ): value is T {
   if (!isObject(value)) return false;
-  
+
   const config = value as Record<string, unknown>;
-  
+
   // 检查必需字段
   for (const field of requiredFields) {
     if (!(String(field) in config)) {
       return false;
     }
   }
-  
+
   // 检查字段验证器
   for (const [field, validator] of Object.entries(fieldValidators)) {
     const fieldValue = config[field];
-    if (fieldValue !== undefined && typeof validator === 'function' && !validator(fieldValue)) {
+    if (
+      fieldValue !== undefined &&
+      typeof validator === 'function' &&
+      !validator(fieldValue)
+    ) {
       return false;
     }
   }
-  
+
   return true;
 }
 
@@ -408,14 +427,14 @@ export function validateWithErrors<T>(
   if (typeGuard(value)) {
     return { isValid: true, data: value };
   }
-  
+
   // 这里可以扩展为更详细的错误信息收集
   const errors: string[] = [`${fieldName} 不符合预期的类型结构`];
-  
+
   if (!isObject(value)) {
     errors.push(`${fieldName} 必须是一个对象`);
   }
-  
+
   return { isValid: false, errors };
 }
 
@@ -446,4 +465,4 @@ export function when<T, R>(
   callback: (value: T) => R
 ): R | undefined {
   return typeGuard(value) ? callback(value) : undefined;
-} 
+}
