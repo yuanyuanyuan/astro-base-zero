@@ -82,5 +82,4 @@ memory-bank/
 dist/
 
 .turbo/
-.turbo/daemon/*
 .turbo/daemon/
