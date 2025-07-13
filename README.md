@@ -555,7 +555,7 @@ jobs:
 
 ```bash
 # 克隆仓库
-git clone https://github.com/your-username/astro-base-zero.git
+git clone https://github.com/yuanyuanyuan/astro-base-zero
 cd astro-base-zero
 
 # 安装依赖
@@ -580,12 +580,6 @@ astro-base-zero/
 │   ├── 📁 templates/           # 项目模板
 │   ├── 📁 shared/              # 共享工具
 │   └── 📁 docs/                # 文档
-├── 📁 memory-bank/             # 项目知识库
-│   ├── 产品需求文档.md
-│   ├── tech-stack.md
-│   └── architecture.md
-├── 📁 .cursor/                 # Cursor配置
-│   └── 📁 rules/
 ├── 📄 turbo.json               # Monorepo配置
 ├── 📄 pnpm-workspace.yaml      # Workspace配置
 └── 📄 README.md                # 项目文档
@@ -620,17 +614,17 @@ git commit -m "docs(readme): update installation instructions"
 
 ### 示例项目
 
-- 🔧 **[工具类示例](https://github.com/astro-launcher/example-tools)** - 在线工具集合
+<!-- - 🔧 **[工具类示例](https://github.com/astro-launcher/example-tools)** - 在线工具集合
 - 📝 **[博客示例](https://github.com/astro-launcher/example-blog)** - 技术博客网站
 - 🎯 **[作品集示例](https://github.com/astro-launcher/example-portfolio)** - 个人作品集
-- 🏠 **[着陆页示例](https://github.com/astro-launcher/example-landing)** - 产品着陆页
+- 🏠 **[着陆页示例](https://github.com/astro-launcher/example-landing)** - 产品着陆页 -->
 
 ### 社区资源
 
-- 💬 **[Discord社区](https://discord.gg/astro-launcher)** - 实时交流和支持
+<!-- - 💬 **[Discord社区](https://discord.gg/astro-launcher)** - 实时交流和支持
 - 🐛 **[问题反馈](https://github.com/astro-launcher/astro-base-zero/issues)** - Bug报告和功能请求
 - 📢 **[更新日志](CHANGELOG.md)** - 版本更新记录
-- 🎓 **[教程视频](https://youtube.com/astro-launcher)** - 视频教程和演示
+- 🎓 **[教程视频](https://youtube.com/astro-launcher)** - 视频教程和演示 -->
 
 ## 🔄 版本路线图
 
