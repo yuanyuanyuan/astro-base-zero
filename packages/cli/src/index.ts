@@ -2,6 +2,7 @@
 import { Command } from 'commander';
 import { createConfigCommand } from './commands/config.js';
 import { createCreateCommand, createListCommand } from './commands/create.js';
+import { createDeployCommand } from './commands/deploy.js';
 import { validateProjectName } from './utils/validators.js';
 
 const program = new Command();
@@ -16,6 +17,9 @@ program.addCommand(createCreateCommand());
 
 // 添加 list 命令
 program.addCommand(createListCommand());
+
+// 添加 deploy 命令
+program.addCommand(createDeployCommand());
 
 // 保留 init 命令作为 create 的别名
 program
