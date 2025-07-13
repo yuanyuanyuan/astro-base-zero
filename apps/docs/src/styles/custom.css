@@ -1,0 +1,60 @@
+/* Astro Base Zero 文档站点自定义样式 */
+
+:root {
+  --sl-color-accent: 59, 130, 246;
+  --sl-color-accent-high: 37, 99, 235;
+  --sl-color-text-accent: 59, 130, 246;
+}
+
+/* 品牌化配色 */
+[data-theme='light'] {
+  --sl-color-bg: 255, 255, 255;
+  --sl-color-bg-nav: 248, 250, 252;
+  --sl-color-bg-sidebar: 248, 250, 252;
+}
+
+[data-theme='dark'] {
+  --sl-color-bg: 15, 23, 42;
+  --sl-color-bg-nav: 30, 41, 59;
+  --sl-color-bg-sidebar: 30, 41, 59;
+}
+
+/* 自定义组件样式 */
+.hero-section {
+  background: linear-gradient(135deg, rgb(59, 130, 246) 0%, rgb(37, 99, 235) 100%);
+  color: white;
+  padding: 3rem 0;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.feature-card {
+  padding: 1.5rem;
+  border: 1px solid rgb(226, 232, 240);
+  border-radius: 0.5rem;
+  background: rgb(248, 250, 252);
+}
+
+.feature-card h3 {
+  margin-top: 0;
+  color: rgb(37, 99, 235);
+}
+
+/* 代码块增强 */
+.expressive-code {
+  margin: 1.5rem 0;
+}
+
+/* 导航增强 */
+.sl-nav-link[aria-current="page"] {
+  background: rgb(59, 130, 246, 0.1);
+  color: rgb(37, 99, 235);
+  font-weight: 600;
+} 

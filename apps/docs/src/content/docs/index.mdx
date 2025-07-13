@@ -1,0 +1,120 @@
+---
+title: 欢迎使用 Astro Base Zero
+description: Astro 项目快速发布平台 - 让每个创意都能快速转化为专业的线上作品
+template: splash
+hero:
+  tagline: 🚀 让每个创意都能快速转化为专业的线上作品
+  actions:
+    - text: 快速开始
+      link: /getting-started/quick-start/
+      icon: right-arrow
+      variant: primary
+    - text: 查看 GitHub
+      link: https://github.com/astro-base-zero/astro-base-zero
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+## 🎯 什么是 Astro Base Zero？
+
+Astro Base Zero 是一个智能化的 Astro 项目快速发布平台，专为连续创业者和开发者设计。它解决了从创意到上线的完整工作流程，让你能够专注于创造价值，而不是重复的技术配置。
+
+<div class="hero-section">
+  <h3>从创意到上线，只需几分钟</h3>
+  <p>标准化的项目架构 + 智能化的配置管理 + 一键部署流程</p>
+</div>
+
+## ✨ 核心功能
+
+<CardGrid stagger>
+  <Card title="🎯 智能项目生成" icon="rocket">
+    基于项目类型和个人偏好，一键生成定制化的项目结构，每个新项目都自带最佳实践和个人品牌元素。
+  </Card>
+  
+  <Card title="📊 项目生命周期管理" icon="list-format">
+    从规划到维护的完整工作流程指导，每个阶段都有明确的任务清单和最佳实践建议。
+  </Card>
+  
+  <Card title="🎨 品牌资产中心" icon="star">
+    中心化管理所有个人品牌资产，一次配置，全局生效。确保所有项目都有一致的品牌形象。
+  </Card>
+  
+  <Card title="🚀 一键部署" icon="approve-check">
+    集成 GitHub Pages、Netlify、Vercel 等主流部署平台，支持自动化部署流程。
+  </Card>
+</CardGrid>
+
+## 🏗️ 项目模板
+
+目前支持三种核心项目类型：
+
+<div class="feature-grid">
+  <div class="feature-card">
+    <h3>🏢 基础站点</h3>
+    <p>适用于企业官网、产品展示等静态站点。包含响应式设计、SEO优化、联系表单等核心功能。</p>
+  </div>
+  
+  <div class="feature-card">
+    <h3>📝 博客站点</h3>
+    <p>完整的内容管理系统，支持 Markdown 文档、分类标签、RSS 订阅、评论系统等博客功能。</p>
+  </div>
+  
+  <div class="feature-card">
+    <h3>🔧 在线工具</h3>
+    <p>交互式工具展示平台，支持 React 组件集成、API 调用、数据可视化等高级功能。</p>
+  </div>
+</div>
+
+## 🚀 快速体验
+
+```bash
+# 1. 安装 CLI 工具
+npm install -g @astro-base-zero/cli
+
+# 2. 配置个人品牌信息
+astro-zero config brand
+
+# 3. 创建第一个项目
+astro-zero create my-awesome-project --template base
+
+# 4. 启动开发服务器
+cd my-awesome-project
+npm run dev
+```
+
+## 📈 项目统计
+
+- ✅ **3种** 核心项目模板
+- ✅ **5个** 生命周期管理阶段
+- ✅ **100%** 类型安全覆盖
+- ✅ **< 15秒** 项目创建时间
+- ✅ **> 95分** Lighthouse 性能分数
+
+## 🎓 学习路径
+
+如果你是新用户，建议按照以下顺序学习：
+
+1. **[快速开始](/getting-started/quick-start/)** - 5分钟快速体验
+2. **[安装指南](/getting-started/installation/)** - 详细的环境配置
+3. **[第一个项目](/getting-started/first-project/)** - 创建你的第一个项目
+4. **[项目管理](/guides/project-management/)** - 学习项目管理工作流
+5. **[部署指南](/guides/deployment/)** - 将项目发布到线上
+
+## 🤝 社区支持
+
+- 📖 **[完整文档](/)** - 详细的使用指南和 API 参考
+- 🐛 **[问题反馈](https://github.com/astro-base-zero/astro-base-zero/issues)** - 报告 Bug 或请求新功能
+- 💬 **[讨论区](https://github.com/astro-base-zero/astro-base-zero/discussions)** - 与社区交流经验
+- 🔄 **[贡献指南](/development/contributing/)** - 参与项目开发
+
+---
+
+<div style="text-align: center; margin-top: 3rem; padding: 2rem; background: rgb(248, 250, 252); border-radius: 0.5rem;">
+  <h3>开始你的创造之旅</h3>
+  <p>让 Astro Base Zero 成为你创意实现的加速器</p>
+  <a href="/getting-started/quick-start/" style="display: inline-block; padding: 0.75rem 1.5rem; background: rgb(59, 130, 246); color: white; text-decoration: none; border-radius: 0.375rem; font-weight: 600; margin-top: 1rem;">
+    立即开始 →
+  </a>
+</div>
