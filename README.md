@@ -68,14 +68,14 @@
 ### 安装
 
 ```bash
-# 全局安装
-npm install -g astro-launcher
+# 正确的方式：克隆本项目并在本地运行
+git clone https://github.com/yuanyuanyuan/astro-base-zero
+cd astro-base-zero
+pnpm install
+pnpm build # 确保编译CLI
 
-# 或使用 pnpm
-pnpm add -g astro-launcher
-
-# 验证安装
-astro-launcher --version
+# 验证安装 (在项目根目录运行)
+pnpm cli --version
 ```
 
 ### 首次使用
@@ -84,7 +84,7 @@ astro-launcher --version
 
 ```bash
 # 运行品牌配置向导
-astro-launcher brand setup
+pnpm cli brand setup
 
 # 系统将引导您配置：
 # - 个人信息（姓名、头像、简介）
@@ -96,17 +96,14 @@ astro-launcher brand setup
 #### 2. 创建第一个项目
 
 ```bash
-# 创建工具类项目
-astro-launcher create my-awesome-tool --type=tool
-
-# 创建个人作品集
-astro-launcher create my-portfolio --type=portfolio
+# 创建基础站点 (企业官网、产品展示等)
+pnpm cli create my-awesome-site --template base
 
 # 创建博客网站
-astro-launcher create my-blog --type=blog
+pnpm cli create my-blog --template blog
 
-# 创建着陆页
-astro-launcher create my-landing --type=landing
+# 创建在线工具
+pnpm cli create my-awesome-tool --template tool
 ```
 
 #### 3. 等待魔法发生 ✨
@@ -128,161 +125,125 @@ astro-launcher create my-landing --type=landing
 
 ```bash
 # 创建新项目
-astro-launcher create <project-name> [options]
-  --type, -t      项目类型 (tool|blog|portfolio|landing)
-  --description   项目描述
-  --features      启用的功能模块
-  --domain        自定义域名
-  --ai-content    启用AI内容生成
+pnpm cli create <project-name> [options]
+  -t, --template <template>   项目模板 (base/blog/tool)
+  -d, --description <text>    项目描述
+  -r, --repository <url>      项目仓库地址
+  --skip-install              跳过依赖安装
+  --skip-template             跳过模板变量处理
 
 # 查看所有项目
-astro-launcher list
-astro-launcher ls
+pnpm cli list [options]
+  -t, --type <type>           按类型过滤 (demo/tool/showcase/blog/docs/portfolio)
+  -s, --status <status>       按状态过滤 (active/archived/draft)
+  --search <keyword>          搜索关键词
+  --sort <field>              排序字段 (name/createdAt/updatedAt/type)
+  --order <direction>         排序方向 (asc/desc)
 
 # 查看项目详情
-astro-launcher show <project-name>
+pnpm cli show <project-name>
 
 # 更新项目
-astro-launcher update <project-name> [options]
+pnpm cli update <project-name> [options]
   --brand         更新品牌配置
   --content       重新生成内容
   --deploy        重新部署
 
 # 删除项目
-astro-launcher delete <project-name>
+pnpm cli delete <project-name>
 ```
 
 ### 品牌管理命令
 
 ```bash
 # 品牌配置向导
-astro-launcher brand setup
+pnpm cli brand setup
 
 # 更新品牌配置
-astro-launcher brand update [options]
-  --name          更新姓名
-  --avatar        更新头像
-  --colors        更新配色方案
-  --theme         更新主题
+pnpm cli brand update [options]
+  --name <name>      更新姓名
+  --avatar <url>     更新头像
+  --colors <scheme>  更新配色方案
+  --theme <theme>    更新主题
 
 # 应用品牌到所有项目
-astro-launcher brand apply-all
+pnpm cli brand apply-all
 
 # 导入/导出品牌配置
-astro-launcher brand export > my-brand.yaml
-astro-launcher brand import my-brand.yaml
+pnpm cli brand export > my-brand.yaml
+pnpm cli brand import my-brand.yaml
 ```
 
 ### 批量操作命令
 
 ```bash
 # 批量更新所有项目
-astro-launcher batch update
+pnpm cli batch update
   --brand         更新品牌配置
   --dependencies  更新依赖
   --deploy        重新部署
 
 # 批量备份
-astro-launcher backup create
-astro-launcher backup restore <backup-id>
+pnpm cli backup create
+pnpm cli backup restore <backup-id>
 
 # 项目状态检查
-astro-launcher health-check
+pnpm cli health-check
 ```
 
 ### AI集成命令
 
 ```bash
+# (注意: AI相关命令在当前代码中未实现，以下为设计文档)
+
 # 检查可用的AI工具
-astro-launcher ai check
+# pnpm cli ai check
 
 # 为项目生成内容
-astro-launcher ai generate <project-name>
-  --type          内容类型 (blog|docs|copy)
-  --length        内容长度
-  --style         写作风格
+# pnpm cli ai generate <project-name>
+#   --type <type>    内容类型 (blog|docs|copy)
+#   --length <words>   内容长度
+#   --style <style>  写作风格
 
 # AI优化建议
-astro-launcher ai optimize <project-name>
+# pnpm cli ai optimize <project-name>
 ```
 
 ## 🎨 项目类型详解
 
-### 🔧 工具类项目 (Tool)
+### 🏗️ 基础站点 (Base)
 
-专为实用工具网站设计，包含完整的静态功能模块：
+通用的静态网站模板，适用于企业官网、产品介绍、个人主页等。
 
 **内置功能：**
-- JSON格式化器和验证器
-- 颜色选择器和调色板生成器
-- 文本处理工具（格式转换、编码解码）
-- 图片处理工具（压缩、格式转换）
-- 开发者工具（正则表达式测试、Base64编码）
-- 计算器和单位转换器
-
-**技术特性：**
-- 纯客户端JavaScript，无需服务器
-- 响应式设计，支持移动端
-- PWA支持，可离线使用
-- SEO优化，搜索引擎友好
+- 响应式设计
+- SEO优化
+- 联系表单
+- Tailwind CSS
 
 ### 📝 博客类项目 (Blog)
 
-完整的静态博客系统，支持现代博客的所有核心功能：
+完整的静态博客系统，支持现代博客的所有核心功能。
 
 **内置功能：**
 - Markdown文章编写和渲染
 - 分类和标签系统
-- 文章搜索和筛选
 - RSS/Atom订阅源
 - 评论系统集成（Giscus/Disqus）
-- 阅读时间估算
-- 代码高亮和复制
-- 图片懒加载和优化
 
-**内容管理：**
-- 基于文件的内容管理
-- 自动生成文章目录
-- 相关文章推荐
-- 归档页面和时间线
+### 🔧 工具类项目 (Tool)
 
-### 🎯 作品集类项目 (Portfolio)
-
-专业的个人作品集展示网站：
+专为实用工具网站设计，可集成React等前端框架。
 
 **内置功能：**
-- 项目展示和案例研究
-- 技能和经验展示
-- 联系表单和社交链接
-- 简历/CV下载
-- 客户推荐和评价
-- 服务介绍和价格表
-- 博客集成（可选）
+- React组件支持
+- API集成示例
+- 数据可视化模板
+- 工具函数集成
 
-**设计特性：**
-- 现代化设计模板
-- 动画和交互效果
-- 图片画廊和轮播
-- 响应式布局
+### 🎯 作品集与着陆页 (后续规划)
 
-### 🏠 着陆页类项目 (Landing)
-
-高转化率的产品/服务着陆页：
-
-**内置功能：**
-- Hero区域和价值主张
-- 功能特性展示
-- 客户证言和案例
-- 价格表和比较
-- FAQ常见问题
-- 联系表单和CTA按钮
-- 邮件订阅集成
-
-**营销特性：**
-- A/B测试支持
-- 转化跟踪代码
-- SEO优化配置
-- 社交媒体集成
+**注意:** `作品集 (Portfolio)` 和 `着陆页 (Landing)` 类型在当前版本中尚未实现，它们是后续规划的功能。`README` 中关于这两个类型的描述代表了未来的发展方向。
 
 ## 🎨 品牌配置系统
 
@@ -343,6 +304,7 @@ customStyles:
 
 ### AI工作流程
 
+**(注意: 以下为设计构想，实际功能待开发)**
 ```mermaid
 flowchart TD
     A[用户创建项目] --> B{检测可用AI工具}
@@ -365,16 +327,17 @@ flowchart TD
 
 ### AI使用示例
 
+**(注意: 以下为设计构想，实际功能待开发)**
 ```bash
 # 检查AI工具可用性
-astro-launcher ai check
+# pnpm cli ai check
 # 输出：
 # ✅ Claude CLI: 可用 (v1.2.0)
 # ✅ Gemini CLI: 可用 (v0.8.1)
 # ❌ ChatGPT CLI: 未安装
 
 # 为博客项目生成内容
-astro-launcher ai generate my-blog --type=blog --style=technical
+# pnpm cli ai generate my-blog --type blog --style technical
 # 系统将：
 # 1. 调用AI生成5-10篇技术博客文章
 # 2. 生成分类和标签
@@ -382,7 +345,7 @@ astro-launcher ai generate my-blog --type=blog --style=technical
 # 4. 生成项目介绍和README
 
 # AI代码优化
-astro-launcher ai optimize my-tool
+# pnpm cli ai optimize my-tool
 # 系统将：
 # 1. 分析现有代码结构
 # 2. 提供性能优化建议
@@ -425,17 +388,17 @@ my-awesome-project/
 ├── 📄 package.json             # 项目依赖
 ├── 📄 .gitignore               # Git忽略文件
 ├── 📄 README.md                # 项目文档
-└── 📄 .astro-launcher.yaml     # 项目元数据
+└── 📄 .astro-zero.yaml     # 项目元数据
 ```
 
 ## 🔧 配置和定制
 
 ### 项目配置文件
 
-每个生成的项目包含 `.astro-launcher.yaml` 配置文件：
+每个生成的项目包含 `.astro-zero.yaml` 配置文件：
 
 ```yaml
-# .astro-launcher.yaml
+# .astro-zero.yaml
 project:
   id: "my-awesome-tool-2024-01-15"
   name: "my-awesome-tool"
@@ -472,11 +435,10 @@ metadata:
 支持自定义项目模板：
 
 ```bash
-# 创建自定义模板目录
-mkdir ~/.astro-launcher/templates/my-custom-template
+# (注意: 此功能依赖于你将模板放置在 `packages/templates` 目录下)
 
 # 使用自定义模板
-astro-launcher create my-project --template=my-custom-template
+pnpm cli create my-project --template my-custom-template
 ```
 
 ## 🚀 部署和CI/CD
@@ -663,10 +625,10 @@ git commit -m "docs(readme): update installation instructions"
 ### 安装和配置
 
 **Q: 安装后命令找不到怎么办？**
-A: 确保npm/pnpm的全局bin目录在PATH中，或使用`npx astro-launcher`运行。
+A: 本项目是本地CLI工具，请确保在项目根目录使用 `pnpm cli <command>` 来执行，并且在安装依赖后执行了 `pnpm build`。
 
 **Q: GitHub Token如何配置？**
-A: 运行`astro-launcher auth setup`按照引导配置，或手动设置环境变量`GITHUB_TOKEN`。
+A: 运行`pnpm cli auth setup`按照引导配置，或手动设置环境变量`GITHUB_TOKEN`。
 
 **Q: 支持哪些操作系统？**
 A: 支持macOS、Windows、Linux，需要Node.js 22+环境。
@@ -674,7 +636,7 @@ A: 支持macOS、Windows、Linux，需要Node.js 22+环境。
 ### 使用问题
 
 **Q: 项目创建失败怎么办？**
-A: 检查网络连接和GitHub Token权限，运行`astro-launcher health-check`诊断问题。
+A: 检查网络连接和GitHub Token权限，运行`pnpm cli health-check`诊断问题。
 
 **Q: 如何自定义项目模板？**
 A: 参考[模板文档](docs/templates.md)，支持完全自定义的项目模板。
@@ -685,7 +647,7 @@ A: 系统会自动降级到预置模板，或手动安装相应的AI CLI工具�
 ### 高级功能
 
 **Q: 如何备份和迁移项目？**
-A: 使用`astro-launcher backup`命令，支持完整的项目数据备份和恢复。
+A: 使用`pnpm cli backup`命令，支持完整的项目数据备份和恢复。
 
 **Q: 支持团队协作吗？**
 A: Phase 1支持配置导入导出，Phase 2将提供完整的团队协作功能。
@@ -715,7 +677,7 @@ Live Demo: https://yuanyuanyuan.github.io/AI-Programming-Assistant-Interactive-R
 ```
 MIT License
 
-Copyright (c) 2024 Astro Launcher Team
+Copyright (c) 2024 Astro Zero Team
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
