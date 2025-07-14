@@ -59,6 +59,10 @@
   - **并行部署**: 配置了 `deploy-dashboard` 和 `deploy-docs` 两个并行 job
   - **版本兼容**: 修复了 pnpm 版本冲突，使用 package.json 中的 `pnpm@9.1.1`
   - **部署配置**: 正确配置了构建和部署到 GitHub Pages 子目录
+  - **权限修复**: 解决了 GitHub Actions 部署权限问题 ✅
+    - 替换第三方 Action 为 GitHub 官方 Pages Actions
+    - 使用 Artifact 上传机制，避免分支推送权限问题
+    - 优化为构建+部署两阶段流程，确保部署稳定性
 - **技术债务清理**: 修复了严重的 TypeScript 编译错误 ✅
   - **模块导入修复**: 解决了 `@astro-base-zero/core` 模块导入问题
   - **类型系统完善**: 添加了全局类型声明文件，修复了所有隐式 any 类型错误

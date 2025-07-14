@@ -127,23 +127,31 @@ astro-base-zero/
 
 ### GitHub Pages 自动部署流程
 ```
-代码推送 → GitHub Actions 触发 → 并行构建 → 部署到子目录
+代码推送 → GitHub Actions 触发 → 构建阶段 → 部署阶段 → 发布到子目录
     ↓
 main 分支推送
     ↓
-┌─────────────────┬─────────────────┐
-│ deploy-dashboard │   deploy-docs   │
-│     job         │      job        │
-├─────────────────┼─────────────────┤
-│ 1. checkout     │ 1. checkout     │
-│ 2. setup pnpm   │ 2. setup pnpm   │
-│ 3. setup node   │ 3. setup node   │
-│ 4. pnpm install │ 4. pnpm install │
-│ 5. filter build │ 5. filter build │
-│ 6. gh-pages     │ 6. gh-pages     │
-└─────────────────┴─────────────────┘
-    ↓                    ↓
-/dashboard          /docs
+┌─────────────────────────────────────┐
+│            build job                │
+├─────────────────────────────────────┤
+│ 1. checkout                         │
+│ 2. setup pnpm & node               │
+│ 3. pnpm install                    │
+│ 4. build dashboard & docs          │
+│ 5. create combined dist structure  │
+│ 6. setup pages & upload artifact   │
+└─────────────────────────────────────┘
+    ↓
+┌─────────────────────────────────────┐
+│           deploy job                │
+├─────────────────────────────────────┤
+│ 1. deploy pages artifact           │
+│ 2. publish to github-pages env     │
+└─────────────────────────────────────┘
+    ↓
+https://yuanyuanyuan.github.io/astro-base-zero/
+    ├── /dashboard (dashboard app)
+    └── /docs (docs app)
 ```
 
 ### 部署配置详情
@@ -153,8 +161,12 @@ main 分支推送
   - Dashboard: `https://yuanyuanyuan.github.io/astro-base-zero/dashboard`
   - Docs: `https://yuanyuanyuan.github.io/astro-base-zero/docs`
 - **构建产物**: 
-  - Dashboard: `./apps/dashboard/dist` → `./dashboard`
-  - Docs: `./apps/docs/dist` → `./docs`
+  - Dashboard: `./apps/dashboard/dist` → `./dist/dashboard`
+  - Docs: `./apps/docs/dist` → `./dist/docs`
+- **部署机制**: 
+  - 使用 GitHub 官方 Pages Actions (非第三方)
+  - Artifact 上传方式，避免分支推送权限问题
+  - 两阶段部署：构建 → 部署，确保稳定性
 
 ### Astro 配置适配
 - **site**: `https://yuanyuanyuan.github.io` (GitHub Pages 主域名)

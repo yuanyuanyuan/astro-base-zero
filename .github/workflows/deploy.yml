@@ -33,11 +33,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install
         
-      - name: Build dashboard
-        run: pnpm --filter dashboard build
-        
-      - name: Build docs
-        run: pnpm --filter docs build
+      - name: Build all packages and apps
+        run: pnpm build
         
       - name: Create combined dist directory
         run: |
