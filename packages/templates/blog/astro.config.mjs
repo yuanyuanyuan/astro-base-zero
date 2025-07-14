@@ -8,9 +8,7 @@ export default defineConfig({
   site: '{{project.site}}',
   base: '{{project.base}}',
   integrations: [
-    tailwind({
-      applyBaseStyles: false,
-    }),
+    tailwind(),
     mdx(),
     sitemap(),
   ],

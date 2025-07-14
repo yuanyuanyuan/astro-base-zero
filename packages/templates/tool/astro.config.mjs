@@ -5,12 +5,10 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: '{{project.site}}',
-  base: '{{project.base}}',
+  site: '{{default project.site "https://example.com"}}',
+  base: '{{default project.base "/"}}',
   integrations: [
-    tailwind({
-      applyBaseStyles: false,
-    }),
+    tailwind(),
     react(),
     sitemap(),
   ],

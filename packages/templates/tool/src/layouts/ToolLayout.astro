@@ -94,7 +94,7 @@ const {
             >
               发送邮件反馈
             </a>
-            {{{project.repository}} && (
+            {{#if project.repository}}
               <a
                 href="{{project.repository}}/issues"
                 target="_blank"
@@ -103,7 +103,7 @@ const {
               >
                 GitHub Issues
               </a>
-            )}
+            {{/if}}
           </div>
         </div>
         

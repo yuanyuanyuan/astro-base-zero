@@ -22,7 +22,7 @@ const siteTitle = title ? `${title} | {{brand.personal.name}}` : '{{brand.person
 ---
 
 <!DOCTYPE html>
-<html lang="{{brand.defaults.language || 'zh-CN'}}" class="scroll-smooth">
+<html lang="{{default brand.defaults.language 'zh-CN'}}" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
@@ -71,16 +71,18 @@ const siteTitle = title ? `${title} | {{brand.personal.name}}` : '{{brand.person
   :root {
     --color-primary: {{brand.visual.colors.primary}};
     --color-accent: {{brand.visual.colors.accent}};
-    --color-secondary: {{brand.visual.colors.secondary || '#6b7280'}};
-    --color-background: {{brand.visual.colors.background || '#ffffff'}};
-    --color-text: {{brand.visual.colors.text || '#1f2937'}};
+    --color-secondary: {{default brand.visual.colors.secondary '#6b7280'}};
+    --color-background: {{default brand.visual.colors.background '#ffffff'}};
+    --color-text: {{default brand.visual.colors.text '#1f2937'}};
+    --font-primary: {{default brand.visual.typography.primaryFont 'system-ui, sans-serif'}};
+    --font-code: {{default brand.visual.typography.codeFont 'Menlo, Monaco, "Courier New", monospace'}};
   }
   
   html {
-    font-family: {{brand.visual.typography.primaryFont || 'system-ui, sans-serif'}};
+    font-family: var(--font-primary);
   }
   
   code {
-    font-family: {{brand.visual.typography.codeFont || 'Menlo, Monaco, "Courier New", monospace'}};
+    font-family: var(--font-code);
   }
 </style> 

@@ -19,6 +19,10 @@ Handlebars.registerHelper('json', (context: any) => {
   return JSON.stringify(context);
 });
 
+Handlebars.registerHelper('first', (array: any[]) => {
+  return array && array.length > 0 ? array[0] : null;
+});
+
 export interface TemplateData {
   project: {
     name: string;
@@ -113,6 +117,7 @@ const TEMPLATE_FILE_PATTERNS = [
   '**/*.tsx',
   '**/*.js',
   '**/*.jsx',
+  '**/*.mjs',
   '**/*.md',
   '**/*.mdx',
   '**/*.yaml',

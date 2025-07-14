@@ -254,6 +254,6 @@ const exportResult = (data: string, filename: string) => {
 
 **作者**: {{brand.personal.name}}  
 **邮箱**: {{brand.personal.email}}  
-**网站**: {{brand.personal.social.links[0].url}}
+**网站**: {{#with (first brand.personal.social.links)}}{{url}}{{/with}}
 
 由 ❤️ 和 [Astro Base Zero](https://github.com/astro-base-zero) 制作
