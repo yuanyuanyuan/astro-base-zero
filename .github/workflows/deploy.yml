@@ -36,13 +36,24 @@ jobs:
       - name: Build all packages and apps
         run: pnpm build
         
+      - name: Build projects app
+        run: pnpm --filter projects build
+        
       - name: Create combined dist directory
         run: |
           mkdir -p dist
           mkdir -p dist/dashboard
           mkdir -p dist/docs
+          mkdir -p dist/projects
+          
+          # Copy dashboard
           cp -r apps/dashboard/dist/* dist/dashboard/
+          
+          # Copy docs
           cp -r apps/docs/dist/* dist/docs/
+          
+          # Copy projects (independent app)
+          cp -r apps/projects/dist/* dist/projects/
           
           # Create a simple index page for the root
           cat > dist/index.html << 'EOF'
@@ -68,6 +79,12 @@ jobs:
               <h2>📊 管理面板</h2>
               <p>项目管理、模板选择和部署控制台</p>
               <a href="./dashboard/">访问 Dashboard →</a>
+            </div>
+            
+            <div class="card">
+              <h2>📋 项目管理</h2>
+              <p>查看和管理你的所有项目</p>
+              <a href="./projects/">访问 Projects →</a>
             </div>
             
             <div class="card">

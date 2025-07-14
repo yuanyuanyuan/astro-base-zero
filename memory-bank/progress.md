@@ -72,6 +72,17 @@
     - 正确创建 `/dashboard` 和 `/docs` 子目录
     - 添加美观的项目索引页面，提供导航入口
     - 预期访问路径：主页 → dashboard/docs 子应用
+  - **路由结构优化**: 重构为更直观的路由映射 ✅
+    - 实现扁平化路由：`/projects` 和 `/projects/manage` 独立于 dashboard
+    - 更新 GitHub Actions 脚本，提取 projects 页面到根级别
+    - 修复所有导航组件的链接路径
+    - 新路由结构：dashboard | projects | projects/manage | docs
+  - **独立 projects 应用**: 创建完全独立的项目管理应用 ✅
+    - 创建 `apps/projects/` 独立 Astro 应用
+    - 配置专用的 package.json、astro.config.mjs、tsconfig.json
+    - 实现 ProjectsLayout 布局和项目列表/管理页面
+    - 更新 GitHub Actions 构建流程，支持独立应用构建
+    - 优化导航结构，简化项目管理入口
 - **技术债务清理**: 修复了严重的 TypeScript 编译错误 ✅
   - **模块导入修复**: 解决了 `@astro-base-zero/core` 模块导入问题
   - **类型系统完善**: 添加了全局类型声明文件，修复了所有隐式 any 类型错误

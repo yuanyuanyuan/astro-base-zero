@@ -1,12 +1,12 @@
 ---
 // 项目管理页 - 静态版本，兼容 GitHub Pages
-import DashboardLayout from '../../layouts/DashboardLayout.astro';
+import ProjectsLayout from '../layouts/ProjectsLayout.astro';
 
 // 这是一个静态的项目管理指南页面
 // 提供完整的 CLI 工具使用说明和项目操作指南
 ---
 
-<DashboardLayout title="项目管理" description="使用 CLI 工具管理你的 Astro 项目">
+<ProjectsLayout title="项目管理" description="使用 CLI 工具管理你的 Astro 项目">
   <!-- 提示信息 -->
   <div class="mb-8 bg-blue-50 border border-blue-200 rounded-lg p-6">
     <div class="flex items-start">
@@ -914,7 +914,7 @@ jobs:
     <!-- 返回链接 -->
     <div class="text-center">
       <a 
-        href="/projects"
+        href="/astro-base-zero/projects"
         class="inline-flex items-center px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-md font-medium transition-colors"
       >
         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -924,7 +924,7 @@ jobs:
       </a>
     </div>
   </div>
-</DashboardLayout>
+</ProjectsLayout>
 
 <script>
   // 复制命令到剪贴板
