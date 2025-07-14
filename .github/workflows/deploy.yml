@@ -39,11 +39,45 @@ jobs:
       - name: Create combined dist directory
         run: |
           mkdir -p dist
-          cp -r apps/dashboard/dist/* dist/
           mkdir -p dist/dashboard
-          cp -r apps/dashboard/dist/* dist/dashboard/
           mkdir -p dist/docs
+          cp -r apps/dashboard/dist/* dist/dashboard/
           cp -r apps/docs/dist/* dist/docs/
+          
+          # Create a simple index page for the root
+          cat > dist/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="zh-CN">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Astro Base Zero</title>
+            <style>
+              body { font-family: system-ui, sans-serif; max-width: 800px; margin: 0 auto; padding: 2rem; }
+              .card { border: 1px solid #e5e7eb; border-radius: 8px; padding: 1.5rem; margin: 1rem 0; }
+              .card h2 { margin-top: 0; color: #1f2937; }
+              .card a { color: #3b82f6; text-decoration: none; }
+              .card a:hover { text-decoration: underline; }
+            </style>
+          </head>
+          <body>
+            <h1>🚀 Astro Base Zero</h1>
+            <p>欢迎使用 Astro 项目快速发布平台！</p>
+            
+            <div class="card">
+              <h2>📊 管理面板</h2>
+              <p>项目管理、模板选择和部署控制台</p>
+              <a href="./dashboard/">访问 Dashboard →</a>
+            </div>
+            
+            <div class="card">
+              <h2>📚 文档中心</h2>
+              <p>完整的使用指南和 API 参考文档</p>
+              <a href="./docs/">访问 Documentation →</a>
+            </div>
+          </body>
+          </html>
+          EOF
           
       - name: Setup Pages
         uses: actions/configure-pages@v4
