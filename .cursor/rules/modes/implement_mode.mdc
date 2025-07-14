@@ -89,7 +89,12 @@ graph TD
       - **范围 (可选)**: 影响的模块，如 `(api)`, `(ui)`。
       - **描述**: 动词开头的祈使句。
   - **关联任务 ID (强制)**: 必须将任务 ID 包含在 Commit Message 中，以实现代码与规划的完美链接。
-      - **优秀示例**: `feat(timer): add start and stop buttons (step-2.1)`
+      - **优秀示例**: 
+      ```
+      feat(timer): add start and stop buttons (step-2.1) 
+       - Replace individual filter builds with unified 'pnpm build' command
+       - Leverage Turbo's dependency management for correct build order
+      ```
 
 ### 第七步：净化与重复 (Reset & Repeat) - “开启新篇章”
 

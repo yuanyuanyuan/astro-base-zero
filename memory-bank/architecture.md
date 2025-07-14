@@ -137,7 +137,7 @@ main 分支推送
 │ 1. checkout                         │
 │ 2. setup pnpm & node               │
 │ 3. pnpm install                    │
-│ 4. build dashboard & docs          │
+│ 4. pnpm build (turbo handles deps) │
 │ 5. create combined dist structure  │
 │ 6. setup pages & upload artifact   │
 └─────────────────────────────────────┘
@@ -167,6 +167,7 @@ https://yuanyuanyuan.github.io/astro-base-zero/
   - 使用 GitHub 官方 Pages Actions (非第三方)
   - Artifact 上传方式，避免分支推送权限问题
   - 两阶段部署：构建 → 部署，确保稳定性
+  - Turbo 依赖管理：自动处理 core → apps 构建顺序
 
 ### Astro 配置适配
 - **site**: `https://yuanyuanyuan.github.io` (GitHub Pages 主域名)

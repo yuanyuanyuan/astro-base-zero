@@ -63,6 +63,10 @@
     - 替换第三方 Action 为 GitHub 官方 Pages Actions
     - 使用 Artifact 上传机制，避免分支推送权限问题
     - 优化为构建+部署两阶段流程，确保部署稳定性
+  - **CI 依赖修复**: 解决了 GitHub Actions 中模块找不到的问题 ✅
+    - 使用 `pnpm build` 替代单独的 filter 构建命令
+    - 利用 Turbo 自动处理包依赖关系，确保正确的构建顺序
+    - 验证：core → dashboard/docs 构建链路在 CI 环境中正常工作
 - **技术债务清理**: 修复了严重的 TypeScript 编译错误 ✅
   - **模块导入修复**: 解决了 `@astro-base-zero/core` 模块导入问题
   - **类型系统完善**: 添加了全局类型声明文件，修复了所有隐式 any 类型错误
