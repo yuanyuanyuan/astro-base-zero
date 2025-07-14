@@ -205,6 +205,33 @@
 
 - 🎯 **下一个目标**: Part 6 - 部署功能（GitHub Pages集成）
 
+### Part 2: 实现 clean 命令以清理无效项目 ✅
+- **step-2.1**: 分析 pnpm cli list 的数据来源 ✅
+  - **数据来源确认**: `~/.astro-launcher/projects.json` 文件（lowdb管理的JSON存储）
+  - **核心问题**: 手动删除项目文件夹后，JSON记录不会自动更新，导致list显示无效项目
+  
+- **step-2.2**: 实现 clean 命令 ✅
+  - **文件创建**: 在 `packages/cli/src/commands/clean.ts` 创建clean命令
+  - **核心功能**: 
+    - 读取projects.json中的所有项目记录
+    - 遍历检查每个项目的文件夹是否存在于apps/目录
+    - 自动识别并移除无效项目记录
+    - 提供--dry-run预览模式和--force强制模式
+  - **用户体验**: 彩色输出、详细统计、逐项展示、友好提示
+
+- **step-2.3**: 注册新命令并验证 ✅
+  - **命令注册**: 在 `packages/cli/src/index.ts` 中成功注册clean命令
+  - **功能验证**: 
+    - ✅ 命令帮助信息正确显示
+    - ✅ 成功识别11个无效项目记录
+    - ✅ 强制模式下成功清理所有无效记录
+    - ✅ 清理后`pnpm cli list`显示空列表，确认清理彻底
+
+### 🎯 Part 2 验收标准完全达成
+- ✅ 手动删除项目文件夹后，运行`pnpm cli list`确认看到无效条目
+- ✅ 运行`pnpm cli clean`成功清理无效项目
+- ✅ 再次运行`pnpm cli list`输出中不再包含无效项目
+
 ## 技术债务
 - Dashboard应用存在TypeScript编译错误（不影响CLI功能）
 - 需要在实际交互环境中进一步测试brand wizard
