@@ -1,10 +1,10 @@
 ---
 // ProjectList.astro - 项目列表组件
 import ProjectCard from './ProjectCard.astro';
-import { projectStore } from '@astro-base-zero/core';
+import { projectStore, type ProjectInfo } from '@astro-base-zero/core';
 
 // 初始化项目存储并获取项目列表
-let projects: any[] = [];
+let projects: ProjectInfo[] = [];
 let error: string | null = null;
 
 try {

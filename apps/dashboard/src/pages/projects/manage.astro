@@ -380,7 +380,7 @@ import DashboardLayout from '../../layouts/DashboardLayout.astro';
           <div class="bg-secondary-900 text-green-400 p-3 rounded-md font-mono text-sm mb-3 relative">
             <code>npm run build<br/>git add dist && git commit -m "Deploy"<br/>git push origin main</code>
             <button 
-              onclick="copyCommand('npm run build && git add dist && git commit -m \"Deploy\" && git push origin main')"
+              onclick="copyCommand('npm run build && git add dist && git commit -m &quot;Deploy&quot; && git push origin main')"
               class="absolute top-2 right-2 text-secondary-400 hover:text-green-400 transition-colors"
               title="复制命令"
             >
@@ -928,7 +928,7 @@ jobs:
 
 <script>
   // 复制命令到剪贴板
-  window.copyCommand = async function(command) {
+  window.copyCommand = async function(command: string) {
     try {
       await navigator.clipboard.writeText(command);
       
@@ -952,27 +952,27 @@ jobs:
   let deployTarget = 'github-pages';
 
   // 项目状态追踪变量
-  let globalProjectStats = null;
-  let recentProjects = [];
-  let isProjectDataLoaded = false;
+  let globalProjectStats: any = null;
+  let recentProjects: any[] = [];
+  let isProjectDataLoaded: boolean = false;
 
   // 选择项目类型
-  window.selectProjectType = function(type) {
+  window.selectProjectType = function(type: string) {
     selectedProjectType = type;
     
     // 更新按钮状态
     document.querySelectorAll('.project-type-btn').forEach(btn => {
       btn.classList.remove('active');
     });
-    document.querySelector(`[data-type="${type}"]`).classList.add('active');
+    document.querySelector(`[data-type="${type}"]`)?.classList.add('active');
     
-    updateCommands();
+    window.updateCommands();
   };
 
   // 更新命令显示
   window.updateCommands = function() {
-    const nameInput = document.getElementById('projectName');
-    const deploySelect = document.getElementById('deployTarget');
+    const nameInput = document.getElementById('projectName') as HTMLInputElement;
+    const deploySelect = document.getElementById('deployTarget') as HTMLSelectElement;
     
     if (nameInput) projectName = nameInput.value || 'my-awesome-project';
     if (deploySelect) deployTarget = deploySelect.value;
@@ -1031,7 +1031,7 @@ jobs:
       }
     };
     
-    const tip = tips[selectedProjectType];
+    const tip = (tips as any)[selectedProjectType];
     tipsElement.innerHTML = `
       <h4 class="font-medium text-blue-800 mb-2">${tip.title}</h4>
       <p class="text-sm text-blue-700">${tip.content}</p>
@@ -1039,7 +1039,7 @@ jobs:
   }
 
   // 复制生成的命令到剪贴板
-  window.copyGeneratedCommand = async function(commandType) {
+  window.copyGeneratedCommand = async function(commandType: string) {
     let command = '';
     
     if (commandType === 'create') {
@@ -1132,28 +1132,28 @@ jobs:
   }
 
   // 更新项目统计显示
-  function updateProjectStats(stats) {
+  function updateProjectStats(stats: any) {
     const statusLoading = document.getElementById('statusLoading');
     const projectStats = document.getElementById('projectStats');
     const noProjects = document.getElementById('noProjects');
     const recentProjectsList = document.getElementById('recentProjectsList');
     
     // 隐藏加载动画
-    statusLoading.classList.add('hidden');
+    statusLoading?.classList.add('hidden');
     
     if (stats.total === 0) {
       // 显示无项目状态
-      noProjects.classList.remove('hidden');
+      noProjects?.classList.remove('hidden');
     } else {
       // 显示项目统计
-      projectStats.classList.remove('hidden');
-      recentProjectsList.classList.remove('hidden');
+      projectStats?.classList.remove('hidden');
+      recentProjectsList?.classList.remove('hidden');
       
       // 更新统计数字
-      document.getElementById('totalProjects').textContent = stats.total;
-      document.getElementById('activeProjects').textContent = stats.active;
-      document.getElementById('recentProjects').textContent = stats.recent;
-      document.getElementById('draftProjects').textContent = stats.draft;
+      document.getElementById('totalProjects')!.textContent = stats.total;
+      document.getElementById('activeProjects')!.textContent = stats.active;
+      document.getElementById('recentProjects')!.textContent = stats.recent;
+      document.getElementById('draftProjects')!.textContent = stats.draft;
     }
     
     // 保存统计数据
@@ -1161,13 +1161,13 @@ jobs:
   }
 
   // 更新最近项目列表
-  function updateRecentProjects(projects) {
+  function updateRecentProjects(projects: any[]) {
     const container = document.getElementById('recentProjectsContainer');
     if (!container) return;
     
     container.innerHTML = '';
     
-    projects.forEach(project => {
+    projects.forEach((project: any) => {
       const projectEl = document.createElement('div');
       projectEl.className = 'flex items-center justify-between p-3 bg-gray-50 rounded-lg';
       
@@ -1213,14 +1213,14 @@ jobs:
     const suggestions = generateSmartSuggestions();
     
     if (suggestions.length > 0) {
-      suggestionsEl.classList.remove('hidden');
-      contentEl.innerHTML = suggestions.map(s => `<p class="mb-2">• ${s}</p>`).join('');
+      suggestionsEl!.classList.remove('hidden');
+      contentEl!.innerHTML = suggestions.map(s => `<p class="mb-2">• ${s}</p>`).join('');
     }
   }
 
   // 生成智能建议
   function generateSmartSuggestions() {
-    const suggestions = [];
+    const suggestions: string[] = [];
     
     if (!globalProjectStats) return suggestions;
     
@@ -1251,9 +1251,9 @@ jobs:
   }
 
   // 辅助函数
-  function getTimeSince(date) {
+  function getTimeSince(date: Date) {
     const now = new Date();
-    const diffMs = now - date;
+    const diffMs = now.getTime() - date.getTime();
     const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
     
     if (diffDays === 0) return '今天';
@@ -1263,18 +1263,18 @@ jobs:
     return `${Math.floor(diffDays / 30)}个月`;
   }
 
-  function getProjectTypeIcon(type) {
+  function getProjectTypeIcon(type: string) {
     const icons = {
       base: '<svg class="w-4 h-4 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>',
       blog: '<svg class="w-4 h-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>',
       tool: '<svg class="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>'
     };
-    return icons[type] || icons.base;
+    return (icons as any)[type] || icons.base;
   }
 
   function showProjectStatusError() {
     const statusLoading = document.getElementById('statusLoading');
-    statusLoading.innerHTML = `
+    statusLoading!.innerHTML = `
       <div class="text-center py-8">
         <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mx-auto mb-3">
           <svg class="w-6 h-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1299,14 +1299,14 @@ jobs:
   let currentLifecyclePhase = 'planning';
 
   // 显示生命周期阶段
-  window.showLifecyclePhase = function(phase) {
+  window.showLifecyclePhase = function(phase: string) {
     currentLifecyclePhase = phase;
     
     // 更新按钮状态
     document.querySelectorAll('.lifecycle-phase-btn').forEach(btn => {
       btn.classList.remove('active');
     });
-    document.querySelector(`[data-phase="${phase}"]`).classList.add('active');
+    document.querySelector(`[data-phase="${phase}"]`)?.classList.add('active');
     
     // 隐藏所有阶段内容
     document.querySelectorAll('.lifecycle-phase-content').forEach(content => {
@@ -1415,7 +1415,7 @@ jobs:
       ]
     };
     
-    const currentRecommendations = phaseRecommendations[currentLifecyclePhase] || [];
+    const currentRecommendations = (phaseRecommendations as any)[currentLifecyclePhase] || [];
     recommendations.push(...currentRecommendations);
     
     // 基于项目状态添加额外建议
@@ -1443,10 +1443,10 @@ jobs:
   // 页面加载完成后初始化
   document.addEventListener('DOMContentLoaded', function() {
     // 默认选择基础站点
-    selectProjectType('base');
+    window.selectProjectType('base');
     
     // 默认显示规划阶段
-    showLifecyclePhase('planning');
+    window.showLifecyclePhase('planning');
     
     // 加载项目状态（延迟2秒模拟异步加载）
     setTimeout(() => {

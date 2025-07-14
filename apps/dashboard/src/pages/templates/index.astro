@@ -279,7 +279,7 @@ const categories = [...new Set(templates.map(t => t.category))];
   </div>
 </DashboardLayout>
 
-<script define:vars={{ templates }}>
+<script define:vars={{ templates }} is:inline>
   // 模板市场交互脚本
   document.addEventListener('DOMContentLoaded', function() {
     // 显示/隐藏 CLI 指南

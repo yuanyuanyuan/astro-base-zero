@@ -91,7 +91,7 @@ const statusDisplayNames: Record<ProjectInfo['status'], string> = {
     <!-- 项目标签 -->
     {project.tags && project.tags.length > 0 && (
       <div class="flex flex-wrap gap-2 mb-4">
-        {project.tags.slice(0, 3).map(tag => (
+        {project.tags.slice(0, 3).map((tag: string) => (
           <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-secondary-100 text-secondary-700">
             {tag}
           </span>
