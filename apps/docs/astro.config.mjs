@@ -4,6 +4,10 @@ import starlight from '@astrojs/starlight';
 
 // https://astro.build/config
 export default defineConfig({
+	// GitHub Pages 部署配置
+	site: 'https://yuanyuanyuan.github.io',
+	base: '/astro-base-zero/docs',
+	
 	integrations: [
 		starlight({
 			title: 'Astro Base Zero 文档',
@@ -12,7 +16,7 @@ export default defineConfig({
 				{ 
 					icon: 'github', 
 					label: 'GitHub', 
-					href: 'https://github.com/astro-base-zero/astro-base-zero' 
+					href: 'https://github.com/yuanyuanyuan/astro-base-zero' 
 				},
 			],
 			customCss: [

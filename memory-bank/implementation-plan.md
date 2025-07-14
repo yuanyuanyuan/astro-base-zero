@@ -96,18 +96,56 @@
 
 ---
 
-## Part 4: 本地项目管理 (`list` command) - 数据驱动
+## Part 4: GitHub Pages 自动部署配置 - 新增功能
+
+### **目标：创建一个自动化的 GitHub Actions 工作流，将 apps/dashboard 和 apps/docs 分别构建并部署到 GitHub Pages 的子目录中**
+
+#### `step-4.1`: 配置 Astro 项目以支持子目录部署
+
+- **任务描述:** 修改 `apps/dashboard/astro.config.mjs` 和 `apps/docs/astro.config.mjs` 以支持 GitHub Pages 子目录部署。
+- **具体修改:**
+  1. 设置 `site` 为 `https://yuanyuanyuan.github.io`
+  2. 设置 `base` 分别为 `/astro-base-zero/dashboard` 和 `/astro-base-zero/docs`
+  3. 保留现有开发环境配置
+- **验证标准:** 两个 astro.config.mjs 文件包含正确的 site 和 base 配置，且不影响本地开发环境。
+
+#### `step-4.2`: 创建 GitHub Actions 工作流文件
+
+- **任务描述:** 在项目根目录下创建 `.github/workflows/deploy.yml` 文件。
+- **工作流设计:**
+  1. 触发器: `on: push: branches: [ "main" ]`
+  2. 包含两个并行的 job：`deploy-dashboard` 和 `deploy-docs`
+  3. 每个 job 的步骤：
+     - 使用 `actions/checkout` 检出代码
+     - 使用 `pnpm/action-setup` 设置 pnpm 环境
+     - 安装依赖: `pnpm install`
+     - 分别构建项目: `pnpm --filter dashboard build` 和 `pnpm --filter docs build`
+     - 使用 `peaceiris/actions-gh-pages` 插件进行部署
+     - 配置 `publish_dir` 和 `destination_dir` 来指定部署目录
+- **验证标准:** `.github/workflows/deploy.yml` 文件被创建并包含上述设计。
+
+#### `step-4.3`: 部署与最终验证
+
+- **任务描述:** 将所有更改推送到 GitHub 仓库的 main 分支。
+- **验收标准:**
+  1. GitHub Actions 中的 deploy 工作流成功完成
+  2. dashboard 应用可以通过 `https://yuanyuanyuan.github.io/astro-base-zero/dashboard` 访问
+  3. docs 应用可以通过 `https://yuanyuanyuan.github.io/astro-base-zero/docs` 访问
+
+---
+
+## Part 5: 本地项目管理 (`list` command) - 数据驱动
 
 ### **目标：使用 `@/core` 中的 `projectStore` 实现项目记录与查询**
 
-#### `step-4.1`: 集成 `projectStore` 进行项目记录
+#### `step-5.1`: 集成 `projectStore` 进行项目记录
 
 - **任务描述:** 修改 `create` 命令，在成功创建项目后，调用 `@/core` 中的 `projectStore.createProject` 方法，将新项目的元数据（名称、模板、路径、创建时间等）保存下来。
 - **验证标准:**
   1. `projectStore` 的数据文件（例如 `~/.astro-launcher/projects.json`）被创建或更新。
   2. 该文件中包含了新创建项目的正确信息。
 
-#### `step-4.2`: 实现 `list` 命令
+#### `step-5.2`: 实现 `list` 命令
 
 - **任务描述:**
   1. 在 CLI 中实现 `list` 命令。
@@ -119,11 +157,11 @@
 
 ---
 
-## Part 5: 一键部署到 GitHub (`deploy` command) - 新功能开发
+## Part 6: 一键部署到 GitHub (`deploy` command) - 新功能开发
 
 ### **目标：实现全新的 `deploy` 命令，完成从本地到线上的自动化流程**
 
-#### `step-5.1`: 实现 `deploy` 命令和 GitHub 认证
+#### `step-6.1`: 实现 `deploy` 命令和 GitHub 认证
 
 - **任务描述:**
   1. 创建 `deploy <project-name>` 命令。
@@ -133,14 +171,14 @@
   1. 运行 `pnpm cli deploy my-test-app` 时，提示用户输入 GitHub PAT。
   2. 认证成功后，凭证被加密或以安全方式保存在 `~/.config/@astro-launcher/` 或类似路径下。
 
-#### `step-5.2`: 实现 GitHub 仓库创建和代码推送
+#### `step-6.2`: 实现 GitHub 仓库创建和代码推送
 
 - **任务描述:** 在用户认证后，`deploy` 命令使用 `@octokit/rest` 在用户的 GitHub 账户下创建新的远程仓库。然后，使用 `simple-git` 将 `apps/<project-name>` 目录初始化为 Git 仓库（如果尚未初始化），并将其内容推送到新创建的远程仓库。
 - **验证标准:**
   1. 运行 `deploy` 命令后，用户的 GitHub 账户下出现一个新的同名仓库。
   2. 本地项目代码被成功推送到该仓库的 `main` 分支。
 
-#### `step-5.3`: 实现 GitHub Actions 自动部署
+#### `step-6.3`: 实现 GitHub Actions 自动部署
 
 - **任务描述:** `deploy` 命令会在 `apps/<project-name>` 目录中，自动创建一个 `.github/workflows/deploy.yml` 文件。此 workflow 会在代码推送到 `main` 分支时触发，自动构建 Astro 项目并将其部署到 GitHub Pages。
 - **验证标准:**

@@ -3,7 +3,10 @@ import tailwind from '@astrojs/tailwind';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'http://localhost:4321',
+  // GitHub Pages 部署配置
+  site: 'https://yuanyuanyuan.github.io',
+  base: '/astro-base-zero/dashboard',
+  
   integrations: [
     tailwind({
       applyBaseStyles: true,
